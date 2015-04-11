@@ -1,5 +1,6 @@
 #Generador Certificado Asistencia
 from reportlab.pdfgen import canvas
+import GeneradorCertificados
 
 class GeneradorCertificadosAsistencia(GeneradorCertificados):
 
