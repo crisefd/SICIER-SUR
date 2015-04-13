@@ -21,6 +21,7 @@ class DaoPersona():
 	def borrarPersona(self, id_persona):
 		
 		cur = cn.cursor()  
-		cur.execute("SELECT * FROM Persona WHERE ID="+id_persona)
+		cur.execute("UPDATE Persona SET acticvo=false WHERE ID="+id_persona)
+		
 		
 	
