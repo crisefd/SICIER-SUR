@@ -1,9 +1,9 @@
-# Clase Persona
+# Clase FachadaBD
 # Daniel Henao
 
 import psycop2, psycop2.extras
 
-class FachadaBD:
+class FachadaBD():
 	
 	
 	def conectarBD(self):
