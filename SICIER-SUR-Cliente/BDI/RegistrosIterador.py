@@ -1,15 +1,15 @@
 from abc import *
 class RegistrosIterador():
-    metaclass__ = ABCMeta
-    @abstractmethod
-    def hasNext():
-        return
-    @abstractmethod
-    def next():
-        return
-    @abstractmethod
-    def current():
-        return
-    @abstractmethod
-    def first():
-        return
+	__metaclass__ = ABCMeta	
+	@abstractmethod
+	def hasNext(self):
+		pass
+	@abstractmethod
+	def next(self):
+		pass
+	@abstractmethod
+	def first(self):
+		pass
+	@abstractmethod
+	def getLength(self):
+		pass
