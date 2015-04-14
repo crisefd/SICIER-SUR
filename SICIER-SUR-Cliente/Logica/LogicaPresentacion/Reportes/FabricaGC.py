@@ -9,8 +9,8 @@ class FabricaGC():
 
 	def fabricarGC(self, tipo):
 		if tipo == "asistencia":
-			return GeneradorCertificadosAsistencia()
+			return GeneradorCertificadosAsistencia.GeneradorCertificadosAsistencia()
 		elif tipo == "participacion":
-			return GeneradorCertificadosParticipacion()
+			return GeneradorCertificadosParticipacion.GeneradorCertificadosParticipacion()
 		elif tipo == "excelencia":
-			return GeneradorCertificadosExcelencia()
+			return GeneradorCertificadosExcelencia.GeneradorCertificadosExcelencia()

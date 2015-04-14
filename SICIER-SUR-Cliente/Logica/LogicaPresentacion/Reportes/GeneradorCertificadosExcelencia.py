@@ -2,10 +2,14 @@
 from reportlab.pdfgen import canvas
 import GeneradorCertificados
 
-class GeneradorCertificadosExcelencia(GeneradorCertificados):
+class GeneradorCertificadosExcelencia(GeneradorCertificados.GeneradorCertificados):
 	
 	def generarPDF(self):
-		c = canvas.Canvas("Certificado_Excelencia")
-		c.drawString(1000, 1000, self._texto)
+		c = canvas.Canvas("CertificadoExcelencia.pdf")
+		tokens = self._texto.split("\n")
+		i = 0;
+		for tok in tokens:
+			c.drawString(0, 700  - i, tok)
+			i += 15
 		c.showPage()
 		c.save()
