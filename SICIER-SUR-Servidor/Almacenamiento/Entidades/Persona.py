@@ -25,7 +25,7 @@ class Persona():
 		self._ciudad=ciudad
 		
 	def asignarID(self,id_):
-		self._id_=id_
+		self._id_= id_
 		
 	def obtenerID(self):
 		return self._id_

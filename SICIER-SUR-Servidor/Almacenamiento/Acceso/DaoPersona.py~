@@ -4,11 +4,8 @@ import FachadaBD
 
 class DaoPersona():
 	
-	
-	def __init__(self):
-		fachada= FachadaBD.FachadaBD()
-		fachada.conectarBD()
-
+	fachada= FachadaBD.FachadaBD()
+	fachada.conectarBD()
 	
 	def insertarPersona(self):
 		
