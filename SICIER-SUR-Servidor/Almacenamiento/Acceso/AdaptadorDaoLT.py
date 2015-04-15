@@ -1,9 +1,9 @@
-#class DaoPersona
+#class AdaptadorDaoLT
 #autor Daniel Henao
 import FachadaBD
-from Entidades import Persona
+from Entidades import Profesor
 
-class DaoPersona():
+class AdaptadorDaoLT():
 	
 	
 	def __init__(self):
@@ -11,18 +11,18 @@ class DaoPersona():
 		fachada.conectarBD()
 
 	
-	def insertarPersona(self):
+	def insertarLT(self):
 		
 		cur = fachada.cursor()  
 		cur.execute("INSERT INTO Persona")
 		
-	def consultarPersona(self,id_persona):
+	def consultarLT(self,id_persona):
 		
 		cur = fachada.cursor()  
 		cur.execute("SELECT * FROM Persona WHERE ID="+id_persona)
 		
 	
-	def borrarPersona(self, id_persona):
+	def borrarLT(self, id_persona):
 		
 		cur = fachada.cursor()  
 		cur.execute("UPDATE Persona SET acticvo=false WHERE ID="+id_persona)
