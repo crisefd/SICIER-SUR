@@ -11,7 +11,9 @@ class BaseModel(Model):
 
 class Course(BaseModel):
     description = CharField()
+    end_date = DateField()
     id = CharField(primary_key=True)
+    start_date = DateField()
 
     class Meta:
         db_table = 'course'
