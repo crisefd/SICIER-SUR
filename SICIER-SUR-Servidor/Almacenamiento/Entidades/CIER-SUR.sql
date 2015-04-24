@@ -1,5 +1,4 @@
-﻿
-DROP TABLE IF EXISTS Person CASCADE;
+/*DROP TABLE IF EXISTS Person CASCADE;
 CREATE TABLE Person(
 	id VARCHAR(50) PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -8,46 +7,71 @@ CREATE TABLE Person(
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL
 
-);
+);*/
 
 DROP TABLE IF EXISTS Coordinator CASCADE;
 CREATE TABLE Coordinator(
 	id VARCHAR(50) PRIMARY KEY,
-	id_person_fk VARCHAR(50),
+	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
-	REFERENCES Person(id) 
+	REFERENCES Person(id) */
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	tel_num VARCHAR(50) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL
 );
 
 DROP TABLE IF EXISTS Administrator CASCADE;
 CREATE TABLE Administrator(
 	id VARCHAR(50) PRIMARY KEY,
-	id_person_fk VARCHAR(50),
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	tel_num VARCHAR(50) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL
+	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
-	REFERENCES Person(id) 
+	REFERENCES Person(id) */
 );
 
-DROP TABLE IF EXISTS Teacher CASCADE;
+/*DROP TABLE IF EXISTS Teacher CASCADE;
 CREATE TABLE Teacher(
 	id VARCHAR(50) PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	tel_num VARCHAR(50) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL
 	id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
-	REFERENCES Person(id) 
-);
+	REFERENCES Person(id)
+);*/
 
 DROP TABLE IF EXISTS MasterTeacher CASCADE;
 CREATE TABLE MasterTeacher(
 	id VARCHAR(50) PRIMARY KEY,
-	id_teacher_fk VARCHAR(50),
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	tel_num VARCHAR(50) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL
+	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
-	REFERENCES Teacher(id) 
+	REFERENCES Teacher(id)*/ 
 );
 
 DROP TABLE IF EXISTS LeaderTeacher CASCADE;
 CREATE TABLE LeaderTeacher(
 	id VARCHAR(50) PRIMARY KEY,
-	id_teacher_fk VARCHAR(50),
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	tel_num VARCHAR(50) NOT NULL,
+	city VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL
+	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
-	REFERENCES Teacher(id) 
+	REFERENCES Teacher(id) */
 );
 
 DROP TABLE IF EXISTS MT_labor_exp CASCADE;
@@ -133,16 +157,3 @@ CREATE TABLE Enrollment(
 	PRIMARY KEY(id_MT_fk, id_course_fk)
 	
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
