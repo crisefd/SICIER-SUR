@@ -1,4 +1,4 @@
-/*DROP TABLE IF EXISTS Person CASCADE;
+﻿DROP TABLE IF EXISTS Person CASCADE;/*
 CREATE TABLE Person(
 	id VARCHAR(50) PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE Administrator(
 	REFERENCES Person(id) */
 );
 
-/*DROP TABLE IF EXISTS Teacher CASCADE;
+DROP TABLE IF EXISTS Teacher CASCADE;/*
 CREATE TABLE Teacher(
 	id VARCHAR(50) PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -157,3 +157,19 @@ CREATE TABLE Enrollment(
 	PRIMARY KEY(id_MT_fk, id_course_fk)
 	
 );
+
+ALTER TABLE activity_grade OWNER TO crisefd;
+ALTER TABLE Course_activity OWNER TO crisefd;
+ALTER TABLE Administrator OWNER TO crisefd;
+ALTER TABLE Coordinator OWNER TO crisefd;
+ALTER TABLE MasterTeacher OWNER TO crisefd;
+ALTER TABLE LeaderTeacher OWNER TO crisefd;
+ALTER TABLE Course OWNER TO crisefd;
+ALTER TABLE Enrollment OWNER TO crisefd;
+ALTER TABLE Course_Cohort OWNER TO crisefd;
+ALTER TABLE LT_academic_backg OWNER TO crisefd;
+ALTER TABLE MT_academic_backg OWNER TO crisefd;
+ALTER TABLE LT_labor_exp OWNER TO crisefd;
+ALTER TABLE MT_labor_exp OWNER TO crisefd;
+
+

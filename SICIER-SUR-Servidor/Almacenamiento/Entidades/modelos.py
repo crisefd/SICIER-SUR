@@ -1,6 +1,6 @@
 from peewee import *
 
-database = PostgresqlDatabase('CIER-SUR', **{'user': 'crisefd'})
+database = PostgresqlDatabase('CIER-SUR', **{})
 
 class UnknownField(object):
     pass
@@ -32,7 +32,7 @@ class ActivityGrade(BaseModel):
         db_table = 'activity_grade'
         primary_key = CompositeKey('activity_fk', 'id_course_fk')
 
-class Person(BaseModel):
+class Administrator(BaseModel):
     city = CharField()
     email = CharField()
     first_name = CharField()
@@ -41,18 +41,15 @@ class Person(BaseModel):
     tel_num = CharField()
 
     class Meta:
-        db_table = 'person'
-
-class Administrator(BaseModel):
-    id = CharField(primary_key=True)
-    id_person_fk = ForeignKeyField(db_column='id_person_fk', null=True, rel_model=Person, to_field='id')
-
-    class Meta:
         db_table = 'administrator'
 
 class Coordinator(BaseModel):
+    city = CharField()
+    email = CharField()
+    first_name = CharField()
     id = CharField(primary_key=True)
-    id_person_fk = ForeignKeyField(db_column='id_person_fk', null=True, rel_model=Person, to_field='id')
+    last_name = CharField()
+    tel_num = CharField()
 
     class Meta:
         db_table = 'coordinator'
@@ -65,16 +62,13 @@ class CourseCohort(BaseModel):
         db_table = 'course_cohort'
         primary_key = CompositeKey('cohort', 'id_course_fk')
 
-class Teacher(BaseModel):
-    id = CharField(primary_key=True)
-    id_person_fk = ForeignKeyField(db_column='id_person_fk', null=True, rel_model=Person, to_field='id')
-
-    class Meta:
-        db_table = 'teacher'
-
 class Masterteacher(BaseModel):
+    city = CharField()
+    email = CharField()
+    first_name = CharField()
     id = CharField(primary_key=True)
-    id_teacher_fk = ForeignKeyField(db_column='id_teacher_fk', null=True, rel_model=Teacher, to_field='id')
+    last_name = CharField()
+    tel_num = CharField()
 
     class Meta:
         db_table = 'masterteacher'
@@ -89,8 +83,12 @@ class Enrollment(BaseModel):
         primary_key = CompositeKey('id_course_fk', 'id_mt_fk')
 
 class Leaderteacher(BaseModel):
+    city = CharField()
+    email = CharField()
+    first_name = CharField()
     id = CharField(primary_key=True)
-    id_teacher_fk = ForeignKeyField(db_column='id_teacher_fk', null=True, rel_model=Teacher, to_field='id')
+    last_name = CharField()
+    tel_num = CharField()
 
     class Meta:
         db_table = 'leaderteacher'
@@ -126,3 +124,4 @@ class MtLaborExp(BaseModel):
     class Meta:
         db_table = 'mt_labor_exp'
         primary_key = CompositeKey('id_mt_fk', 'item')
+
