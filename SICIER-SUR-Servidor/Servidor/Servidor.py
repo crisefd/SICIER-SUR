@@ -5,7 +5,8 @@ import socket
 import sys
 import imp
 from thread import *
-modelos= imp.load_source("fuck", "../Almacenamiento/modelos.py") # importe implicito de modelos, acceso total a modelos.py
+path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos.py')
+modelos = imp.load_source("Modelos", path)
 
 HOST = socket.gethostbyname(socket.gethostname())   # Se designa la IP del server
 PORT = 5315 # Se designa el puerto
