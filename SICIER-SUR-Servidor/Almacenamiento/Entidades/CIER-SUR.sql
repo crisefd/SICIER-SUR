@@ -55,7 +55,14 @@ CREATE TABLE MasterTeacher(
 	last_name VARCHAR(50) NOT NULL,
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL,
+	sex VARCHAR(50) NOT NULL,
+	birth_date DATE NOT NULL,
+	marital_status VARCHAR(50) NOT NULL,
+	institution VARCHAR(50) NOT NULL,
+	grade VARCHAR(50) NOT NULL,
+	secretariat VARCHAR(50) NOT NULL,
+	area VARCHAR(50) NOT NULL
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id)*/ 
@@ -68,7 +75,14 @@ CREATE TABLE LeaderTeacher(
 	last_name VARCHAR(50) NOT NULL,
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL,
+	sex VARCHAR(50) NOT NULL,
+	birth_date DATE NOT NULL,
+	marital_status VARCHAR(50) NOT NULL,
+	institution VARCHAR(50) NOT NULL,
+	grade VARCHAR(50) NOT NULL,
+	secretariat VARCHAR(50) NOT NULL,
+	area VARCHAR(50) NOT NULL
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id) */
