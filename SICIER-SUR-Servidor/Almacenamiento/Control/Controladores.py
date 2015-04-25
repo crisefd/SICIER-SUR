@@ -35,9 +35,96 @@ class ControladorAdm(Controlador):
 	
 	def insertarAdm(self, **args):
 		self._conectarBD()
-		adm = Adm.create(id=args['id'], first_name=args['first_name'],
-					last_name=args['last_name'], city=args['city'],
-					tel_num=args['tel_num'], email=args['email'])
-		n = adm.save()
-		#Pendiente validacion de insercion
+		with db.atomic():
+			try:
+				adm = Adm.create(**args)
+				adm.save() # Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+		
+	def actualizarAdm(self, id_, **args):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				q = Adm.update(**args).where(Adm.id==id_)
+				q.execute() # Falta validar actualizacion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def eliminarAdm(self, id_):
+		pass #Falta implementar borrado logico
+
+	def leerAdm(self, id_):
+		self._conectarBD()
+		try:
+			adm = adm.get(Adm.id == id_)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+
+		return adm
+
+class ControladorCoor(Controlador):
+	def insertarCoor(self, **args):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				coor = Coor.create(**args)
+				coor.save() # Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+		
+	def actualizarCoor(self, id_, **args):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				q = Coor.update(**args).where(Coor.id==id_)
+				q.execute() # Falta validar actualizacion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def eliminarCoor(self, id_):
+		pass #Falta implementar borrado logico
+
+	def leerCoor(self, id_):
+		self._conectarBD()
+		try:
+			#sq = Adm.select().where(id=id_)
+			coor = Coor.get(Coor.id == id_)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+
+		return coor
+
+
+		
 		
