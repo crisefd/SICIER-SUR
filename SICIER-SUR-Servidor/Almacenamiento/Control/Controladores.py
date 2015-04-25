@@ -13,9 +13,19 @@ Adm = modelos.Administrator
 Coor = modelos.Coordinator
 MT = modelos.Masterteacher
 LT = modelos.Leaderteacher
+LT_HA = modelos.LtAcademicBackg
+MT_HA = modelos.MtAcademicBackg
+LT_EL = modelos.LtLaborExp
+MT_EL = modelos.MtLaborExp
+Curso = modelos.Course
+CursoAct = modelos.CourseActivity
+ActNota = modelos.ActivityGrade
+CursoCohorte = modelos.CourseCohort
+Matricula = modelos.Enrollment
 
 
 
+#Clase padre de los controladores
 class Controlador():
 
 	def _conectarBD(self):
@@ -33,11 +43,11 @@ class Controlador():
 
 class ControladorAdm(Controlador):
 	
-	def insertarAdm(self, **args):
+	def insertarAdm(self, datos):
 		self._conectarBD()
 		with db.atomic():
 			try:
-				adm = Adm.create(**args)
+				adm = Adm.create(**datos)
 				adm.save() # Falta validar insercion
 			except Exception as ex1:
 				print ex1
@@ -47,11 +57,11 @@ class ControladorAdm(Controlador):
 				except Exception as ex2:
 					print ex2
 		
-	def actualizarAdm(self, id_, **args):
+	def actualizarAdm(self, id_, datos):
 		self._conectarBD()
 		with db.atomic():
 			try:
-				q = Adm.update(**args).where(Adm.id==id_)
+				q = Adm.update(**datos).where(Adm.id==id_)
 				q.execute() # Falta validar actualizacion
 			except Exception as ex1:
 				print ex1
@@ -64,10 +74,10 @@ class ControladorAdm(Controlador):
 	def eliminarAdm(self, id_):
 		pass #Falta implementar borrado logico
 
-	def leerAdm(self, id_):
+	def consultarAdmID(self, id_):
 		self._conectarBD()
 		try:
-			adm = adm.get(Adm.id == id_)
+			adm = Adm.get(Adm.id == id_)
 		except Exception as ex1:
 			print ex1
 		finally:
@@ -78,12 +88,27 @@ class ControladorAdm(Controlador):
 
 		return adm
 
+	def consultarAdmNombreCompleto(self, nombre, apellido):
+		self._conectarBD()
+		try:
+			sq = Adm.select().where(first_name=nombre, last_name=apellido)
+			#coor = Coor.get(Coor.id == id_)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+
+		return sq
+
 class ControladorCoor(Controlador):
-	def insertarCoor(self, **args):
+	def insertarCoor(self, datos):
 		self._conectarBD()
 		with db.atomic():
 			try:
-				coor = Coor.create(**args)
+				coor = Coor.create(**datos)
 				coor.save() # Falta validar insercion
 			except Exception as ex1:
 				print ex1
@@ -93,11 +118,11 @@ class ControladorCoor(Controlador):
 				except Exception as ex2:
 					print ex2
 		
-	def actualizarCoor(self, id_, **args):
+	def actualizarCoor(self, id_, datos):
 		self._conectarBD()
 		with db.atomic():
 			try:
-				q = Coor.update(**args).where(Coor.id==id_)
+				q = Coor.update(**datos).where(Coor.id==id_)
 				q.execute() # Falta validar actualizacion
 			except Exception as ex1:
 				print ex1
@@ -110,7 +135,7 @@ class ControladorCoor(Controlador):
 	def eliminarCoor(self, id_):
 		pass #Falta implementar borrado logico
 
-	def leerCoor(self, id_):
+	def consultarCoorID(self, id_):
 		self._conectarBD()
 		try:
 			#sq = Adm.select().where(id=id_)
@@ -125,6 +150,302 @@ class ControladorCoor(Controlador):
 
 		return coor
 
+	def consultarCoorNombreCompleto(self, nombre, apellido):
+		self._conectarBD()
+		try:
+			sq = Coor.select().where(first_name=nombre, last_name=apellido)
+			#coor = Coor.get(Coor.id == id_)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 
-		
+		return sq
+
+class ControladorMT(Controlador):
+
+	def insertarMT(self, **datos):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				mt = MT.create(**datos)
+				mt.save() # Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarHistAcademicoMT(self, id_MT, historial):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				for item in historial:
+					h = MT_HA.create(id=id_MT, item=item)
+					h.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarExpLaboralMT(self, id_MT, experiencia):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				for item in experiencia:
+					e = MT_EL.create(id=id_MT, item=item)
+					e.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+
+
+		def actualizarMT(self, id_MT, datos):
+			self._conectarBD()
+			with db.atomic():
+				try:
+					q = MT.update(**datos).where(MT.id==id_MT)
+					q.execute() # Falta validar actualizacion
+				except Exception as ex1:
+					print ex1
+				finally:
+					try:
+						self._desconectarBD()
+					except Exception as ex2:
+						print ex2
+
+		def eliminarMT(self, id_MT):
+			pass #Falta implementar eliminado borrado logico
+
+		def consultarMTID(self, id_MT):
+			pass #Falta implementar consultas con join
+
+
+class ControladorLT(Controlador):
+
+	def insertarLT(self, **datos):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				lt = LT.create(**datos)
+				lt.save() # Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarHistAcademicoLT(self, id_LT, historial):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				for item in historial:
+					h = LT_HA.create(id=id_LT, item=item)
+					h.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarExpLaboralLT(self, id_LT, experiencia):
+		self._conectarBD()
+		with db.atomic():
+			try:
+				for item in experiencia:
+					e = LT_EL.create(id=id_LT, item=item)
+					e.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+
+
+		def actualizarLT(self, id_LT, datos):
+			self._conectarBD()
+			with db.atomic():
+				try:
+					q = LT.update(**datos).where(MT.id==id_LT)
+					q.execute() # Falta validar actualizacion
+				except Exception as ex1:
+					print ex1
+				finally:
+					try:
+						self._desconectarBD()
+					except Exception as ex2:
+						print ex2
+
+		def eliminarLT(self, id_):
+			pass #Falta implementar eliminado borrado logico
+
+		def consultarLTID(self, id_MT):
+			pass #Falta implementar consultas con join
+
+class ControladorCurso(Controlador):
+
+	def insertarCurso(self, **datos):
+		self._conectarBD
+		with db.atomic():
+			try:
+				c = Curso.create(**datos)
+				d.save()#Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarCursoActividades(self, id_curso, actividades):
+		self._conectarBD
+		with db.atomic():
+			try:
+				for act in actividades:
+					a = CursoAct.create(id_curso, act)
+					a.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def insertarCursoCohortes(self, id_curso, cohortes):
+		self._conectarBD
+		with db.atomic():
+			try:
+				for cohorte in cohortes:
+					a = CursoCohorte.create(id_curso, cohorte)
+					a.save() #Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+		def insertarActNota(self, **datos):
+			self._conectarBD
+			with db.atomic():
+				try:
+					an = ActNota.create(**datos)
+					an.save() #Falta validar insercion
+				except Exception as ex1:
+					print ex1
+				finally:
+					try:
+						self._desconectarBD()
+					except Exception as ex2:
+						print ex2
+
+		def actualizarActNota(self, id_, datos):
+			self._conectarBD
+			with db.atomic():
+				try:
+					an = ActNota.update(**datos).where(ActNota.id == id_)
+					an.execute() 
+				except Exception as ex1:
+					print ex1
+				finally:
+					try:
+						self._desconectarBD()
+					except Exception as ex2:
+						print ex2
+
+		def consultarActNota(self):
+			pass #Falta implementar consulta de notas 
+
+	
+	
+class ControladorMatricula(Controlador):
+
+	def insertarMatricula(self, **datos):
+		self._conectarBD
+		with db.atomic():
+			try:
+				c = Matricula.create(**datos)
+				d.save()#Falta validar insercion
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def actualizarMatricula(self, id_matricula, datos):
+		self._conectarBD
+		with db.atomic():
+			try:
+				c = Matricula.update(**datos).where(Matricula.id = id_matricula)
+				c.execute()
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+
+	def consultarMatriculaID(self, id_):
+		self._conectarBD
+		sq = 0
+		with db.atomic():
+			try:
+				sq = Matricula.get(Matricula.id == id_)
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+		return sq
+
+
+	def consultarMatricula(self):
+		self._conectarBD
+		sq = 0
+		with db.atomic():
+			try:
+				sq = Matricula.select()
+			except Exception as ex1:
+				print ex1
+			finally:
+				try:
+					self._desconectarBD()
+				except Exception as ex2:
+					print ex2
+		return sq
+
+
+
+
+	
+
+
 		

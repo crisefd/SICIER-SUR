@@ -19,7 +19,8 @@ CREATE TABLE Coordinator(
 	last_name VARCHAR(50) NOT NULL,
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL,
+	is_active BOOLEAN NOT NULL
 );
 
 DROP TABLE IF EXISTS Administrator CASCADE;
@@ -29,7 +30,8 @@ CREATE TABLE Administrator(
 	last_name VARCHAR(50) NOT NULL,
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL
+	email VARCHAR(50) NOT NULL,
+	is_active BOOLEAN NOT NULL
 	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
 	REFERENCES Person(id) */
@@ -62,7 +64,8 @@ CREATE TABLE MasterTeacher(
 	institution VARCHAR(50) NOT NULL,
 	grade VARCHAR(50) NOT NULL,
 	secretariat VARCHAR(50) NOT NULL,
-	area VARCHAR(50) NOT NULL
+	area VARCHAR(50) NOT NULL,
+	is_active BOOLEAN NOT NULL
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id)*/ 
@@ -82,7 +85,8 @@ CREATE TABLE LeaderTeacher(
 	institution VARCHAR(50) NOT NULL,
 	grade VARCHAR(50) NOT NULL,
 	secretariat VARCHAR(50) NOT NULL,
-	area VARCHAR(50) NOT NULL
+	area VARCHAR(50) NOT NULL,
+	is_active BOOLEAN NOT NULL
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id) */
@@ -136,7 +140,7 @@ CREATE TABLE Course(
 DROP TABLE IF EXISTS Course_Activity CASCADE;
 CREATE TABLE Course_Activity(
 	id_course_fk VARCHAR(50) NOT NULL,
-	activity SERIAL,
+	activity VARCHAR(50),
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
 	PRIMARY KEY(id_course_fk, activity)
@@ -145,7 +149,7 @@ CREATE TABLE Course_Activity(
 DROP TABLE IF EXISTS Activity_Grade CASCADE;
 CREATE TABLE Activity_Grade(
 	id_course_fk VARCHAR(50) NOT NULL,
-	activity_fk INTEGER NOT NULL,
+	activity_fk VARCHAR NOT NULL,
 	FOREIGN KEY(id_course_fk, activity_fk)
 	REFERENCES Course_Activity(id_course_fk, activity),
 	PRIMARY KEY(id_course_fk, activity_fk)
@@ -154,7 +158,7 @@ CREATE TABLE Activity_Grade(
 DROP TABLE IF EXISTS Course_Cohort CASCADE;
 CREATE TABLE Course_Cohort(
 	id_course_fk VARCHAR(50) NOT NULL,
-	cohort SERIAL NOT NULL,
+	cohort VARCHAR(50) NOT NULL,
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
 	PRIMARY KEY(id_course_fk, cohort)
@@ -164,12 +168,15 @@ CREATE TABLE Course_Cohort(
 DROP TABLE IF EXISTS Enrollment CASCADE;
 CREATE TABLE Enrollment(
 	id_MT_fk VARCHAR(50) NOT NULL,
+	id_LT_fk VARCHAR(50) NOT NULL,
 	id_course_fk VARCHAR(50) NOT NULL,
 	def_grade FLOAT,
 	FOREIGN KEY(id_MT_fk)
 	REFERENCES MasterTeacher(id),
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
+	FOREIGN KEY(id_LT_fk)
+	REFERENCES LeaderTeacher(id),
 	PRIMARY KEY(id_MT_fk, id_course_fk)
 	
 );

@@ -1,6 +1,6 @@
 from peewee import *
 
-database = PostgresqlDatabase('CIER-SUR', **{})
+database = PostgresqlDatabase('CIER-SUR', **{'user': 'crisefd'})
 
 class UnknownField(object):
     pass
@@ -19,7 +19,7 @@ class Course(BaseModel):
         db_table = 'course'
 
 class CourseActivity(BaseModel):
-    activity = IntegerField()
+    activity = CharField()
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
 
     class Meta:
@@ -39,6 +39,7 @@ class Administrator(BaseModel):
     email = CharField()
     first_name = CharField()
     id = CharField(primary_key=True)
+    is_active = BooleanField()
     last_name = CharField()
     tel_num = CharField()
 
@@ -50,6 +51,7 @@ class Coordinator(BaseModel):
     email = CharField()
     first_name = CharField()
     id = CharField(primary_key=True)
+    is_active = BooleanField()
     last_name = CharField()
     tel_num = CharField()
 
@@ -57,7 +59,7 @@ class Coordinator(BaseModel):
         db_table = 'coordinator'
 
 class CourseCohort(BaseModel):
-    cohort = IntegerField()
+    cohort = CharField()
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
 
     class Meta:
@@ -65,35 +67,52 @@ class CourseCohort(BaseModel):
         primary_key = CompositeKey('cohort', 'id_course_fk')
 
 class Masterteacher(BaseModel):
+    area = CharField()
+    birth_date = DateField()
     city = CharField()
     email = CharField()
     first_name = CharField()
+    grade = CharField()
     id = CharField(primary_key=True)
+    institution = CharField()
+    is_active = BooleanField()
     last_name = CharField()
+    marital_status = CharField()
+    secretariat = CharField()
+    sex = CharField()
     tel_num = CharField()
 
     class Meta:
         db_table = 'masterteacher'
 
+class Leaderteacher(BaseModel):
+    area = CharField()
+    birth_date = DateField()
+    city = CharField()
+    email = CharField()
+    first_name = CharField()
+    grade = CharField()
+    id = CharField(primary_key=True)
+    institution = CharField()
+    is_active = BooleanField()
+    last_name = CharField()
+    marital_status = CharField()
+    secretariat = CharField()
+    sex = CharField()
+    tel_num = CharField()
+
+    class Meta:
+        db_table = 'leaderteacher'
+
 class Enrollment(BaseModel):
     def_grade = FloatField(null=True)
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
+    id_lt_fk = ForeignKeyField(db_column='id_lt_fk', rel_model=Leaderteacher, to_field='id')
     id_mt_fk = ForeignKeyField(db_column='id_mt_fk', rel_model=Masterteacher, to_field='id')
 
     class Meta:
         db_table = 'enrollment'
         primary_key = CompositeKey('id_course_fk', 'id_mt_fk')
-
-class Leaderteacher(BaseModel):
-    city = CharField()
-    email = CharField()
-    first_name = CharField()
-    id = CharField(primary_key=True)
-    last_name = CharField()
-    tel_num = CharField()
-
-    class Meta:
-        db_table = 'leaderteacher'
 
 class LtAcademicBackg(BaseModel):
     id_lt_fk = ForeignKeyField(db_column='id_lt_fk', rel_model=Leaderteacher, to_field='id')
@@ -126,4 +145,3 @@ class MtLaborExp(BaseModel):
     class Meta:
         db_table = 'mt_labor_exp'
         primary_key = CompositeKey('id_mt_fk', 'item')
-
