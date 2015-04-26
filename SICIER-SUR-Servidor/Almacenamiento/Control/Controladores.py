@@ -1,5 +1,3 @@
-# importe implicito de modelos, acceso total a Modelos.py
-
 import sys
 import imp
 import os
@@ -401,7 +399,7 @@ class ControladorMatricula(Controlador):
 		self._conectarBD
 		with db.atomic():
 			try:
-				c = Matricula.update(**datos).where(Matricula.id = id_matricula)
+				c = Matricula.update(**datos).where(Matricula.id == id_matricula)
 				c.execute()
 			except Exception as ex1:
 				print ex1
