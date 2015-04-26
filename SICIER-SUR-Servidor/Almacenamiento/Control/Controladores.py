@@ -98,6 +98,7 @@ class ControladorAdm(Controlador):
 
 
 	def consultarAdmID(self, id_):
+		global bd
 		self._conectarBD()
 		try:
 			adm = Adm.get(Adm.id == id_)
@@ -112,9 +113,12 @@ class ControladorAdm(Controlador):
 		return adm
 
 	def consultarAdmNombreCompleto(self, nombre, apellido):
+		global bd
 		self._conectarBD()
+		sq = -1
 		try:
-			sq = Adm.select().where(first_name=nombre, last_name=apellido)
+			with bd.atomic():
+				sq = Adm.select().where(Adm.first_name==nombre, Adm.last_name==apellido)
 			#coor = Coor.get(Coor.id == id_)
 		except Exception as ex1:
 			print ex1
@@ -127,41 +131,55 @@ class ControladorAdm(Controlador):
 		return sq
 
 class ControladorCoor(Controlador):
-	def insertarCoor(self, datos):
+
+	def insertarCoor(self, **datos):
+		global bd
 		self._conectarBD()
-		with db.atomic():
-			try:
+		try:
+			with bd.atomic():
 				coor = Coor.create(**datos)
-				coor.save() # Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+			print coor.save() # Falta validar insercion
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 		
 	def actualizarCoor(self, id_, datos):
 		self._conectarBD()
-		with db.atomic():
-			try:
-				q = Coor.update(**datos).where(Coor.id==id_)
+		try:
+			with bd.atomic():
+				q = Coor.update(**datos).where(Coor.id==id_, Coor.is_active==True)
 				q.execute() # Falta validar actualizacion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 
 	def eliminarCoor(self, id_):
-		pass #Falta implementar borrado logico
+		self._conectarBD()
+		global bd
+		try:
+			q = None
+			with bd.atomic():
+				q = Coor.update(is_active=False).where(Coor.id==id_, Coor.is_active==True)
+			q.execute() # Falta validar actualizacion
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 
 	def consultarCoorID(self, id_):
 		self._conectarBD()
 		try:
-			#sq = Adm.select().where(id=id_)
 			coor = Coor.get(Coor.id == id_)
 		except Exception as ex1:
 			print ex1
@@ -176,8 +194,7 @@ class ControladorCoor(Controlador):
 	def consultarCoorNombreCompleto(self, nombre, apellido):
 		self._conectarBD()
 		try:
-			sq = Coor.select().where(first_name=nombre, last_name=apellido)
-			#coor = Coor.get(Coor.id == id_)
+			sq = Coor.select().where(Coor.first_name=nombre, Coor.last_name=apellido)
 		except Exception as ex1:
 			print ex1
 		finally:

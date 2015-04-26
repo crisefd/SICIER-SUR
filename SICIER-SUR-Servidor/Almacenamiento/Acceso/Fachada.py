@@ -25,4 +25,9 @@ f.controlAdm.insertarAdm(city="New York", email="mary.jane@example.com",
 f.controlAdm.actualizarAdm('1034', {'city':'Los Angeles', 'email':'mary.jane4@example.com'})
 
 f.controlAdm.eliminarAdm('1034')
-"""
+
+adm = f.controlAdm.consultarAdmID('1034')
+
+sq = f.controlAdm.consultarAdmNombreCompleto('Mary', 'Jane')
+for adm in sq:
+	print adm.city"""
