@@ -7,6 +7,7 @@ path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos
 modelos = imp.load_source("Modelos", path)
 
 bd = modelos.database
+
 Adm = modelos.Administrator
 Coor = modelos.Coordinator
 MT = modelos.Masterteacher
@@ -27,50 +28,74 @@ Matricula = modelos.Enrollment
 class Controlador():
 
 	def _conectarBD(self):
+		global bd
 		try:
 			bd.connect()
+			print "Conexion a la BD"
 		except Exception as err1:
 			print err1
+
 		
 	def _desconectarBD(self):
+		global bd
 		try:
 			bd.close()
+			print "Desconexion de la BD"
 		except Exception as err2:
 			print err2
 
 
 class ControladorAdm(Controlador):
-	
-	def insertarAdm(self, datos):
+
+	def insertarAdm(self, **datos):
+		global bd
 		self._conectarBD()
-		with db.atomic():
-			try:
+		try:
+			adm = None
+			with bd.atomic():
 				adm = Adm.create(**datos)
-				adm.save() # Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+			#print adm
+			print adm.save() # Falta validar insercion
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 		
 	def actualizarAdm(self, id_, datos):
 		self._conectarBD()
-		with db.atomic():
+		global bd
+		try:
+			q = None
+			with bd.atomic():
+				q = Adm.update(**datos).where(Adm.id==id_, Adm.is_active == True)
+			q.execute() # Falta validar actualizacion
+		except Exception as ex1:
+			print ex1
+		finally:
 			try:
-				q = Adm.update(**datos).where(Adm.id==id_)
-				q.execute() # Falta validar actualizacion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 
 	def eliminarAdm(self, id_):
-		pass #Falta implementar borrado logico
+		self._conectarBD()
+		global bd
+		try:
+			q = None
+			with bd.atomic():
+				q = Adm.update(is_active=False).where(Adm.id==id_)
+			q.execute() # Falta validar actualizacion
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+
 
 	def consultarAdmID(self, id_):
 		self._conectarBD()
