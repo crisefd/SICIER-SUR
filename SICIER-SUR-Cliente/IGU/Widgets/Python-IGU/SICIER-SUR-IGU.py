@@ -315,8 +315,17 @@ class VentanaLogin(QtGui.QFrame):
 
         self.retranslateUi()
         QtCore.QObject.connect(self.boton_salir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.close)
+        QtCore.QObject.connect(self.boton_ingresar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.ingresarAlSistema)
         QtCore.QObject.connect(self.botonInscribir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.mostrarRegLT)
         QtCore.QMetaObject.connectSlotsByName(VentanaLogin)
+
+    def ingresarAlSistema(self):
+        usr = self.campo_usuario.text()
+        pass_ = self.campo_pass.text()
+        if (usr == '' or  pass_ == '' or usr is None or pass_ is None):
+            dialogo = QtGui.QErrorMessage(self)
+            dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
+
 
     def mostrarRegLT(self):
         self.ventanaRegLT.show()
