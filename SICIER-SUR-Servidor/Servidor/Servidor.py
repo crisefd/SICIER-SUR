@@ -4,9 +4,11 @@
 import socket
 import sys
 import imp
+import os
 from thread import *
-path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos.py')
-modelos = imp.load_source("Modelos", path)
+path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Almacenamiento/Acceso/Fachada.py')
+#print path
+fachada = imp.load_source("Fachada", path)
 
 HOST = socket.gethostbyname(socket.gethostname())   # Se designa la IP del server
 PORT = 5315 # Se designa el puerto
@@ -15,8 +17,9 @@ class Servidor():
 	
 	
 	def __init__(self):		
-		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	
-		print 'Socket created'
+		#self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self._fachada = fachada.Fachada()
+		#print 'Socket created'
 				
 	def escuchar(self):	
 		try:
@@ -58,9 +61,10 @@ class Servidor():
 		 
 		
 		conn.close()
-"""
-try:
-	ServerP = Servidor()
-	ServerP.escuchar()
-except Exception as err:
-	ServerP.socket.close()"""
+
+	
+
+
+
+
+Servidor()

@@ -194,7 +194,7 @@ class ControladorCoor(Controlador):
 	def consultarCoorNombreCompleto(self, nombre, apellido):
 		self._conectarBD()
 		try:
-			sq = Coor.select().where(Coor.first_name=nombre, Coor.last_name=apellido)
+			sq = Coor.get(Coor.first_name==nombre, Coor.last_name==apellido)
 		except Exception as ex1:
 			print ex1
 		finally:
