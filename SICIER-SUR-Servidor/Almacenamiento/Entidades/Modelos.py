@@ -1,6 +1,6 @@
 from peewee import *
 
-database = PostgresqlDatabase('CIER-SUR', **{'user': 'crisefd'})
+database = PostgresqlDatabase('CIER-SUR', **{})
 
 class UnknownField(object):
     pass
@@ -36,11 +36,12 @@ class ActivityGrade(BaseModel):
 
 class Administrator(BaseModel):
     city = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     first_name = CharField()
     id = CharField(primary_key=True)
     is_active = BooleanField()
     last_name = CharField()
+    pass_ = CharField(db_column='pass', null=True)
     tel_num = CharField()
 
     class Meta:
@@ -48,11 +49,12 @@ class Administrator(BaseModel):
 
 class Coordinator(BaseModel):
     city = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     first_name = CharField()
     id = CharField(primary_key=True)
     is_active = BooleanField()
     last_name = CharField()
+    pass_ = CharField(db_column='pass', null=True)
     tel_num = CharField()
 
     class Meta:
@@ -70,7 +72,7 @@ class Masterteacher(BaseModel):
     area = CharField()
     birth_date = DateField()
     city = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     first_name = CharField()
     grade = CharField()
     id = CharField(primary_key=True)
@@ -78,6 +80,7 @@ class Masterteacher(BaseModel):
     is_active = BooleanField()
     last_name = CharField()
     marital_status = CharField()
+    pass_ = CharField(db_column='pass', null=True)
     secretariat = CharField()
     sex = CharField()
     tel_num = CharField()
@@ -89,7 +92,7 @@ class Leaderteacher(BaseModel):
     area = CharField()
     birth_date = DateField()
     city = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     first_name = CharField()
     grade = CharField()
     id = CharField(primary_key=True)
@@ -97,6 +100,7 @@ class Leaderteacher(BaseModel):
     is_active = BooleanField()
     last_name = CharField()
     marital_status = CharField()
+    pass_ = CharField(db_column='pass', null=True)
     secretariat = CharField()
     sex = CharField()
     tel_num = CharField()

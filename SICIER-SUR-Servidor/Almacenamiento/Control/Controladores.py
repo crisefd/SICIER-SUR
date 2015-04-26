@@ -112,6 +112,22 @@ class ControladorAdm(Controlador):
 
 		return adm
 
+	def consultarAdmPassUsr(self, usr, pass_):
+		global bd
+		self._conectarBD()
+		try:
+			adm = Adm.get(Adm.email == usr, 
+				         Adm.pass_== pass_, Adm.is_active == True)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+
+		return adm
+
 	def consultarAdmNombreCompleto(self, nombre, apellido):
 		global bd
 		self._conectarBD()

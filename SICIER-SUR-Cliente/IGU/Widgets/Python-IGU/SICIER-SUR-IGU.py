@@ -25,73 +25,6 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class VentanaLogin(QtGui.QFrame):
-
-    def __init__(self):
-        super(VentanaLogin, self).__init__()
-        self.setupUi(self)
-
-    def setupUi(self, VentanaLogin):
-        VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
-        VentanaLogin.resize(516, 218)
-        VentanaLogin.setFrameShape(QtGui.QFrame.StyledPanel)
-        VentanaLogin.setFrameShadow(QtGui.QFrame.Raised)
-        self.boton_ingresar = QtGui.QPushButton(VentanaLogin)
-        self.boton_ingresar.setGeometry(QtCore.QRect(210, 150, 91, 24))
-        self.boton_ingresar.setObjectName(_fromUtf8("boton_ingresar"))
-        self.boton_salir = QtGui.QPushButton(VentanaLogin)
-        self.boton_salir.setGeometry(QtCore.QRect(340, 150, 91, 24))
-        self.boton_salir.setObjectName(_fromUtf8("boton_salir"))
-        self.campo_usuario = QtGui.QLineEdit(VentanaLogin)
-        self.campo_usuario.setGeometry(QtCore.QRect(110, 60, 211, 23))
-        self.campo_usuario.setObjectName(_fromUtf8("campo_usuario"))
-        self.campo_pass = QtGui.QLineEdit(VentanaLogin)
-        self.campo_pass.setGeometry(QtCore.QRect(110, 100, 211, 23))
-        self.campo_pass.setText(_fromUtf8(""))
-        self.campo_pass.setEchoMode(QtGui.QLineEdit.Password)
-        self.campo_pass.setObjectName(_fromUtf8("campo_pass"))
-        self.etiqueta_usuario = QtGui.QLabel(VentanaLogin)
-        self.etiqueta_usuario.setGeometry(QtCore.QRect(20, 60, 54, 15))
-        self.etiqueta_usuario.setObjectName(_fromUtf8("etiqueta_usuario"))
-        self.etiqueta_pass = QtGui.QLabel(VentanaLogin)
-        self.etiqueta_pass.setGeometry(QtCore.QRect(20, 100, 81, 16))
-        self.etiqueta_pass.setObjectName(_fromUtf8("etiqueta_pass"))
-        self.etiqueta_titulo = QtGui.QLabel(VentanaLogin)
-        self.etiqueta_titulo.setGeometry(QtCore.QRect(170, 10, 211, 16))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.etiqueta_titulo.setFont(font)
-        self.etiqueta_titulo.setObjectName(_fromUtf8("etiqueta_titulo"))
-        self.comboBox = QtGui.QComboBox(VentanaLogin)
-        self.comboBox.setGeometry(QtCore.QRect(360, 60, 121, 27))
-        self.comboBox.setObjectName(_fromUtf8("comboBox"))
-        self.comboBox.addItem(_fromUtf8(""))
-        self.comboBox.addItem(_fromUtf8(""))
-        self.comboBox.addItem(_fromUtf8(""))
-        self.comboBox.addItem(_fromUtf8(""))
-        self.pushButton = QtGui.QPushButton(VentanaLogin)
-        self.pushButton.setGeometry(QtCore.QRect(20, 150, 151, 27))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-
-        self.retranslateUi()
-        QtCore.QObject.connect(self.boton_salir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.close)
-        QtCore.QMetaObject.connectSlotsByName(VentanaLogin)
-
-    def retranslateUi(self):
-        self.setWindowTitle(_translate("VentanaLogin", "Frame", None))
-        self.boton_ingresar.setText(_translate("VentanaLogin", "Ingresar", None))
-        self.boton_salir.setText(_translate("VentanaLogin", "Salir", None))
-        self.etiqueta_usuario.setText(_translate("VentanaLogin", "Usuario:", None))
-        self.etiqueta_pass.setText(_translate("VentanaLogin", "Contraseña:", None))
-        self.etiqueta_titulo.setText(_translate("VentanaLogin", "INGRESAR AL SISTEMA", None))
-        self.comboBox.setItemText(0, _translate("VentanaLogin", "Administrator", None))
-        self.comboBox.setItemText(1, _translate("VentanaLogin", "Coordinator", None))
-        self.comboBox.setItemText(2, _translate("VentanaLogin", "Master Teacher", None))
-        self.comboBox.setItemText(3, _translate("VentanaLogin", "Leader Teacher", None))
-        self.pushButton.setText(_translate("VentanaLogin", "Inscripciones Cursos", None))
-
 
 class VentanaRegistroLT(QtGui.QFrame):
     def __init__(self):
@@ -329,10 +262,85 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.botonSalir.setText(_translate("VentanaRegistroLT", "Salir", None))
 
 
+class VentanaLogin(QtGui.QFrame):
+
+    def __init__(self):
+        super(VentanaLogin, self).__init__()
+        self.ventanaRegLT = VentanaRegistroLT()
+        self.setupUi(self)
+
+    def setupUi(self, VentanaLogin):
+        VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
+        VentanaLogin.resize(516, 218)
+        VentanaLogin.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaLogin.setFrameShadow(QtGui.QFrame.Raised)
+        self.boton_ingresar = QtGui.QPushButton(VentanaLogin)
+        self.boton_ingresar.setGeometry(QtCore.QRect(210, 150, 91, 24))
+        self.boton_ingresar.setObjectName(_fromUtf8("boton_ingresar"))
+        self.boton_salir = QtGui.QPushButton(VentanaLogin)
+        self.boton_salir.setGeometry(QtCore.QRect(340, 150, 91, 24))
+        self.boton_salir.setObjectName(_fromUtf8("boton_salir"))
+        self.campo_usuario = QtGui.QLineEdit(VentanaLogin)
+        self.campo_usuario.setGeometry(QtCore.QRect(110, 60, 211, 23))
+        self.campo_usuario.setObjectName(_fromUtf8("campo_usuario"))
+        self.campo_pass = QtGui.QLineEdit(VentanaLogin)
+        self.campo_pass.setGeometry(QtCore.QRect(110, 100, 211, 23))
+        self.campo_pass.setText(_fromUtf8(""))
+        self.campo_pass.setEchoMode(QtGui.QLineEdit.Password)
+        self.campo_pass.setObjectName(_fromUtf8("campo_pass"))
+        self.etiqueta_usuario = QtGui.QLabel(VentanaLogin)
+        self.etiqueta_usuario.setGeometry(QtCore.QRect(20, 60, 54, 15))
+        self.etiqueta_usuario.setObjectName(_fromUtf8("etiqueta_usuario"))
+        self.etiqueta_pass = QtGui.QLabel(VentanaLogin)
+        self.etiqueta_pass.setGeometry(QtCore.QRect(20, 100, 81, 16))
+        self.etiqueta_pass.setObjectName(_fromUtf8("etiqueta_pass"))
+        self.etiqueta_titulo = QtGui.QLabel(VentanaLogin)
+        self.etiqueta_titulo.setGeometry(QtCore.QRect(170, 10, 211, 16))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiqueta_titulo.setFont(font)
+        self.etiqueta_titulo.setObjectName(_fromUtf8("etiqueta_titulo"))
+        self.comboBox = QtGui.QComboBox(VentanaLogin)
+        self.comboBox.setGeometry(QtCore.QRect(360, 60, 121, 27))
+        self.comboBox.setObjectName(_fromUtf8("comboBox"))
+        self.comboBox.addItem(_fromUtf8(""))
+        self.comboBox.addItem(_fromUtf8(""))
+        self.comboBox.addItem(_fromUtf8(""))
+        self.comboBox.addItem(_fromUtf8(""))
+        self.botonInscribir = QtGui.QPushButton(VentanaLogin)
+        self.botonInscribir.setGeometry(QtCore.QRect(20, 150, 151, 27))
+        self.botonInscribir.setObjectName(_fromUtf8("botonInscribir"))
+
+        self.retranslateUi()
+        QtCore.QObject.connect(self.boton_salir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.close)
+        QtCore.QObject.connect(self.botonInscribir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaLogin.mostrarRegLT)
+        QtCore.QMetaObject.connectSlotsByName(VentanaLogin)
+
+    def mostrarRegLT(self):
+        self.ventanaRegLT.show()
+
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("VentanaLogin", "Frame", None))
+        self.boton_ingresar.setText(_translate("VentanaLogin", "Ingresar", None))
+        self.boton_salir.setText(_translate("VentanaLogin", "Salir", None))
+        self.etiqueta_usuario.setText(_translate("VentanaLogin", "Usuario:", None))
+        self.etiqueta_pass.setText(_translate("VentanaLogin", "Contraseña:", None))
+        self.etiqueta_titulo.setText(_translate("VentanaLogin", "INGRESAR AL SISTEMA", None))
+        self.comboBox.setItemText(0, _translate("VentanaLogin", "Administrator", None))
+        self.comboBox.setItemText(1, _translate("VentanaLogin", "Coordinator", None))
+        self.comboBox.setItemText(2, _translate("VentanaLogin", "Master Teacher", None))
+        self.comboBox.setItemText(3, _translate("VentanaLogin", "Leader Teacher", None))
+        self.botonInscribir.setText(_translate("VentanaLogin", "Inscripciones Cursos", None))
+
+
+
+
 
 
 if __name__  == "__main__":
     app = QtGui.QApplication(sys.argv)
-    w = VentanaRegistroLT()
+    w = VentanaLogin()
     w.show()
     sys.exit(app.exec_())

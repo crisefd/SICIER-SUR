@@ -20,7 +20,9 @@ CREATE TABLE Coordinator(
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
-	is_active BOOLEAN NOT NULL
+	is_active BOOLEAN NOT NULL,
+	pass VARCHAR(50),
+	UNIQUE(email)
 );
 
 DROP TABLE IF EXISTS Administrator CASCADE;
@@ -31,7 +33,9 @@ CREATE TABLE Administrator(
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
-	is_active BOOLEAN NOT NULL
+	is_active BOOLEAN NOT NULL,
+	pass VARCHAR(50),
+	UNIQUE(email)
 	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
 	REFERENCES Person(id) */
@@ -65,7 +69,9 @@ CREATE TABLE MasterTeacher(
 	grade VARCHAR(50) NOT NULL,
 	secretariat VARCHAR(50) NOT NULL,
 	area VARCHAR(50) NOT NULL,
-	is_active BOOLEAN NOT NULL
+	is_active BOOLEAN NOT NULL,
+	pass VARCHAR(50),
+	UNIQUE(email)
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id)*/ 
@@ -86,7 +92,9 @@ CREATE TABLE LeaderTeacher(
 	grade VARCHAR(50) NOT NULL,
 	secretariat VARCHAR(50) NOT NULL,
 	area VARCHAR(50) NOT NULL,
-	is_active BOOLEAN NOT NULL
+	is_active BOOLEAN NOT NULL,
+	pass VARCHAR(50),
+	UNIQUE(email)
 	/*id_teacher_fk VARCHAR(50),
 	FOREIGN KEY(id_teacher_fk)
 	REFERENCES Teacher(id) */
