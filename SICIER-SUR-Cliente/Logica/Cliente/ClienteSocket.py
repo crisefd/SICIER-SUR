@@ -14,8 +14,8 @@ import time
     host = sys.argv[1]
     port = 8888"""
 
-HOST = ''
-PORT = 5315
+HOST = '127.0.1.1'
+PORT = 5317
 
 class ClienteSocket():
 
@@ -32,11 +32,11 @@ class ClienteSocket():
 		except socket.gaierror:
 			print 'Hostname could not be resolved. Exiting'
 			sys.exit()
-		print 'Socket Connected to ' + host + ' on ip ' + remote_ip
+		print "Socket Connected to  host {0} with port {1}".format(HOST, PORT)
 
 	def desconectar(self):
 		try:
-			self_socket.close()
+			self._socket.close()
 		except socket.error as ex:
 			print 'Close socket failed'
 

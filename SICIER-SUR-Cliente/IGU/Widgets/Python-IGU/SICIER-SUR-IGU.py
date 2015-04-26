@@ -8,6 +8,13 @@
 # WARNING! All changes made in this file will be lost!
 
 import sys
+import imp
+import os
+ss = os.path.dirname(__file__) + '/' + '../..'
+path = os.path.abspath(ss + '/..' + '/Logica/Cliente/ClienteSocket.py') 
+print path
+clientesocket = imp.load_source("ClienteSocket", path)
+clienteSocket = clientesocket.ClienteSocket()
 
 from PyQt4 import QtCore, QtGui
 
@@ -265,10 +272,16 @@ class VentanaRegistroLT(QtGui.QFrame):
 class VentanaLogin(QtGui.QFrame):
 
     def __init__(self):
+        global clienteSocket
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
         self.setupUi(self)
-
+        try:
+            clienteSocket.conectar()
+        except Exception as ex:
+            print ex
+        finally:
+            clienteSocket.desconectar()
     def setupUi(self, VentanaLogin):
         VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
         VentanaLogin.resize(516, 218)
@@ -325,6 +338,9 @@ class VentanaLogin(QtGui.QFrame):
         if (usr == '' or  pass_ == '' or usr is None or pass_ is None):
             dialogo = QtGui.QErrorMessage(self)
             dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
+        else:
+            pass
+
 
 
     def mostrarRegLT(self):

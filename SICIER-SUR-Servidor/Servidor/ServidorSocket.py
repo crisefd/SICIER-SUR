@@ -8,23 +8,24 @@ import imp
 import os
 from thread import *
 path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Almacenamiento/Acceso/Fachada.py')
-#print path
+print path
 fachada = imp.load_source("Fachada", path)
 
 HOST = socket.gethostbyname(socket.gethostname())   # Se designa la IP del server
-PORT = 5315 # Se designa el puerto
+PORT = 5317 # Se designa el puerto
 
 class ServidorSocket():
 	
 	
 	def __init__(self):		
-		#self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self._fachada = fachada.Fachada()
 		#print 'Socket created'
 				
 	def escuchar(self):	
 		try:
 			self.socket.bind((HOST, PORT))
+			print "Listen at host {0} with port {1}".format(HOST, PORT)
 		except socket.error as msg:
 			print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
 			sys.exit()
@@ -51,11 +52,14 @@ class ServidorSocket():
 		#ciclo infinito
 		while True:
 			#Datos que envia el cliente
-			datos = pickle.loads(conn.recv(8192))
-			respuesta = self.responder(datos)
+			d = conn.recv(8192)
+			print d
+			"""if d != '':
+				datos = pickle.loads()
+				respuesta = self.responder(datos)
 			if not datos: 
-				break
-			conn.send(repuesta)
+				break 
+			conn.send(repuesta)"""
 		 
 		
 		conn.close()
@@ -73,4 +77,6 @@ class ServidorSocket():
 
 
 
-Servidor()
+#if __name__  == "__main__":
+s = ServidorSocket()
+s.escuchar()
