@@ -3,6 +3,7 @@
 
 import socket
 import sys
+import pickle
 import imp
 import os
 from thread import *
@@ -13,7 +14,7 @@ fachada = imp.load_source("Fachada", path)
 HOST = socket.gethostbyname(socket.gethostname())   # Se designa la IP del server
 PORT = 5315 # Se designa el puerto
 
-class Servidor():
+class ServidorSocket():
 	
 	
 	def __init__(self):		
@@ -34,7 +35,7 @@ class Servidor():
 		self.socket.listen(2)
 		print 'Socket now listening'
 		#Seguir escuchando al cliente
-		while 1:
+		while True:
 			
 			conn, addr = self.socket.accept()
 			print 'Connected with ' + addr[0] + ':' + str(addr[1])
@@ -47,20 +48,25 @@ class Servidor():
 	def clientthread(self, conn):
 		#Enviar Mensaje al cliente
 		conn.send('Welcome to the server. Type the function and parameters\n') #solo toma strings
-		 
 		#ciclo infinito
 		while True:
-			 
 			#Datos que envia el cliente
-			data = conn.recv(1024)
-			reply = 'OK...' + data
-			if not data: 
+			datos = pickle.loads(conn.recv(8192))
+			respuesta = self.responder(datos)
+			if not datos: 
 				break
-		 
-			conn.sendall(reply)
+			conn.send(repuesta)
 		 
 		
 		conn.close()
+
+	def responder(self, datos):
+		funcion = datos['funcion']
+		parametros = datos['paramentros']
+		if funcion == 'consultarAdmPassUsr':
+			usr = parametros['usr']
+			pass_ = parametros['pass']
+			return self._fachada.controlAdm.consultarAdmPassUsr(usr, pass_)
 
 	
 

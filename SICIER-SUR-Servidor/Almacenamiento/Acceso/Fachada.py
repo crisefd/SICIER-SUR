@@ -16,7 +16,7 @@ class Fachada():
 		self.controlCurso = controladores.ControladorCurso()
 		self.controlMatricula = controladores.ControladorMatricula()
 
-f = Fachada()
+#f = Fachada()
 """
 f.controlAdm.insertarAdm(city="New York", email="mary.jane@example.com", 
 						first_name="Mary", last_name="Jane", tel_num="444555", 

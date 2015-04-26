@@ -115,6 +115,7 @@ class ControladorAdm(Controlador):
 	def consultarAdmPassUsr(self, usr, pass_):
 		global bd
 		self._conectarBD()
+		adm = None
 		try:
 			adm = Adm.get(Adm.email == usr, 
 				         Adm.pass_== pass_, Adm.is_active == True)
