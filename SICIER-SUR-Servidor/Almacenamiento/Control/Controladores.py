@@ -6,7 +6,7 @@ try:
 	path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos.py')
 	modelos = imp.load_source("Modelos", path)
 except IOError as err:
-	path = os.path.abspath(os.path.dirname(__file__) ' + '.././Entidades/Modelos.py')
+	path = os.path.abspath(os.path.dirname(__file__)  + '.././Entidades/Modelos.py')
 	modelos = imp.load_source("Modelos", path)
 
 bd = modelos.database
