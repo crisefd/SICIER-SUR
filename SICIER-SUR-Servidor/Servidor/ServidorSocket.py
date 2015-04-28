@@ -29,44 +29,50 @@ class ServidorSocket():
 		except socket.error as msg:
 			print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
 			sys.exit()
-			 
+
 		print 'Socket bind complete'
 		
 		#Inicia la escucha del server
-		self.socket.listen(2)
+		self.socket.listen(5)
 		print 'Socket now listening'
 		#Seguir escuchando al cliente
 		while True:
 			
 			conn, addr = self.socket.accept()
 			print 'Connected with ' + addr[0] + ':' + str(addr[1])
-			 
-			#Inicia un nuevo hilo con primer argumento la funcion que se va a ejecutar, y de segundo la lista de argumentos de la funcion.
+
+			#Inicia un nuevo hilo con primer argumento la funcion
+			#que se va a ejecutar, y de segundo la lista de argumentos de la funcion.
 			start_new_thread(self.clientthread ,(conn,))
-		 
+
 		self.socket.close()
 
 	def clientthread(self, conn):
 		#Enviar Mensaje al cliente
-		conn.send('Welcome to the server. Type the function and parameters\n') #solo toma strings
+		print "Enviando saludo al cliente nuevo..."
+		conn.sendall('Welcome to the server. Type the function and parameters\n') #solo toma strings
 		#ciclo infinito
+		i = 0
 		while True:
 			#Datos que envia el cliente
-			d = conn.recv(8192)
+			d = conn.recv(81920)
 			print d
-			"""if d != '':
-				datos = pickle.loads()
-				respuesta = self.responder(datos)
-			if not datos: 
-				break 
-			conn.send(repuesta)"""
-		 
-		
+			#datos = pickle.loads(d)
+			if d == 'EXIT':
+				break
+
+			elif d != '':
+				datos = pickle.loads(d)
+				print 'datos recibidos ', datos
+				#respuesta = responder(datos)
+				conn.sendall("Consulta realizada")
+
+
 		conn.close()
 
 	def responder(self, datos):
 		funcion = datos['funcion']
-		parametros = datos['paramentros']
+		parametros = datos['parametros']
 		if funcion == 'consultarAdmPassUsr':
 			usr = parametros['usr']
 			pass_ = parametros['pass']

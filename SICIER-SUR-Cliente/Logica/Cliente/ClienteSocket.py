@@ -40,10 +40,10 @@ class ClienteSocket():
 		except socket.error as ex:
 			print 'Close socket failed'
 
-	def enviarMensaje(self, **datos):
+	def enviarMensaje(self, datos):
 		try:
 			datos_serializados = pickle.dumps(datos)
-			self._socket.send(datos_serializados)
+			self._socket.sendall(datos_serializados)
 		except socket.error as ex1:
 			print 'Send failed', ex1
 		except Exception as ex2:
@@ -51,8 +51,11 @@ class ClienteSocket():
 
 	def recibirRespuesta(self):
 		datos = None
+		print "Recibiendo respuesta"
 		try:
-			datos = pickle.loads(self_socket.recv(8192))
+			#datos = pickle.loads(self_socket.recv(81920))
+			datos = self._socket.recv(81920)
+			print datos
 		except socket.error as ex:
 			print "Recieve failed"
 		return datos

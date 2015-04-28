@@ -279,9 +279,11 @@ class VentanaLogin(QtGui.QFrame):
         try:
             clienteSocket.conectar()
         except Exception as ex:
-            print ex
-        finally:
             clienteSocket.desconectar()
+            print "Error de conexion", ex
+        #finally:
+        #    clienteSocket.desconectar()
+
     def setupUi(self, VentanaLogin):
         VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
         VentanaLogin.resize(516, 218)
@@ -333,13 +335,20 @@ class VentanaLogin(QtGui.QFrame):
         QtCore.QMetaObject.connectSlotsByName(VentanaLogin)
 
     def ingresarAlSistema(self):
+        global clienteSocket
         usr = self.campo_usuario.text()
         pass_ = self.campo_pass.text()
         if (usr == '' or  pass_ == '' or usr is None or pass_ is None):
             dialogo = QtGui.QErrorMessage(self)
             dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
         else:
-            pass
+            print "Enviando funcion y parametros"
+            datos = {'funcion':'consultarAdmPassUsr', 
+                     'parametros': {'usr': usr, 'pass': pass_}}
+            clienteSocket.enviarMensaje(datos)
+            res = clienteSocket.recibirRespuesta()
+            print res
+            
 
 
 
