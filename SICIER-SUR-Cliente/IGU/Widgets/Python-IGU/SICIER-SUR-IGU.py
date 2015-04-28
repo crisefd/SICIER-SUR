@@ -354,7 +354,8 @@ class VentanaLogin(QtGui.QFrame):
                      'parametros': {'usr': usr, 'pass': pass_}}
             clienteSocket.enviarMensaje(datos)
             res = clienteSocket.recibirRespuesta()
-            print res
+            for r in res:
+                print r
             
 
 

@@ -54,10 +54,10 @@ class ServidorSocket():
 
 	def clientthread(self, conn):
 		#Enviar Mensaje al cliente
-		print "Enviando saludo al cliente nuevo..."
-		conn.sendall('Welcome to the server. Type the function and parameters\n') #solo toma strings
+		#print "Enviando saludo al cliente nuevo..."
+		#conn.sendall('Welcome to the server. Type the function and parameters\n') #solo toma strings
 		#ciclo infinito
-		i = 0
+		#i = 0
 		while True:
 			#Datos que envia el cliente
 			d = conn.recv(81920)
@@ -68,9 +68,9 @@ class ServidorSocket():
 
 			elif d != '':
 				datos = pickle.loads(d)
-				print 'datos recibidos ', datos
-				#respuesta = responder(datos)
-				conn.sendall("Consulta realizada")
+				#print 'datos recibidos ', datos
+				respuesta = pickle.dumps(self.responder(datos))
+				conn.sendall(respuesta)
 
 
 		conn.close()

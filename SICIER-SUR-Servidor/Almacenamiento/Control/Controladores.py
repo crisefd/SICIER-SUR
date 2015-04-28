@@ -118,9 +118,9 @@ class ControladorAdm(Controlador):
 	def consultarAdmPassUsr(self, usr, pass_):
 		global bd
 		self._conectarBD()
-		adm = None
+		sq = None
 		try:
-			adm = Adm.get(Adm.email == usr, 
+			sq = Adm.select().where(Adm.email == usr, 
 				         Adm.pass_== pass_, Adm.is_active == True)
 		except Exception as ex1:
 			print ex1
@@ -129,8 +129,8 @@ class ControladorAdm(Controlador):
 				self._desconectarBD()
 			except Exception as ex2:
 				print ex2
-
-		return adm
+		
+		return sq.iterator()
 
 	def consultarAdmNombreCompleto(self, nombre, apellido):
 		global bd
@@ -503,9 +503,10 @@ class ControladorMatricula(Controlador):
 		return sq
 
 
+"""
+c = ControladorAdm()
+sql = c.consultarAdmPassUsr('mary.jane@example.com', 'spidy')
+print sql.iterator()
 
-
-	
-
-
+"""
 		

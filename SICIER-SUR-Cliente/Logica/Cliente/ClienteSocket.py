@@ -3,6 +3,7 @@ import pickle
 import sys  
 import struct
 import time
+from peewee import SelectQuery
 
 #main function
 """if __name__ == "__main__":
@@ -47,17 +48,20 @@ class ClienteSocket():
 		except socket.error as ex1:
 			print 'Send failed', ex1
 		except Exception as ex2:
-			print 'Serialize failed', ex2
+			print 'Serialization failed', ex2
 
 	def recibirRespuesta(self):
 		datos = None
 		print "Recibiendo respuesta"
 		try:
-			#datos = pickle.loads(self_socket.recv(81920))
-			datos = self._socket.recv(81920)
-			print datos
-		except socket.error as ex:
-			print "Recieve failed"
+			datos = pickle.loads(self._socket.recv(81920))
+			#datos = self._socket.recv(81920)
+			#print datos
+		except socket.error as ex1:
+			print "Recieve failed ", ex1
+		except Exception as ex2:
+			print "Answer deserialization failed ", ex2
+			return "" 
 		return datos
 
 
