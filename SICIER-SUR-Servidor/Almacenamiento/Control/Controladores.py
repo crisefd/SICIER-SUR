@@ -2,9 +2,12 @@ import sys
 import imp
 import os
 
-
-path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos.py')
-modelos = imp.load_source("Modelos", path)
+try:
+	path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Entidades/Modelos.py')
+	modelos = imp.load_source("Modelos", path)
+except IOError as err:
+	path = os.path.abspath(os.path.dirname(__file__) ' + '.././Entidades/Modelos.py')
+	modelos = imp.load_source("Modelos", path)
 
 bd = modelos.database
 

@@ -10,12 +10,18 @@
 import sys
 import imp
 import os
-ss = os.path.dirname(__file__) + '/' + '../..'
-path = os.path.abspath(ss + '/..' + '/Logica/Cliente/ClienteSocket.py') 
-print path
-clientesocket = imp.load_source("ClienteSocket", path)
-clienteSocket = clientesocket.ClienteSocket()
 
+try:
+	ss = os.path.dirname(__file__) + '/' + '../..'
+	path = os.path.abspath(ss + '/..' + '/Logica/Cliente/ClienteSocket.py') 
+	print path
+	clientesocket = imp.load_source("ClienteSocket", path)
+except IOError as err:
+	ss = os.path.dirname(__file__)  + '../..'
+	path = os.path.abspath(ss + '/..' + '/Logica/Cliente/ClienteSocket.py') 
+	print path
+	clienteSocket = clientesocket.ClienteSocket()
+"""
 from PyQt4 import QtCore, QtGui
 
 try:
@@ -377,4 +383,4 @@ if __name__  == "__main__":
     app = QtGui.QApplication(sys.argv)
     w = VentanaLogin()
     w.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())"""

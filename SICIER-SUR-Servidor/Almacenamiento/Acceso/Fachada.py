@@ -2,8 +2,12 @@ import imp
 import os
 import sys
 
-path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Control/Controladores.py')
-controladores = imp.load_source("Controladores", path)
+try:
+	path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Control/Controladores.py')
+	controladores = imp.load_source("Controladores", path)
+except IOError as err:
+	path = os.path.abspath(os.path.dirname(__file__) + '.././Control/Controladores.py')
+	controladores = imp.load_source("Controladores", path)
 
 
 

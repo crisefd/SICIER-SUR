@@ -7,9 +7,14 @@ import pickle
 import imp
 import os
 from thread import *
-path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Almacenamiento/Acceso/Fachada.py')
-print path
-fachada = imp.load_source("Fachada", path)
+try:
+	path = os.path.abspath(os.path.dirname(__file__) + '/' + '.././Almacenamiento/Acceso/Fachada.py')
+	#print path
+	fachada = imp.load_source("Fachada", path)
+except IOError as err:
+	path = os.path.abspath(os.path.dirname(__file__)  + '.././Almacenamiento/Acceso/Fachada.py')
+	#print path
+	fachada = imp.load_source("Fachada", path)
 
 HOST = socket.gethostbyname(socket.gethostname())   # Se designa la IP del server
 PORT = 5317 # Se designa el puerto
@@ -86,3 +91,4 @@ class ServidorSocket():
 #if __name__  == "__main__":
 s = ServidorSocket()
 s.escuchar()
+
