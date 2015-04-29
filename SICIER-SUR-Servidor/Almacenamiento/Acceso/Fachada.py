@@ -7,6 +7,7 @@ try:
 	controladores = imp.load_source("Controladores", path)
 except IOError as err:
 	path = os.path.abspath(os.path.dirname(__file__) + '.././Control/Controladores.py')
+	print ">> ", path
 	controladores = imp.load_source("Controladores", path)
 
 

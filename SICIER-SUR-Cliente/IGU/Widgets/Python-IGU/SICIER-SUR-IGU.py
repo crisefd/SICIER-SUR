@@ -11,6 +11,7 @@ import sys
 import imp
 import os
 clientesocket = None
+
 try:
 	ss = os.path.dirname(__file__) + '/' + '../..'
 	path = os.path.abspath(ss + '/..' + '/Logica/Cliente/ClienteSocket.py') 
@@ -279,15 +280,15 @@ class VentanaRegistroLT(QtGui.QFrame):
 class VentanaLogin(QtGui.QFrame):
 
     def __init__(self):
-        global clienteSocket
+       # global clienteSocket
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
         self.setupUi(self)
-        try:
-            clienteSocket.conectar()
-        except Exception as ex:
-            clienteSocket.desconectar()
-            print "Error de conexion", ex
+        #try:
+          #  clienteSocket.conectar()
+      #  except Exception as ex:
+       #     clienteSocket.desconectar()
+       #     print "Error de conexion", ex
         #finally:
         #    clienteSocket.desconectar()
 
