@@ -70,7 +70,7 @@ class ServidorSocket():
 				datos = pickle.loads(d)
 				#print 'datos recibidos ', datos
 				respuesta = pickle.dumps(self.responder(datos))
-				conn.sendall(respuesta)
+				conn.send(respuesta)
 
 
 		conn.close()

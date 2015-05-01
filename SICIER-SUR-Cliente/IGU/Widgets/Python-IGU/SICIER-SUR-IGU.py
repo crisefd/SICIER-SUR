@@ -284,13 +284,13 @@ class VentanaLogin(QtGui.QFrame):
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
         self.setupUi(self)
-        #try:
-          #  clienteSocket.conectar()
-      #  except Exception as ex:
-       #     clienteSocket.desconectar()
-       #     print "Error de conexion", ex
-        #finally:
-        #    clienteSocket.desconectar()
+        try:
+            clienteSocket.conectar()
+        except Exception as ex:
+            clienteSocket.desconectar()
+            dialogo = QtGui.QErrorMessage(self)
+            dialogo.showMessage(_fromUtf8("Servidor no responde"))
+            
 
     def setupUi(self, VentanaLogin):
         VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
@@ -350,13 +350,23 @@ class VentanaLogin(QtGui.QFrame):
             dialogo = QtGui.QErrorMessage(self)
             dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
         else:
-            print "Enviando funcion y parametros"
-            datos = {'funcion':'consultarAdmPassUsr', 
-                     'parametros': {'usr': usr, 'pass': pass_}}
-            clienteSocket.enviarMensaje(datos)
-            res = clienteSocket.recibirRespuesta()
-            for r in res:
-                print r
+            ct = self.comboBox.currentText()
+            if ct == "Administrator":
+                datos = {'funcion':'consultarAdmPassUsr', 
+                         'parametros': {'usr': usr, 'pass': pass_}}
+                clienteSocket.enviarMensaje(datos)
+                res = clienteSocket.recibirRespuesta()
+                msgBox = QtGui.QMessageBox;
+                print "Respuesta ", res[2]
+                if res[2] == '1':
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                    #msgBox.setText(_fromUtf8("Bienvenido " + usr));
+                    #msgBox.exec_()
+                else:
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su contraseña e intente nuevamente"), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                    msgBox.exec_()
+
+
             
 
 
