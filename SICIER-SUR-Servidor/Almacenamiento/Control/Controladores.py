@@ -304,34 +304,46 @@ class ControladorLT(Controlador):
 
 	def insertarLT(self, **datos):
 		self._conectarBD()
-		with db.atomic():
-			try:
+		res = 'ok'
+		try:
+			lt = None
+			with db.atomic():
 				lt = LT.create(**datos)
-				lt.save() # Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+			n = lt.save()
+			if n <= 0:
+				res = 'error'
+		except Exception as ex1:
+			res = 'error'
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		return res
 
 	def insertarHistAcademicoLT(self, id_LT, historial):
 		self._conectarBD()
-		with db.atomic():
-			try:
-				for item in historial:
+		res = 'ok'
+		try:
+			for item in historial:
+				h = None
+				with db.atomic():
 					h = LT_HA.create(id=id_LT, item=item)
-					h.save() #Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				n = h.save()
+				if n <= 0:
+					res = 'error'
+					break
+		except Exception as ex1:
+			res = 'error'
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 
-	def insertarExpLaboralLT(self, id_LT, experiencia):
+	def insertarExperienciaLaboralLT(self, id_LT, experiencia):
 		self._conectarBD()
 		with db.atomic():
 			try:

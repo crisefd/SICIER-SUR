@@ -239,6 +239,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(VentanaRegistroLT)
         QtCore.QObject.connect(self.botonSalir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroLT.close)
+        QtCore.QObject.connect(self.botonEnviar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroLT.registrarLT)
 
     def retranslateUi(self, VentanaRegistroLT):
         VentanaRegistroLT.setWindowTitle(_translate("VentanaRegistroLT", "Frame", None))
@@ -275,6 +276,29 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaSubTit2.setText(_translate("VentanaRegistroLT", "(*) Obligatorio", None))
         self.botonEnviar.setText(_translate("VentanaRegistroLT", "Enviar", None))
         self.botonSalir.setText(_translate("VentanaRegistroLT", "Salir", None))
+
+    def registrarLT(self):
+        global clienteSocket
+        d = self.recuperarDatos()
+        reintentar = False
+        if d != 'error':
+            datos = {'funcion':'insertarLT', 'parametros': d}
+            m = clienteSocket.enviarMensaje(datos)
+            res = None
+            if m != 'error':
+                res = clienteSocket.recibirRespuesta()
+                if res == 'ok':
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Registro exitoso"),_fromUtf8("Su suscripción ha sido enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                    self.close()
+                else:
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Su suscripción no pudo ser enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            else:
+                print "Error al enviar el mensaje"
+                sys.exit()
+
+
+
+
 
     def recuperarDatos(self):
         nombres = self.campoNombre.text()

@@ -82,6 +82,25 @@ class ServidorSocket():
 			usr = parametros['usr']
 			pass_ = parametros['pass']
 			return self._fachada.controlAdm.consultarAdmPassUsr(usr, pass_)
+		elif funcion == "consultarCoorPassUsr":
+			print "Falta implementar"
+		elif funcion == "cosultarLTPassUsr":
+			print "Falta implementar"
+		elif funcion == "consultarMTPassUsr":
+			print "Falta implementar"
+		elif funcion == "insertarLT":
+			id_LT = parametros['id']
+			histAcad = parametros['academic_background']
+			expLaboral = parametros['labor_experience']
+			del parametros['academic_background']
+			del parametros['labor_experience']
+			r1 = self._fachada.controlLT.insertarLT(parametros)
+			r2 = '', r3 = ''
+			if r1 == 'ok':
+				r2 = self._fachada.controlLT.insertarHistorialAcademicoLT(id_LT, histAcad)
+				r3 = self._fachada.controlLT.insertarExperienciaLaboralLT(id_LT, expLaboral)
+			if r2 == 'ok' and r3 == 'ok':
+				return 'ok'
 
 	
 
