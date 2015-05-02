@@ -280,7 +280,7 @@ class VentanaRegistroLT(QtGui.QFrame):
 class VentanaLogin(QtGui.QFrame):
 
     def __init__(self):
-       # global clienteSocket
+        global clienteSocket
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
         self.setupUi(self)
@@ -288,8 +288,7 @@ class VentanaLogin(QtGui.QFrame):
             clienteSocket.conectar()
         except Exception as ex:
             clienteSocket.desconectar()
-            dialogo = QtGui.QErrorMessage(self)
-            dialogo.showMessage(_fromUtf8("Servidor no responde"))
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("No hay conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             
 
     def setupUi(self, VentanaLogin):
@@ -344,27 +343,43 @@ class VentanaLogin(QtGui.QFrame):
 
     def ingresarAlSistema(self):
         global clienteSocket
-        usr = self.campo_usuario.text()
-        pass_ = self.campo_pass.text()
-        if (usr == '' or  pass_ == '' or usr is None or pass_ is None):
-            dialogo = QtGui.QErrorMessage(self)
-            dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
+        if clienteSocket.hayConexion:
+            usr = self.campo_usuario.text()
+            pass_ = self.campo_pass.text()
+            if (usr == '' or  pass_ == '' or usr is None or pass_ is None):
+                msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error"),_fromUtf8("Los campos no pueden estar vacios"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                #dialogo = QtGui.QErrorMessage(self)
+                #dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
+            else:
+                ct = self.comboBox.currentText()
+                if ct == "Administrator":
+                    datos = {'funcion':'consultarAdmPassUsr', 
+                             'parametros': {'usr': usr, 'pass': pass_}}
+                    m = clienteSocket.enviarMensaje(datos)
+                    if m == 'ok':
+                        res = clienteSocket.recibirRespuesta()
+                        msgBox = QtGui.QMessageBox;
+                        print "Respuesta ", res[2]
+                        if res[2] == '1':
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                            #msgBox.setText(_fromUtf8("Bienvenido " + usr));
+                            #msgBox.exec_()
+                        else:
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                            #msgBox.exec_()
+                    elif m == 'error':
+                        msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                elif ct == "Coordinator":
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                    pass
+                elif ct == "Master Teacher":
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                    pass
+                elif ct == "Leader Teacher":
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                    pass
         else:
-            ct = self.comboBox.currentText()
-            if ct == "Administrator":
-                datos = {'funcion':'consultarAdmPassUsr', 
-                         'parametros': {'usr': usr, 'pass': pass_}}
-                clienteSocket.enviarMensaje(datos)
-                res = clienteSocket.recibirRespuesta()
-                msgBox = QtGui.QMessageBox;
-                print "Respuesta ", res[2]
-                if res[2] == '1':
-                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
-                    #msgBox.setText(_fromUtf8("Bienvenido " + usr));
-                    #msgBox.exec_()
-                else:
-                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su contraseña e intente nuevamente"), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
-                    msgBox.exec_()
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("No hay conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
 
             
