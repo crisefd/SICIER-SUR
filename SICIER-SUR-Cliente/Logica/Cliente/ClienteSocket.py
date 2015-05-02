@@ -65,7 +65,7 @@ class ClienteSocket():
 		print "Recibiendo respuesta"
 		try:
 			d = self._socket.recv(81920)
-			print "Tipo Respuesta d ", type(d)
+			#print "Tipo Respuesta d ", type(d)
 			if type(d) != type('a'):
 				print "Serializando"
 				datos = pickle.loads()

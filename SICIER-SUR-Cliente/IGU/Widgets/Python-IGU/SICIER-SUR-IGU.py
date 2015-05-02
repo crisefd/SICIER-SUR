@@ -98,9 +98,6 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaSexo = QtGui.QLabel(self.tab)
         self.etiquetaSexo.setGeometry(QtCore.QRect(20, 270, 71, 16))
         self.etiquetaSexo.setObjectName(_fromUtf8("etiquetaSexo"))
-        self.campoSexo = QtGui.QLineEdit(self.tab)
-        self.campoSexo.setGeometry(QtCore.QRect(20, 300, 311, 23))
-        self.campoSexo.setObjectName(_fromUtf8("campoSexo"))
         self.etiquetaFecha = QtGui.QLabel(self.tab)
         self.etiquetaFecha.setGeometry(QtCore.QRect(380, 270, 131, 16))
         self.etiquetaFecha.setObjectName(_fromUtf8("etiquetaFecha"))
@@ -122,6 +119,12 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.comboEstadosCiviles.addItem(_fromUtf8(""))
         self.comboEstadosCiviles.addItem(_fromUtf8(""))
         self.comboEstadosCiviles.addItem(_fromUtf8(""))
+        self.comboSexo = QtGui.QComboBox(self.tab)
+        self.comboSexo.setGeometry(QtCore.QRect(20, 300, 311, 23))
+        self.comboSexo.setObjectName(_fromUtf8("comboSexo"))
+        self.comboSexo.setModelColumn(0)
+        self.comboSexo.addItem(_fromUtf8(""))
+        self.comboSexo.addItem(_fromUtf8(""))
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -235,8 +238,9 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.botonSalir.setGeometry(QtCore.QRect(410, 570, 91, 24))
         self.botonSalir.setObjectName(_fromUtf8("botonSalir"))
 
+        #print "en setupUi", type(self.comboSexo)
         self.retranslateUi(VentanaRegistroLT)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(VentanaRegistroLT)
         QtCore.QObject.connect(self.botonSalir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroLT.close)
         QtCore.QObject.connect(self.botonEnviar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroLT.registrarLT)
@@ -256,6 +260,8 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.comboEstadosCiviles.setItemText(1, _translate("VentanaRegistroLT", "Casado", None))
         self.comboEstadosCiviles.setItemText(2, _translate("VentanaRegistroLT", "Viudo", None))
         self.comboEstadosCiviles.setItemText(3, _translate("VentanaRegistroLT", "Union Libre", None))
+        self.comboSexo.setItemText(0, _translate("VentanaRegistroLT", "Masculino", None))
+        self.comboSexo.setItemText(1, _translate("VentanaRegistroLT", "Femenino", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaRegistroLT", "Información Personal", None))
         self.etiquetaSede.setText(_translate("VentanaRegistroLT", "Sede a la que pertenece *", None))
         self.etiquetaInstitucion.setText(_translate("VentanaRegistroLT", "Institución a la que pertenece *", None))
@@ -276,14 +282,98 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaSubTit2.setText(_translate("VentanaRegistroLT", "(*) Obligatorio", None))
         self.botonEnviar.setText(_translate("VentanaRegistroLT", "Enviar", None))
         self.botonSalir.setText(_translate("VentanaRegistroLT", "Salir", None))
+        #print "en retranslateUi ", type(self.comboSexo)
+
+    def recuperarDatos(self):
+        index = self.comboSexo.currentIndex()
+        sex = ''
+        if index == 0:
+            sex = 'M'
+        else:
+            sex = 'F'
+        #sexo = self.comboSexo().currentText()
+        nombres = str(self.campoNombre.text())
+        if nombres == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Nombres es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        apellidos = str(self.campoApellidos.text())
+        if apellidos == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Apellidos es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        id_ = str(self.campoID.text())
+        if id_ == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Identificación es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        correo = str(self.campoCorreo.text())
+        if correo == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo correo es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        tel = str(self.campoTel.text())
+        if tel == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo telefono es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        direccion = str(self.campoDir.text())
+        if direccion == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo direccion es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        fechaNacimiento = str(self.dateEdit.date().toString("yyyy.MM.dd"))
+        print fechaNacimiento
+        estadoCivil = str(self.comboEstadosCiviles.currentText())
+        institucion = str(self.campoInstitucion.text())
+        if institucion == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo institución es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        grado = str(self.campoGrado.text())
+        if grado == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo grado es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        sede = str(self.campoSede.text())
+        municipio = str(self.campoMunicipio.text())
+        if municipio == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo municipio es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        secretaria = str(self.campoSecEdu.text())
+        if secretaria == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Secretaría es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        area = ''
+        if self.radbtnMatematicas.isChecked():
+            area = 'Matemáticas'
+        elif self.radbtnLenguaje.isChecked():
+            area = 'Lenguaje'
+        elif self.radbtnCiencias.isChecked():
+            area = 'Ciencias'
+        else:
+            area = str(self.campoOtro.text())
+        historialAcademico = ''
+        experienciaLaboral = ''
+        try:
+            txt1 = str(self.textEdit.toPlainText())
+            txt1 = txt1.replace("\n", "")
+            historialAcademico = txt1.split(",")
+            txt2 = str(self.areaExp.toPlainText())
+            text2 = txt2.replace("\n", "")
+            experienciaLaboral = txt2.split(",")
+        except Exception as ex:
+            print ex
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("La experiencia laboral y \n el historial academico deben tener todos sus items separados por comas"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+        pass_ = nombres[0] + id_ + apellidos[0]
+
+        dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': False,
+                    'address': direccion, 'sex': sex, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
+                    'institution': institucion, 'grade': grado, 'city':municipio, 'area':area, 'secretariat':secretaria,
+                    'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
+        return dictDatos
 
     def registrarLT(self):
         global clienteSocket
-        d = self.recuperarDatos()
-        """
+        #print "En registrarLT", type(self.comboSexo)
+        datos = self.recuperarDatos()
+        
         reintentar = False
-        if d != 'error':
-            datos = {'funcion':'insertarLT', 'parametros': d}
+        if datos != 'error':
+            datos = {'funcion':'insertarLT', 'parametros': datos}
             m = clienteSocket.enviarMensaje(datos)
             res = None
             if m != 'error':
@@ -295,82 +385,10 @@ class VentanaRegistroLT(QtGui.QFrame):
                     msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Su suscripción no pudo ser enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             else:
                 print "Error al enviar el mensaje"
-                sys.exit()"""
+                sys.exit()
 
 
-
-
-
-    def recuperarDatos(self):
-        nombres = self.campoNombre.text()
-        if nombres == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Nombres es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        apellidos = self.campoApellidos.text()
-        if apellidos == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Apellidos es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        id_ = self.campoID.text()
-        if id_ == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Identificación es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        correo = self.campoCorreo.text()
-        if correo == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo correo es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        tel = self.campoTel.text()
-        if tel == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo telefono es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        direccion = self.campoDir.text()
-        if direccion == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo direccion es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        sexo = self.campoSexo.text()
-        if sexo == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo sexo es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-        fechaNacimiento = self.dateEdit.date().toString()
-        estadoCivil = self.comboEstadosCiviles.currentText()
-        institucion = self.campoInstitucion.text()
-        if institucion == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo institución es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            return 'error'
-        grado = self.campoGrado.text()
-        if grado == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo grado es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-        sede = self.campoSede.text()
-        municipio = self.campoMunicipio.text()
-        if municipio == '':
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo municipio es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-        area = ''
-        if self.radbtnMatematicas.isChecked():
-            area = 'Matemáticas'
-        elif self.radbtnLenguaje.isChecked():
-            area = 'Lenguaje'
-        elif self.radbtnCiencias.isChecked():
-            area = 'Ciencias'
-        else:
-            area = self.campoOtro.text()
-        historialAcademico = ''
-        experienciaLaboral = ''
-        try:
-            txt1 = self.textEdit.toPlainText()
-            txt1 = txt1.replace("\n", "")
-            historialAcademico = txt1.split(",")
-            txt2 = self.areaExp.toPlainText()
-            text2 = txt2.replace("\n", "")
-            experienciaLaboral = txt2.split(",")
-        except Exception as ex:
-            print ex
-            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("La experiencia laboral y \n el historial academico deben tener todos sus items separados por comas"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-
-        pass_ = nombres[0] + id_ + apellidos[0]
-
-        dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo,
-                    'address': direccion, 'sex': sexo, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
-                    'institution': institucion, 'grade': grado, 'city':municipio, 'area':area,
-                    'academic_background': historialAcademico, 'labor_experience': experienciaLaboral}
-        return dictDatos
+    
 
 
 class VentanaLogin(QtGui.QFrame):

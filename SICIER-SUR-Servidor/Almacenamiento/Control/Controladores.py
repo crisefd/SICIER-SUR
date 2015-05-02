@@ -34,7 +34,7 @@ class Controlador():
 		global bd
 		try:
 			bd.connect()
-			print "Conexion a la BD"
+			#print "Conexion a la BD"
 		except Exception as err1:
 			print err1
 
@@ -43,7 +43,7 @@ class Controlador():
 		global bd
 		try:
 			bd.close()
-			print "Desconexion de la BD"
+			#print "Desconexion de la BD"
 		except Exception as err2:
 			print err2
 
@@ -235,7 +235,7 @@ class ControladorMT(Controlador):
 
 	def insertarMT(self, **datos):
 		self._conectarBD()
-		with db.atomic():
+		with bd.atomic():
 			try:
 				mt = MT.create(**datos)
 				mt.save() # Falta validar insercion
@@ -249,7 +249,7 @@ class ControladorMT(Controlador):
 
 	def insertarHistAcademicoMT(self, id_MT, historial):
 		self._conectarBD()
-		with db.atomic():
+		with bd.atomic():
 			try:
 				for item in historial:
 					h = MT_HA.create(id=id_MT, item=item)
@@ -264,7 +264,7 @@ class ControladorMT(Controlador):
 
 	def insertarExpLaboralMT(self, id_MT, experiencia):
 		self._conectarBD()
-		with db.atomic():
+		with bd.atomic():
 			try:
 				for item in experiencia:
 					e = MT_EL.create(id=id_MT, item=item)
@@ -281,7 +281,7 @@ class ControladorMT(Controlador):
 
 		def actualizarMT(self, id_MT, datos):
 			self._conectarBD()
-			with db.atomic():
+			with bd.atomic():
 				try:
 					q = MT.update(**datos).where(MT.id==id_MT)
 					q.execute() # Falta validar actualizacion
@@ -303,15 +303,20 @@ class ControladorMT(Controlador):
 class ControladorLT(Controlador):
 
 	def insertarLT(self, **datos):
+		global bd
 		self._conectarBD()
 		res = 'ok'
 		try:
 			lt = None
-			with db.atomic():
+			with bd.atomic():
 				lt = LT.create(**datos)
-			n = lt.save()
-			if n <= 0:
-				res = 'error'
+				n = lt.save()
+				if n == 0:
+					print "Insercion de LT fallida"
+					res = 'error'
+				else:
+					print "Insercion de LT exitosa"
+					res = 'ok'
 		except Exception as ex1:
 			res = 'error'
 			print ex1
@@ -322,47 +327,68 @@ class ControladorLT(Controlador):
 				print ex2
 		return res
 
-	def insertarHistAcademicoLT(self, id_LT, historial):
+	def insertarHistorialAcademicoLT(self, id_LT, historial):
 		self._conectarBD()
+		global bd
 		res = 'ok'
 		try:
+			print "Insertando hist acad ", historial
 			for item in historial:
-				h = None
-				with db.atomic():
-					h = LT_HA.create(id=id_LT, item=item)
-				n = h.save()
-				if n <= 0:
-					res = 'error'
-					break
+				print "Item hist ", item
+				with bd.atomic():
+					LT_HA.create(id_lt_fk=id_LT, item=item)
+				#n = h.save()
+				#if n == 0:
+				#	print "historial ", item, "No pudo ser insertado"
+				#	res = 'error'
+				#	break
+				#else:
+				#	res = 'ok'
+				#	print "Insercion de item historial academico exitosa"
 		except Exception as ex1:
 			res = 'error'
-			print ex1
+			print "1. ", type(ex1)
 		finally:
 			try:
 				self._desconectarBD()
 			except Exception as ex2:
+				print "2. ", type(ex2)
 				print ex2
+		return res
 
 	def insertarExperienciaLaboralLT(self, id_LT, experiencia):
 		self._conectarBD()
-		with db.atomic():
+		res = 'ok'
+		try:
+			print "Insertado exp lab ", experiencia
+			for item in experiencia:
+				print "item exp: ", item
+				with bd.atomic():
+					LT_EL.create(id_lt_fk=id_LT, item=item)
+				#n = e.save()
+				#if n == 0:
+				#	print "experiencia ", item, "No pudo ser insertada"
+				#	res = 'error'
+				#	break
+				#else:
+				#	res = 'ok'
+				#	print "Insercion de experiencia existosa"
+		except Exception as ex1:
+			print "1", type(ex1)
+			res = 'error'
+		finally:
 			try:
-				for item in experiencia:
-					e = LT_EL.create(id=id_LT, item=item)
-					e.save() #Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				self._desconectarBD()
+			except Exception as ex2:
+				print "2", type(ex2)
+				res = 'error'
+		return res
 
 
 
 		def actualizarLT(self, id_LT, datos):
 			self._conectarBD()
-			with db.atomic():
+			with bd.atomic():
 				try:
 					q = LT.update(**datos).where(MT.id==id_LT)
 					q.execute() # Falta validar actualizacion
@@ -384,7 +410,7 @@ class ControladorCurso(Controlador):
 
 	def insertarCurso(self, **datos):
 		self._conectarBD
-		with db.atomic():
+		with bd.atomic():
 			try:
 				c = Curso.create(**datos)
 				d.save()#Falta validar insercion
@@ -398,7 +424,7 @@ class ControladorCurso(Controlador):
 
 	def insertarCursoActividades(self, id_curso, actividades):
 		self._conectarBD
-		with db.atomic():
+		with bd.atomic():
 			try:
 				for act in actividades:
 					a = CursoAct.create(id_curso, act)
@@ -413,7 +439,7 @@ class ControladorCurso(Controlador):
 
 	def insertarCursoCohortes(self, id_curso, cohortes):
 		self._conectarBD
-		with db.atomic():
+		with bd.atomic():
 			try:
 				for cohorte in cohortes:
 					a = CursoCohorte.create(id_curso, cohorte)
@@ -428,7 +454,7 @@ class ControladorCurso(Controlador):
 
 		def insertarActNota(self, **datos):
 			self._conectarBD
-			with db.atomic():
+			with bd.atomic():
 				try:
 					an = ActNota.create(**datos)
 					an.save() #Falta validar insercion
@@ -442,7 +468,7 @@ class ControladorCurso(Controlador):
 
 		def actualizarActNota(self, id_, datos):
 			self._conectarBD
-			with db.atomic():
+			with bd.atomic():
 				try:
 					an = ActNota.update(**datos).where(ActNota.id == id_)
 					an.execute() 
@@ -463,7 +489,7 @@ class ControladorMatricula(Controlador):
 
 	def insertarMatricula(self, **datos):
 		self._conectarBD
-		with db.atomic():
+		with bd.atomic():
 			try:
 				c = Matricula.create(**datos)
 				d.save()#Falta validar insercion
@@ -477,7 +503,7 @@ class ControladorMatricula(Controlador):
 
 	def actualizarMatricula(self, id_matricula, datos):
 		self._conectarBD
-		with db.atomic():
+		with bd.atomic():
 			try:
 				c = Matricula.update(**datos).where(Matricula.id == id_matricula)
 				c.execute()
@@ -492,7 +518,7 @@ class ControladorMatricula(Controlador):
 	def consultarMatriculaID(self, id_):
 		self._conectarBD
 		sq = 0
-		with db.atomic():
+		with bd.atomic():
 			try:
 				sq = Matricula.get(Matricula.id == id_)
 			except Exception as ex1:
@@ -508,7 +534,7 @@ class ControladorMatricula(Controlador):
 	def consultarMatricula(self):
 		self._conectarBD
 		sq = 0
-		with db.atomic():
+		with bd.atomic():
 			try:
 				sq = Matricula.select()
 			except Exception as ex1:
@@ -522,7 +548,9 @@ class ControladorMatricula(Controlador):
 
 
 
-#c = ControladorAdm()
-#sql = c.consultarAdmPassUsr('mary.jane@example.com', 'spedy')
+#LT_HA.create(id_lt_fk='776', item='h1')
+
+#c = ControladorLT()
+#c.insertarExperienciaLaboralLT('776', ['e1', 'e2'])
 #print sql.next()
 		
