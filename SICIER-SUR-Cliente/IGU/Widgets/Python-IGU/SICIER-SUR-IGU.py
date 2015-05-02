@@ -280,6 +280,7 @@ class VentanaRegistroLT(QtGui.QFrame):
     def registrarLT(self):
         global clienteSocket
         d = self.recuperarDatos()
+        """
         reintentar = False
         if d != 'error':
             datos = {'funcion':'insertarLT', 'parametros': d}
@@ -294,7 +295,7 @@ class VentanaRegistroLT(QtGui.QFrame):
                     msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Su suscripción no pudo ser enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             else:
                 print "Error al enviar el mensaje"
-                sys.exit()
+                sys.exit()"""
 
 
 
@@ -353,13 +354,14 @@ class VentanaRegistroLT(QtGui.QFrame):
         historialAcademico = ''
         experienciaLaboral = ''
         try:
-            txt1 = self.textEdit.text()
+            txt1 = self.textEdit.toPlainText()
             txt1 = txt1.replace("\n", "")
             historialAcademico = txt1.split(",")
-            txt2 = self.areaExp.text()
+            txt2 = self.areaExp.toPlainText()
             text2 = txt2.replace("\n", "")
-            experienciaLaboral = text2.split(",")
+            experienciaLaboral = txt2.split(",")
         except Exception as ex:
+            print ex
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("La experiencia laboral y \n el historial academico deben tener todos sus items separados por comas"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
         pass_ = nombres[0] + id_ + apellidos[0]
