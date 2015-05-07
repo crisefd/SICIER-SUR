@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ventantaOpAdm</class>
- <widget class="QFrame" name="ventantaOpAdm">
+ <class>ventantaOpcionesAdm</class>
+ <widget class="QFrame" name="ventantaOpcionesAdm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -39,7 +39,7 @@
     <string>¿Qué Desea Hacer?</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="botonEditarPerfil">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -52,7 +52,7 @@
     <string>Editar Perfil</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="botonCerrarSesion">
    <property name="geometry">
     <rect>
      <x>410</x>
@@ -65,7 +65,7 @@
     <string>Cerrar sesión</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="botonAdmUsuarios">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -75,10 +75,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Registrar Usuarios</string>
+    <string>Administrar Usuarios</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="botonReportes">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -91,7 +91,7 @@
     <string>Ver Reportes</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="botonAdmCursos">
    <property name="geometry">
     <rect>
      <x>280</x>
