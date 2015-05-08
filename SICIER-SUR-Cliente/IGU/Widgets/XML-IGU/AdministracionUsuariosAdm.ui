@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>586</width>
-    <height>454</height>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,11 +19,11 @@
   <property name="frameShadow">
    <enum>QFrame::Raised</enum>
   </property>
-  <widget class="QPushButton" name="botonAtras">
+  <widget class="QPushButton" name="botonCancelar">
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>380</y>
+     <y>480</y>
      <width>98</width>
      <height>27</height>
     </rect>
@@ -36,81 +36,248 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>30</y>
+     <y>40</y>
      <width>581</width>
-     <height>331</height>
+     <height>431</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
      <string>Crear</string>
     </attribute>
-    <widget class="QLabel" name="label">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>10</x>
        <y>50</y>
-       <width>66</width>
-       <height>17</height>
+       <width>131</width>
+       <height>241</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Nombres:</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="etiquetaApellidos">
+        <property name="text">
+         <string>Apellidos:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaNombres">
+        <property name="text">
+         <string>Nombres:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaDir">
+        <property name="text">
+         <string>Dirección:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaTel">
+        <property name="text">
+         <string>Teléfono:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaCiudad">
+        <property name="text">
+         <string>Ciudad:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Email:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaID_1">
+        <property name="text">
+         <string>ID:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>90</y>
-       <width>66</width>
-       <height>17</height>
+       <x>160</x>
+       <y>50</y>
+       <width>401</width>
+       <height>241</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Apellidos:</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="campoApellidos"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoNombres"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoDir"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoTel"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoCiudad"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoEmail"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoID_1"/>
+      </item>
+     </layout>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QPushButton" name="botonCrear">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>140</y>
-       <width>66</width>
-       <height>17</height>
+       <x>220</x>
+       <y>340</y>
+       <width>100</width>
+       <height>27</height>
       </rect>
      </property>
      <property name="text">
-      <string>Dirección:</string>
+      <string>Crear</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>190</y>
-       <width>66</width>
-       <height>17</height>
+       <x>10</x>
+       <y>320</y>
+       <width>161</width>
+       <height>71</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Teléfono:</string>
+     <property name="title">
+      <string>Tipo Usuario</string>
+     </property>
+     <widget class="QRadioButton" name="comboAdm">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>141</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Administrator</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="campoCoor">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>50</y>
+        <width>115</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Coordinator</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_4">
+    <attribute name="title">
+     <string>Buscar</string>
+    </attribute>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>531</width>
+       <height>201</height>
+      </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_5">
+    <widget class="QComboBox" name="comboAtributos">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>230</y>
-       <width>66</width>
-       <height>17</height>
+       <x>120</x>
+       <y>30</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Nombre</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Apellido</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Correo</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ciudad</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="etiquetaBuscar">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>30</y>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Dirección</string>
+      <string>Buscar por:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoBusqueda">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>30</y>
+       <width>301</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="botonBuscar">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>320</y>
+       <width>100</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buscar</string>
      </property>
     </widget>
    </widget>
@@ -118,11 +285,197 @@
     <attribute name="title">
      <string>Actualizar</string>
     </attribute>
+    <widget class="QLabel" name="etiquetaIDActualizar">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>231</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actualizar datos del usuario con ID</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoIDActualizar">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>40</y>
+       <width>311</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>160</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="etiquetaNombres_2">
+        <property name="text">
+         <string>Nombres</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaApellidos_2">
+        <property name="text">
+         <string>Apellidos</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaTel_2">
+        <property name="text">
+         <string>Teléfono</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaEmail">
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaDir_2">
+        <property name="text">
+         <string>Dirección</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaCiudad_2">
+        <property name="text">
+         <string>Ciudad</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="etiquetaID_2">
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>90</y>
+       <width>341</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLineEdit" name="campoNombres_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoApellidos_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoTel_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoEmail_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoDir_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoCiudad_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="campoID_2"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="botonActualizar">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>350</y>
+       <width>100</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actualizar</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
      <string>Borrar</string>
     </attribute>
+    <widget class="QLineEdit" name="campoBorrado">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>40</y>
+       <width>271</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="botonBorrar">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>130</y>
+       <width>100</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Borrar</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>40</y>
+       <width>76</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Email</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="etiquetaBorrado">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>171</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Borrar al usuario con</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
