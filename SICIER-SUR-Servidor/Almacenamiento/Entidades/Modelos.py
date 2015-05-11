@@ -36,8 +36,10 @@ class Course(BaseModel):
         db_table = 'course'
 
 class CourseActivity(BaseModel):
-    activity = CharField()
+    activity = CharField(unique=True)
+    end_date = DateField()
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
+    start_date = DateField()
 
     class Meta:
         db_table = 'course_activity'
@@ -46,10 +48,11 @@ class CourseActivity(BaseModel):
 class ActivityGrade(BaseModel):
     activity_fk = ForeignKeyField(db_column='activity_fk', rel_model=CourseActivity, related_name='course_activity_activity_fk_set', to_field='activity')
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=CourseActivity, related_name='course_activity_id_course_fk_set', to_field='activity')
+    weight = FloatField()
 
     class Meta:
         db_table = 'activity_grade'
-        primary_key = CompositeKey('activity_fk', 'id_course_fk')
+        primary_key = CompositeKey('activity_fk', 'id_course_fk', 'weight')
 
 class Administrator(BaseModel):
     city = CharField()
@@ -78,7 +81,7 @@ class Coordinator(BaseModel):
         db_table = 'coordinator'
 
 class CourseCohort(BaseModel):
-    cohort = CharField()
+    cohort = CharField(unique=True)
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
 
     class Meta:
@@ -109,6 +112,7 @@ class Leaderteacher(BaseModel):
     area = CharField()
     birth_date = DateField()
     city = CharField()
+    department = CharField()
     email = CharField(unique=True)
     first_name = CharField()
     grade = CharField()
@@ -143,6 +147,15 @@ class LtAcademicBackg(BaseModel):
         db_table = 'lt_academic_backg'
         primary_key = CompositeKey('id_lt_fk', 'item')
 
+class LtCohort(BaseModel):
+    cohort_fk = ForeignKeyField(db_column='cohort_fk', rel_model=CourseCohort, related_name='course_cohort_cohort_fk_set', to_field='cohort')
+    id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=CourseCohort, related_name='course_cohort_id_course_fk_set', to_field='cohort')
+    id_lt_fk = ForeignKeyField(db_column='id_lt_fk', rel_model=Leaderteacher, to_field='id')
+
+    class Meta:
+        db_table = 'lt_cohort'
+        primary_key = CompositeKey('cohort_fk', 'id_course_fk', 'id_lt_fk')
+
 class LtLaborExp(BaseModel):
     id_lt_fk = ForeignKeyField(db_column='id_lt_fk', rel_model=Leaderteacher, to_field='id')
     item = CharField()
@@ -159,6 +172,14 @@ class MtAcademicBackg(BaseModel):
         db_table = 'mt_academic_backg'
         primary_key = CompositeKey('id_mt_fk', 'item')
 
+class MtCourse(BaseModel):
+    id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
+    id_mt_fk = ForeignKeyField(db_column='id_mt_fk', rel_model=Masterteacher, to_field='id')
+
+    class Meta:
+        db_table = 'mt_course'
+        primary_key = CompositeKey('id_course_fk', 'id_mt_fk')
+
 class MtLaborExp(BaseModel):
     id_mt_fk = ForeignKeyField(db_column='id_mt_fk', rel_model=Masterteacher, to_field='id')
     item = CharField()
@@ -166,5 +187,3 @@ class MtLaborExp(BaseModel):
     class Meta:
         db_table = 'mt_labor_exp'
         primary_key = CompositeKey('id_mt_fk', 'item')
-
-

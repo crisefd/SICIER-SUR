@@ -2,13 +2,13 @@
 
 # Form implementation generated from reading ui file 'RegistroLT-IGU.ui'
 #
-# Created: Sun Apr 26 10:18:11 2015
+# Created: Mon May 11 15:24:00 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
+import sys
 
 from PyQt4 import QtCore, QtGui
-import sys
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -25,11 +25,6 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class VentanaRegistroLT(QtGui.QFrame):
-    def __init__(self):
-        super(VentanaRegistroLT, self).__init__()
-        self.setupUi(self)
-
-
     def setupUi(self, VentanaRegistroLT):
         VentanaRegistroLT.setObjectName(_fromUtf8("VentanaRegistroLT"))
         VentanaRegistroLT.resize(727, 611)
@@ -146,7 +141,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.campoGrado.setGeometry(QtCore.QRect(20, 100, 261, 23))
         self.campoGrado.setObjectName(_fromUtf8("campoGrado"))
         self.campoSecEdu = QtGui.QLineEdit(self.tab_2)
-        self.campoSecEdu.setGeometry(QtCore.QRect(320, 150, 281, 23))
+        self.campoSecEdu.setGeometry(QtCore.QRect(320, 150, 291, 23))
         self.campoSecEdu.setObjectName(_fromUtf8("campoSecEdu"))
         self.campoMunicipio = QtGui.QLineEdit(self.tab_2)
         self.campoMunicipio.setGeometry(QtCore.QRect(320, 100, 291, 23))
@@ -178,6 +173,12 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.textEdit = QtGui.QTextEdit(self.tab_2)
         self.textEdit.setGeometry(QtCore.QRect(180, 300, 471, 111))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.etiquetaDep = QtGui.QLabel(self.tab_2)
+        self.etiquetaDep.setGeometry(QtCore.QRect(320, 180, 251, 16))
+        self.etiquetaDep.setObjectName(_fromUtf8("etiquetaDep"))
+        self.campoDep = QtGui.QLineEdit(self.tab_2)
+        self.campoDep.setGeometry(QtCore.QRect(320, 210, 291, 23))
+        self.campoDep.setObjectName(_fromUtf8("campoDep"))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -219,9 +220,8 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.botonSalir.setObjectName(_fromUtf8("botonSalir"))
 
         self.retranslateUi(VentanaRegistroLT)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(VentanaRegistroLT)
-        QtCore.QObject.connect(self.botonSalir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroLT.close)
 
     def retranslateUi(self, VentanaRegistroLT):
         VentanaRegistroLT.setWindowTitle(_translate("VentanaRegistroLT", "Frame", None))
@@ -250,6 +250,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.radbtnCiencias.setText(_translate("VentanaRegistroLT", "Ciencias Naturales y Ed. Ambiental    ", None))
         self.radbtnLenguaje.setText(_translate("VentanaRegistroLT", "Lenguaje", None))
         self.label.setText(_translate("VentanaRegistroLT", "Historial Académico", None))
+        self.etiquetaDep.setText(_translate("VentanaRegistroLT", "Departamento *", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroLT", "Información Profesional", None))
         self.etiquetaExp.setText(_translate("VentanaRegistroLT", "Experiencia Laboral:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroLT", "Adicional", None))
@@ -259,6 +260,9 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.botonEnviar.setText(_translate("VentanaRegistroLT", "Enviar", None))
         self.botonSalir.setText(_translate("VentanaRegistroLT", "Salir", None))
 
+    def __init__(self):
+		super(VentanaRegistroLT, self).__init__()
+		self.setupUi(self)
 
 if __name__  == "__main__":
     app = QtGui.QApplication(sys.argv)

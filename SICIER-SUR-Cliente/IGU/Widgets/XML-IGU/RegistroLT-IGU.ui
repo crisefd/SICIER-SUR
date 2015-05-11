@@ -32,7 +32,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -452,7 +452,7 @@
       <rect>
        <x>320</x>
        <y>150</y>
-       <width>281</width>
+       <width>291</width>
        <height>23</height>
       </rect>
      </property>
@@ -562,6 +562,29 @@
        <y>300</y>
        <width>471</width>
        <height>111</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="etiquetaDep">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>180</y>
+       <width>251</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Departamento *</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoDep">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>210</y>
+       <width>291</width>
+       <height>23</height>
       </rect>
      </property>
     </widget>

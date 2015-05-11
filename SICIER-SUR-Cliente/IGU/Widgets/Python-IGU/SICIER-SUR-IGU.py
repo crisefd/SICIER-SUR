@@ -198,6 +198,12 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.textEdit = QtGui.QTextEdit(self.tab_2)
         self.textEdit.setGeometry(QtCore.QRect(180, 300, 471, 111))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.etiquetaDep = QtGui.QLabel(self.tab_2)
+        self.etiquetaDep.setGeometry(QtCore.QRect(320, 180, 251, 16))
+        self.etiquetaDep.setObjectName(_fromUtf8("etiquetaDep"))
+        self.campoDep = QtGui.QLineEdit(self.tab_2)
+        self.campoDep.setGeometry(QtCore.QRect(320, 210, 291, 23))
+        self.campoDep.setObjectName(_fromUtf8("campoDep"))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -274,6 +280,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.radbtnCiencias.setText(_translate("VentanaRegistroLT", "Ciencias Naturales y Ed. Ambiental    ", None))
         self.radbtnLenguaje.setText(_translate("VentanaRegistroLT", "Lenguaje", None))
         self.label.setText(_translate("VentanaRegistroLT", "Historial Académico", None))
+        self.etiquetaDep.setText(_translate("VentanaRegistroLT", "Departamento *", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroLT", "Información Profesional", None))
         self.etiquetaExp.setText(_translate("VentanaRegistroLT", "Experiencia Laboral:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroLT", "Adicional", None))
@@ -315,6 +322,10 @@ class VentanaRegistroLT(QtGui.QFrame):
         direccion = str(self.campoDir.text())
         if direccion == '':
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo direccion es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        departamento = str(self.campoDep.text())
+        if departamento == '':
+			msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo departamento es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             return 'error'
         fechaNacimiento = str(self.dateEdit.date().toString("yyyy.MM.dd"))
         print fechaNacimiento
@@ -362,8 +373,8 @@ class VentanaRegistroLT(QtGui.QFrame):
 
         dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': False,
                     'address': direccion, 'sex': sex, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
-                    'institution': institucion, 'grade': grado, 'city':municipio, 'area':area, 'secretariat':secretaria,
-                    'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
+                    'institution': institucion, 'grade': grado, 'city':municipio, 'departamento': departamento,'area':area, 
+                    'secretariat':secretaria, 'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
         return dictDatos
 
     def registrarLT(self):
