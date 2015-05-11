@@ -18,6 +18,27 @@ database = PostgresqlDatabase('CIER-SUR', **{})
 
 #Para trabajar en las salas
 #database = PostgresqlDatabase('crisefd', user='crisefd', password='crisefd', host='pgsql')
+import sys
+import imp
+import os
+
+#Para trabajar en los comp. personales se descomenta
+#from peewee import *
+
+#Para trabajar en las salas, el peewee debe estar en el directorio personal y 
+#EL repositorio debe estar tambien en el directorio personal
+#path = os.path.abspath(os.path.dirname(__file__)  + '../../../../peewee/peewee.py')
+#print path
+#print path
+#peewee = imp.load_source("peewee", path)
+from peewee import *
+
+#Para trabajar en los comp. personales se descomenta y se reemplaza crisefd por el nombre del usuario en postgres
+database = PostgresqlDatabase('CIER-SUR', **{})
+
+#Para trabajar en las salas
+#database = PostgresqlDatabase('crisefd', user='crisefd', password='crisefd', host='pgsql')
+
 class UnknownField(object):
     pass
 
@@ -36,7 +57,9 @@ class Course(BaseModel):
 
 class CourseActivity(BaseModel):
     activity = CharField(unique=True)
+    end_date = DateField()
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
+    start_date = DateField()
 
     class Meta:
         db_table = 'course_activity'
@@ -109,6 +132,7 @@ class Leaderteacher(BaseModel):
     area = CharField()
     birth_date = DateField()
     city = CharField()
+    department = CharField()
     email = CharField(unique=True)
     first_name = CharField()
     grade = CharField()
@@ -183,5 +207,4 @@ class MtLaborExp(BaseModel):
     class Meta:
         db_table = 'mt_labor_exp'
         primary_key = CompositeKey('id_mt_fk', 'item')
-
 
