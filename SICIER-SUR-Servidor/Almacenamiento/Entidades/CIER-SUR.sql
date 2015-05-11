@@ -89,6 +89,7 @@ CREATE TABLE LeaderTeacher(
 	birth_date DATE NOT NULL,
 	marital_status VARCHAR(50) NOT NULL,
 	institution VARCHAR(50) NOT NULL,
+	department VARCHAR(50) NOT NULL,
 	grade VARCHAR(50) NOT NULL,
 	secretariat VARCHAR(50) NOT NULL,
 	area VARCHAR(50) NOT NULL,
@@ -149,6 +150,8 @@ DROP TABLE IF EXISTS Course_Activity CASCADE;
 CREATE TABLE Course_Activity(
 	id_course_fk VARCHAR(50) NOT NULL,
 	activity VARCHAR(50),
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
 	PRIMARY KEY(id_course_fk, activity),
