@@ -220,19 +220,19 @@ CREATE TABLE MT_Course(
 	
 );
 
-ALTER TABLE Activity_Grade OWNER TO crisefd;
-ALTER TABLE Course_activity OWNER TO crisefd;
-ALTER TABLE Administrator OWNER TO crisefd;
-ALTER TABLE Coordinator OWNER TO crisefd;
-ALTER TABLE MasterTeacher OWNER TO crisefd;
-ALTER TABLE LeaderTeacher OWNER TO crisefd;
-ALTER TABLE Course OWNER TO crisefd;
-ALTER TABLE Enrollment OWNER TO crisefd;
-ALTER TABLE Course_Cohort OWNER TO crisefd;
-ALTER TABLE LT_academic_backg OWNER TO crisefd;
-ALTER TABLE MT_academic_backg OWNER TO crisefd;
-ALTER TABLE LT_labor_exp OWNER TO crisefd;
-ALTER TABLE MT_labor_exp OWNER TO crisefd;
-ALTER TABLE MT_Course OWNER TO crisefd;
-ALTER TABLE LT_Cohort OWNER TO crisefd;
+ALTER TABLE Activity_Grade OWNER TO oscar;
+ALTER TABLE Course_activity OWNER TO oscar;
+ALTER TABLE Administrator OWNER TO oscar;
+ALTER TABLE Coordinator OWNER TO oscar;
+ALTER TABLE MasterTeacher OWNER TO oscar;
+ALTER TABLE LeaderTeacher OWNER TO oscar;
+ALTER TABLE Course OWNER TO oscar;
+ALTER TABLE Enrollment OWNER TO oscar;
+ALTER TABLE Course_Cohort OWNER TO oscar;
+ALTER TABLE LT_academic_backg OWNER TO oscar;
+ALTER TABLE MT_academic_backg OWNER TO oscar;
+ALTER TABLE LT_labor_exp OWNER TO oscar;
+ALTER TABLE MT_labor_exp OWNER TO oscar;
+ALTER TABLE MT_Course OWNER TO oscar;
+ALTER TABLE LT_Cohort OWNER TO oscar;
 
