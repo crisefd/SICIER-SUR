@@ -25,11 +25,12 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class VentanaAdministrarCursos(QtGui.QFrame):
-	def __init__(self):
-		super(VentanaAdministrarCursos, cursos).__init__()
-		self.setupUi(self)
+    def __init__(self):
+        super(VentanaAdministrarCursos, self).__init__()
+        self.setupUi(self)
+
     def setupUi(self, VentanaAdministrarCursos):
-		VentanaAdministrarCursos.setObjectName(_fromUtf8("VentanaAdministrarCursos"))
+        VentanaAdministrarCursos.setObjectName(_fromUtf8("VentanaAdministrarCursos"))
         VentanaAdministrarCursos.resize(554, 370)
         self.tabWidget = QtGui.QTabWidget(VentanaAdministrarCursos)
         self.tabWidget.setGeometry(QtCore.QRect(0, 10, 551, 291))
