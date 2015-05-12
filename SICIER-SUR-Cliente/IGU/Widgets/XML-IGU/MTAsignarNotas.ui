@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ventana</class>
+ <widget class="QDialog" name="ventana">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>601</width>
+    <height>577</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="etiquetaTitulo_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>0</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>CIER-SUR</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>40</y>
+     <width>591</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Buscar LT</string>
+    </attribute>
+    <widget class="QLineEdit" name="campoBusqueda">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>20</y>
+       <width>301</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="botonBuscar">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>180</y>
+       <width>100</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buscar</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboAtributos">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Nombre</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Apellido</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Correo</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ciudad</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>531</width>
+       <height>101</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="etiquetaBuscar">
+     <property name="geometry">
+      <rect>
+       <x>35</x>
+       <y>20</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buscar por:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoIDActualizar_3">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>210</y>
+       <width>301</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="etiquetaIDActualizar_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>220</y>
+       <width>191</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actualizar Notas al LT con ID</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="tableWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>250</y>
+       <width>531</width>
+       <height>101</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="botonBuscar_2">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>360</y>
+       <width>100</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buscar</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <attribute name="title">
+     <string>Actualizar Notas</string>
+    </attribute>
+    <widget class="QLabel" name="etiquetaIDActualizar">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>191</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actualizar Notas al LT con ID</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoIDActualizar">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>30</y>
+       <width>311</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoIDActualizar_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>90</y>
+       <width>311</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="etiquetaIDActualizar_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>191</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actividad con ID</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="etiquetaIDActualizar_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>191</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nota</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="campoIDActualizar_4">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>140</y>
+       <width>61</width>
+       <height>29</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>210</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Actializar</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>520</y>
+     <width>98</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancelar</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
