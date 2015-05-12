@@ -362,7 +362,7 @@
     <attribute name="title">
      <string>Editar</string>
     </attribute>
-    <widget class="QLineEdit" name="lineEdit_6">
+    <widget class="QLineEdit" name="campoEditarIdcurso">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -372,7 +372,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_7">
+    <widget class="QLineEdit" name="campoEditardescripcioncurso">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -382,7 +382,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_8">
+    <widget class="QLineEdit" name="campoEditarActividadcurso">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -392,7 +392,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit_3">
+    <widget class="QDateEdit" name="campoEditarFincurso">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -402,7 +402,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit_4">
+    <widget class="QDateEdit" name="campoEditarIniciocurso">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -477,7 +477,7 @@
       <string>Nombre Actividad</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="botonEditarAgregarActividadCurso">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -490,7 +490,7 @@
       <string>Agregar</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="botonEditarCurso">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -503,7 +503,7 @@
       <string>Editar</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="botonEditarQuitarActividadCurso">
      <property name="geometry">
       <rect>
        <x>400</x>
