@@ -83,12 +83,12 @@
      </property>
      <item>
       <property name="text">
-       <string>Nombre Actividad</string>
+       <string>Nombre Curso</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>ID Actividad</string>
+       <string>ID Curso</string>
       </property>
      </item>
     </widget>

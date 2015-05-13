@@ -2,13 +2,13 @@
 
 # Form implementation generated from reading ui file 'LTRevisarNotas.ui'
 #
-# Created: Tue May 12 17:08:38 2015
+# Created: Tue May 12 20:52:53 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-import sys
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -23,11 +23,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class VentanaRegistroLT(QtGui.QFrame):
-    def __init__(self):
-        super(VentanaRegistroLT, self).__init__()
-        self.setupUi(self)
-
+class Ui_ventana(object):
     def setupUi(self, ventana):
         ventana.setObjectName(_fromUtf8("ventana"))
         ventana.resize(601, 577)
@@ -90,8 +86,8 @@ class VentanaRegistroLT(QtGui.QFrame):
         ventana.setWindowTitle(_translate("ventana", "Dialog", None))
         self.etiquetaTitulo_2.setText(_translate("ventana", "CIER-SUR", None))
         self.botonBuscar.setText(_translate("ventana", "Buscar", None))
-        self.comboAtributos.setItemText(0, _translate("ventana", "Nombre Actividad", None))
-        self.comboAtributos.setItemText(1, _translate("ventana", "ID Actividad", None))
+        self.comboAtributos.setItemText(0, _translate("ventana", "Nombre Curso", None))
+        self.comboAtributos.setItemText(1, _translate("ventana", "ID Curso", None))
         self.etiquetaBuscar.setText(_translate("ventana", "Consultar por:", None))
         self.botonBuscar_2.setText(_translate("ventana", "Consultar listado completo", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("ventana", "Consultar notas", None))
@@ -100,8 +96,3 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("ventana", "Generar reportes", None))
         self.pushButton.setText(_translate("ventana", "Cerrar", None))
 
-if __name__  == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    w = VentanaRegistroLT()
-    w.show()
-    sys.exit(app.exec_())
