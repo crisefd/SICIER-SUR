@@ -411,6 +411,54 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.botonEditarQuitarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Quitar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
 
+class VentantaOpcionesAdm(QtGui.QFrame):
+    def __init__(self):
+        super(VentantaOpcionesAdm, self).__init__()
+        self.setupUi(self)
+
+    def setupUi(self, ventantaOpcionesAdm):
+        ventantaOpcionesAdm.setObjectName(_fromUtf8("ventantaOpcionesAdm"))
+        ventantaOpcionesAdm.resize(541, 322)
+        ventantaOpcionesAdm.setFrameShape(QtGui.QFrame.StyledPanel)
+        ventantaOpcionesAdm.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitutlo = QtGui.QLabel(ventantaOpcionesAdm)
+        self.etiquetaTitutlo.setGeometry(QtCore.QRect(170, 20, 201, 20))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitutlo.setFont(font)
+        self.etiquetaTitutlo.setObjectName(_fromUtf8("etiquetaTitutlo"))
+        self.botonEditarPerfil = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 141, 27))
+        self.botonEditarPerfil.setObjectName(_fromUtf8("botonEditarPerfil"))
+        self.botonCerrarSesion = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonCerrarSesion.setGeometry(QtCore.QRect(410, 20, 98, 27))
+        self.botonCerrarSesion.setObjectName(_fromUtf8("botonCerrarSesion"))
+        self.botonAdmUsuarios = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
+        self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
+        self.botonReportes = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonReportes.setGeometry(QtCore.QRect(70, 190, 121, 27))
+        self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
+        self.botonAdmCursos = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
+        self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
+
+        self.retranslateUi(ventantaOpcionesAdm)
+        #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentantaOpcionesAdm.close)
+        QtCore.QMetaObject.connectSlotsByName(ventantaOpcionesAdm)
+
+    def retranslateUi(self, ventantaOpcionesAdm):
+        ventantaOpcionesAdm.setWindowTitle(_translate("ventantaOpcionesAdm", "Opciones Adm", None))
+        self.etiquetaTitutlo.setText(_translate("ventantaOpcionesAdm", "¿Qué Desea Hacer?", None))
+        self.botonEditarPerfil.setText(_translate("ventantaOpcionesAdm", "Editar Perfil", None))
+        self.botonCerrarSesion.setText(_translate("ventantaOpcionesAdm", "Cerrar sesión", None))
+        self.botonAdmUsuarios.setText(_translate("ventantaOpcionesAdm", "Administrar Usuarios", None))
+        self.botonReportes.setText(_translate("ventantaOpcionesAdm", "Ver Reportes", None))
+        self.botonAdmCursos.setText(_translate("ventantaOpcionesAdm", "Administrar Cursos", None))
+
+
 class VentanaRegistroLT(QtGui.QFrame):
     def __init__(self):
         super(VentanaRegistroLT, self).__init__()
@@ -767,6 +815,7 @@ class VentanaLogin(QtGui.QFrame):
         global clienteSocket
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
+        self.ventanaOpAdm = VentantaOpcionesAdm()
         self.setupUi(self)
         try:
             clienteSocket.conectar()
@@ -846,8 +895,8 @@ class VentanaLogin(QtGui.QFrame):
                         print "Respuesta ", res[2]
                         if res[2] == '1':
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
-                            #msgBox.setText(_fromUtf8("Bienvenido " + usr));
-                            #msgBox.exec_()
+                            self.ventanaOpAdm.show()
+                            self.hide()
                         else:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                             #msgBox.exec_()

@@ -622,4 +622,4 @@ class ControladorMatricula(Controlador):
 #c = ControladorLT()
 #c.insertarExperienciaLaboralLT('776', ['e1', 'e2'])
 #print sql.next()
-		
+
