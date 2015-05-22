@@ -40,9 +40,9 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class VentanaRegistrarNotas(QtGui.QFrame):
+class VentanaRevisarNotas(QtGui.QFrame):
     def __init__(self):
-        super(VentanaRegistrarNotas, self).__init__()
+        super(VentanaRevisarNotas, self).__init__()
         self.setupUi(self)
 
 
