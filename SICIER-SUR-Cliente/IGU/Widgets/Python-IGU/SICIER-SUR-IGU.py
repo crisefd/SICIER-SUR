@@ -411,17 +411,18 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.botonEditarQuitarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Quitar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
 
-class VentantaOpcionesAdm(QtGui.QFrame):
+class VentanaOpcionesAdm(QtGui.QFrame):
     def __init__(self):
-        super(VentantaOpcionesAdm, self).__init__()
+        super(VentanaOpcionesAdm, self).__init__()
+        self.ventanaAdmCursos = VentanaAdministrarCursos()
         self.setupUi(self)
 
-    def setupUi(self, ventantaOpcionesAdm):
-        ventantaOpcionesAdm.setObjectName(_fromUtf8("ventantaOpcionesAdm"))
-        ventantaOpcionesAdm.resize(541, 322)
-        ventantaOpcionesAdm.setFrameShape(QtGui.QFrame.StyledPanel)
-        ventantaOpcionesAdm.setFrameShadow(QtGui.QFrame.Raised)
-        self.etiquetaTitutlo = QtGui.QLabel(ventantaOpcionesAdm)
+    def setupUi(self, VentanaOpcionesAdm):
+        VentanaOpcionesAdm.setObjectName(_fromUtf8("VentanaOpcionesAdm"))
+        VentanaOpcionesAdm.resize(541, 322)
+        VentanaOpcionesAdm.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaOpcionesAdm.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitutlo = QtGui.QLabel(VentanaOpcionesAdm)
         self.etiquetaTitutlo.setGeometry(QtCore.QRect(170, 20, 201, 20))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -429,34 +430,38 @@ class VentantaOpcionesAdm(QtGui.QFrame):
         font.setWeight(75)
         self.etiquetaTitutlo.setFont(font)
         self.etiquetaTitutlo.setObjectName(_fromUtf8("etiquetaTitutlo"))
-        self.botonEditarPerfil = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonEditarPerfil = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 141, 27))
         self.botonEditarPerfil.setObjectName(_fromUtf8("botonEditarPerfil"))
-        self.botonCerrarSesion = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonCerrarSesion = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonCerrarSesion.setGeometry(QtCore.QRect(410, 20, 98, 27))
         self.botonCerrarSesion.setObjectName(_fromUtf8("botonCerrarSesion"))
-        self.botonAdmUsuarios = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonAdmUsuarios = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
         self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
-        self.botonReportes = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonReportes = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonReportes.setGeometry(QtCore.QRect(70, 190, 121, 27))
         self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
-        self.botonAdmCursos = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonAdmCursos = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
         self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
 
-        self.retranslateUi(ventantaOpcionesAdm)
-        #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentantaOpcionesAdm.close)
-        QtCore.QMetaObject.connectSlotsByName(ventantaOpcionesAdm)
+        self.retranslateUi(VentanaOpcionesAdm)
+        #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.close)
+        QtCore.QObject.connect(self.botonAdmCursos, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarAdmCursos)
+        QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesAdm)
+    
+    def mostrarAdmCursos(self):
+		self.ventanaAdmCursos.show()
 
-    def retranslateUi(self, ventantaOpcionesAdm):
-        ventantaOpcionesAdm.setWindowTitle(_translate("ventantaOpcionesAdm", "Opciones Adm", None))
-        self.etiquetaTitutlo.setText(_translate("ventantaOpcionesAdm", "¿Qué Desea Hacer?", None))
-        self.botonEditarPerfil.setText(_translate("ventantaOpcionesAdm", "Editar Perfil", None))
-        self.botonCerrarSesion.setText(_translate("ventantaOpcionesAdm", "Cerrar sesión", None))
-        self.botonAdmUsuarios.setText(_translate("ventantaOpcionesAdm", "Administrar Usuarios", None))
-        self.botonReportes.setText(_translate("ventantaOpcionesAdm", "Ver Reportes", None))
-        self.botonAdmCursos.setText(_translate("ventantaOpcionesAdm", "Administrar Cursos", None))
+    def retranslateUi(self, VentanaOpcionesAdm):
+        VentanaOpcionesAdm.setWindowTitle(_translate("VentanaOpcionesAdm", "Opciones Adm", None))
+        self.etiquetaTitutlo.setText(_translate("VentanaOpcionesAdm", "¿Qué Desea Hacer?", None))
+        self.botonEditarPerfil.setText(_translate("VentanaOpcionesAdm", "Editar Perfil", None))
+        self.botonCerrarSesion.setText(_translate("VentanaOpcionesAdm", "Cerrar sesión", None))
+        self.botonAdmUsuarios.setText(_translate("VentanaOpcionesAdm", "Administrar Usuarios", None))
+        self.botonReportes.setText(_translate("VentanaOpcionesAdm", "Ver Reportes", None))
+        self.botonAdmCursos.setText(_translate("VentanaOpcionesAdm", "Administrar Cursos", None))
 
 
 class VentanaRegistroLT(QtGui.QFrame):
@@ -815,7 +820,7 @@ class VentanaLogin(QtGui.QFrame):
         global clienteSocket
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
-        self.ventanaOpAdm = VentantaOpcionesAdm()
+        self.ventanaOpAdm = VentanaOpcionesAdm()
         self.setupUi(self)
         try:
             clienteSocket.conectar()
