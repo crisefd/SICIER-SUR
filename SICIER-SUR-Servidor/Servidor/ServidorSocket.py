@@ -42,14 +42,11 @@ class ServidorSocket():
 		print 'Socket now listening'
 		#Seguir escuchando al cliente
 		while True:
-			
 			conn, addr = self.socket.accept()
 			print 'Connected with ' + addr[0] + ':' + str(addr[1])
-
 			#Inicia un nuevo hilo con primer argumento la funcion
 			#que se va a ejecutar, y de segundo la lista de argumentos de la funcion.
 			start_new_thread(self.clientthread ,(conn,))
-
 		self.socket.close()
 
 	def clientthread(self, conn):
@@ -71,8 +68,6 @@ class ServidorSocket():
 				#print 'datos recibidos ', datos
 				respuesta = pickle.dumps(self.responder(datos))
 				conn.send(respuesta)
-
-
 		conn.close()
 
 	def responder(self, datos):
@@ -84,11 +79,18 @@ class ServidorSocket():
 				pass_ = parametros['pass']
 				return self._fachada.controlAdm.consultarAdmPassUsr(usr, pass_)
 			elif funcion == "consultarCoorPassUsr":
+				usr = parametros['usr']
+				pass_ = parametros['pass']
+				return self._fachada.controlCoor.consultarCoorPassUsr(usr, pass_)
 				print "Falta implementar"
 			elif funcion == "cosultarLTPassUsr":
-				print "Falta implementar"
+				usr = parametros['usr']
+				pass_ = parametros['pass']
+				return self._fachada.controlLT.consultarLTPassUsr(usr, pass_)
 			elif funcion == "consultarMTPassUsr":
-				print "Falta implementar"
+				usr = parametros['usr']
+				pass_ = parametros['pass']
+				return self._fachada.controlMT.consultarMTPassUsr(usr, pass_)
 			elif funcion == "insertarLT":
 				id_LT = parametros['id']
 				histAcad = parametros['academic_background']

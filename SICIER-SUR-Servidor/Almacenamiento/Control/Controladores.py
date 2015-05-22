@@ -172,6 +172,29 @@ class ControladorCoor(Controlador):
 				self._desconectarBD()
 			except Exception as ex2:
 				print ex2
+
+	def consultarCoorPassUsr(self, usr, pass_):
+		global bd
+		self._conectarBD()
+		sq = None
+		try:
+			sq = Coor.select().where(Coor.email == usr, 
+				         Coor.pass_== pass_, Coor.is_active == True)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		it = sq.iterator()
+		res = "1" #Si lo encontro
+		try:
+			it.next()
+		except Exception as ex:
+			res = "0" #No lo encontro
+
+		return res
 		
 	def actualizarCoor(self, id_, datos):
 		self._conectarBD()
@@ -246,6 +269,29 @@ class ControladorMT(Controlador):
 					self._desconectarBD()
 				except Exception as ex2:
 					print ex2
+
+	def consultarMTPassUsr(self, usr, pass_):
+		global bd
+		self._conectarBD()
+		sq = None
+		try:
+			sq = MT.select().where(MT.email == usr, 
+				         MT.pass_== pass_, MT.is_active == True)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		it = sq.iterator()
+		res = "1" #Si lo encontro
+		try:
+			it.next()
+		except Exception as ex:
+			res = "0" #No lo encontro
+
+		return res
 
 	def insertarHistAcademicoMT(self, id_MT, historial):
 		self._conectarBD()
@@ -325,6 +371,29 @@ class ControladorLT(Controlador):
 				self._desconectarBD()
 			except Exception as ex2:
 				print ex2
+		return res
+		
+	def consultarLTPassUsr(self, usr, pass_):
+		global bd
+		self._conectarBD()
+		sq = None
+		try:
+			sq = LT.select().where(LT.email == usr, 
+				         LT.pass_== pass_, LT.is_active == True)
+		except Exception as ex1:
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		it = sq.iterator()
+		res = "1" #Si lo encontro
+		try:
+			it.next()
+		except Exception as ex:
+			res = "0" #No lo encontro
+
 		return res
 
 	def insertarHistorialAcademicoLT(self, id_LT, historial):

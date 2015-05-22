@@ -854,14 +854,38 @@ class VentanaLogin(QtGui.QFrame):
                     elif m == 'error':
                         msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Coordinator":
-                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-                    pass
+                    datos = {'funcion':'consultarCoorPassUsr','parametros':{'usr':usr, 'pass':pass_}}
+                    m = clienteSocket.enviarMensaje(datos)
+                    if m == 'ok':
+                        res = clienteSocket.recibirRespuesta()
+                        msgBox = QtGui.QMessageBox;
+                        print "Respuesta", res[2]
+                        if res[2] == '1':
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                        else:
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Master Teacher":
-                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-                    pass
+                    datos = {'funcion':'consultarMTPassUsr','parametros':{'usr':usr, 'pass':pass_}}
+                    m = clienteSocket.enviarMensaje(datos)
+                    if m == 'ok':
+                        res = clienteSocket.recibirRespuesta()
+                        msgBox = QtGui.QMessageBox;
+                        print "Respuesta", res[2]
+                        if res[2] == '1':
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                        else:
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Leader Teacher":
-                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Falta"),_fromUtf8("No implementado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-                    pass
+                    datos = {'funcion':'consultarLTPassUsr','parametros':{'usr':usr, 'pass':pass_}}
+                    m = clienteSocket.enviarMensaje(datos)
+                    if m == 'ok':
+                        res = clienteSocket.recibirRespuesta()
+                        msgBox = QtGui.QMessageBox;
+                        print "Respuesta", res[2]
+                        if res[2] == '1':
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                        else:
+                            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
         else:
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("No hay conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
