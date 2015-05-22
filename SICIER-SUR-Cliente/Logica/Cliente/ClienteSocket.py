@@ -81,6 +81,21 @@ class ClienteSocket():
 			return "" 
 		return datos
 
+if __name__ == "__main__":
+	c = ClienteSocket()
+	c.conectar()
+	#datos = "cliente: cliente-1"
+	#datos =  {'funcion':'consultarAdmPassUsr',
+    #         'parametros':{'usr':'mary.jane@ejemplo.com','pass':'spidy'}}
+	datos = {'funcion': 'consultarCoorPassUsr','parametros':{'usr':'j'}}
+	print type(datos)
+	#datos = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	print c.enviarMensaje(datos)
+	resp = c.recibirRespuesta()
+	print resp
+	c.desconectar()
+    
+
 
 
 

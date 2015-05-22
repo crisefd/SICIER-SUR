@@ -25,6 +25,7 @@ class ServidorSocket():
 	def __init__(self):		
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self._fachada = fachada.Fachada()
+		self._estaVivo = True
 		#print 'Socket created'
 				
 	def escuchar(self):	
@@ -42,15 +43,12 @@ class ServidorSocket():
 		print 'Socket now listening'
 		#Seguir escuchando al cliente
 		while True:
-			
 			conn, addr = self.socket.accept()
 			print 'Connected with ' + addr[0] + ':' + str(addr[1])
-
-			#Inicia un nuevo hilo con primer argumento la funcion
-			#que se va a ejecutar, y de segundo la lista de argumentos de la funcion.
 			start_new_thread(self.clientthread ,(conn,))
-
+			break
 		self.socket.close()
+		sys.exit()
 
 	def clientthread(self, conn):
 		#Enviar Mensaje al cliente
@@ -58,6 +56,7 @@ class ServidorSocket():
 		#conn.sendall('Welcome to the server. Type the function and parameters\n') #solo toma strings
 		#ciclo infinito
 		#i = 0
+		datos = None
 		while True:
 			#Datos que envia el cliente
 			d = conn.recv(81920)
@@ -67,21 +66,26 @@ class ServidorSocket():
 				break
 
 			elif d != '':
-				datos = pickle.loads(d)
-				#print 'datos recibidos ', datos
-				respuesta = pickle.dumps(self.responder(datos))
-				conn.send(respuesta)
-
-
+				if len(d) <= 15 :
+					datos = d
+					respuesta = self.responder(datos)
+					conn.send(respuesta)
+				else:
+					datos = pickle.loads(d)
+					print 'datos recibidos ', type(datos)
+					respuesta = pickle.dumps(self.responder(datos))
+					conn.send(respuesta)
 		conn.close()
 
 	def responder(self, datos):
+		if type(datos) == type('h'):
+			print(type(datos));return 'error'
 		try:
 			funcion = datos['funcion']
 			parametros = datos['parametros']
 			if funcion == 'consultarAdmPassUsr':
 				usr = parametros['usr']
-				pass_ = parametros['pass']
+				pass_ = parametros['pass'];print("pppp")
 				return self._fachada.controlAdm.consultarAdmPassUsr(usr, pass_)
 			elif funcion == "consultarCoorPassUsr":
 				print "Falta implementar"
@@ -111,7 +115,7 @@ class ServidorSocket():
 
 
 
-#if __name__  == "__main__":
-s = ServidorSocket()
-s.escuchar()
+if __name__  == "__main__":
+	s = ServidorSocket()
+	s.escuchar()
 
