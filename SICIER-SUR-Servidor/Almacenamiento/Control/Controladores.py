@@ -442,14 +442,15 @@ class ControladorLT(Controlador):
 				res = 'error'
 		return res
 
-	def activarLT(ids_LT):
+	def activarLT(self, ids_LT):
 		global bd
 		self._conectarBD()
 		res = 'ok'
 		try:
 			for id_ in ids_LT:
 				with bd.atomic():
-					LT.update(is_active = True).where(LT.id_ == id_ and LT.is_active == False)
+					q = LT.update(is_active = True).where(LT.id == id_ )
+					q.execute()
 		except Exception as ex1:
 			print ex1
 			res = 'error'

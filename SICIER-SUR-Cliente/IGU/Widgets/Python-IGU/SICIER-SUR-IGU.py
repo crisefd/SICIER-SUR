@@ -429,7 +429,7 @@ class VentanaOpcionesAdm(QtGui.QFrame):
 		archivo.close()
 		for i in range(0, len(lineas)):
 			lineas[i] = lineas[i].replace("\n", "")
-		datos = {'funcion':'activarLT', 'parametros': lineas}
+		datos = {'funcion':'activarLT', 'parametros': {'ids':lineas}}
 		clienteSocket.enviarMensaje(datos)
 		res = clienteSocket.recibirRespuesta();
 		if 'ok' in res:
@@ -460,13 +460,13 @@ class VentanaOpcionesAdm(QtGui.QFrame):
         self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
         self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
         self.botonReportes = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonReportes.setGeometry(QtCore.QRect(70, 190, 121, 27))
+        self.botonReportes.setGeometry(QtCore.QRect(60, 190, 121, 27))
         self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
         self.botonAdmCursos = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
         self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
         self.botonListaBecados = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonListaBecados.setGeometry(QtCore.QRect(60, 220, 161, 27))
+        self.botonListaBecados.setGeometry(QtCore.QRect(60, 250, 161, 27))
         self.botonListaBecados.setObjectName(_fromUtf8("botonListaBecados"))
 
         self.retranslateUi(VentanaOpcionesAdm)

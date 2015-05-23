@@ -107,7 +107,7 @@ class ServidorSocket():
 				else:
 					return 'error'
 			elif funcion == 'activarLT':
-				ids = parametros["ids"]
+				ids = parametros['ids']
 				return self._fachada.controlLT.activarLT(ids)
 		except Exception as ex:
 			print "Error en responder..." , ex
