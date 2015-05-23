@@ -397,23 +397,16 @@ class ControladorLT(Controlador):
 		return res
 
 	def insertarHistorialAcademicoLT(self, id_LT, historial):
-		self._conectarBD()
 		global bd
+		self._conectarBD()
 		res = 'ok'
 		try:
 			print "Insertando hist acad ", historial
+			registros = []
 			for item in historial:
-				print "Item hist ", item
-				with bd.atomic():
-					LT_HA.create(id_lt_fk=id_LT, item=item)
-				#n = h.save()
-				#if n == 0:
-				#	print "historial ", item, "No pudo ser insertado"
-				#	res = 'error'
-				#	break
-				#else:
-				#	res = 'ok'
-				#	print "Insercion de item historial academico exitosa"
+				registros.append({'id_lt_fk':id_LT, 'item':item})
+			with bd.atomic():
+				LT_HA.insert_many(registros).execute()
 		except Exception as ex1:
 			res = 'error'
 			print "1. ", type(ex1)
@@ -426,30 +419,45 @@ class ControladorLT(Controlador):
 		return res
 
 	def insertarExperienciaLaboralLT(self, id_LT, experiencia):
+		global bd
 		self._conectarBD()
+		id_LT = str(id_LT)
 		res = 'ok'
 		try:
 			print "Insertado exp lab ", experiencia
+			registros = []
 			for item in experiencia:
-				print "item exp: ", item
-				with bd.atomic():
-					LT_EL.create(id_lt_fk=id_LT, item=item)
-				#n = e.save()
-				#if n == 0:
-				#	print "experiencia ", item, "No pudo ser insertada"
-				#	res = 'error'
-				#	break
-				#else:
-				#	res = 'ok'
-				#	print "Insercion de experiencia existosa"
+				registros.append({'id_lt_fk':id_LT, 'item':item})
+			#print "REGISTROS", registros
+			with bd.atomic():
+				LT_EL.insert_many(registros).execute()
 		except Exception as ex1:
-			print "1", type(ex1)
+			print "1", ex1
 			res = 'error'
 		finally:
 			try:
 				self._desconectarBD()
 			except Exception as ex2:
-				print "2", type(ex2)
+				print "2", ex2
+				res = 'error'
+		return res
+
+	def activarLT(ids_LT):
+		global bd
+		self._conectarBD()
+		res = 'ok'
+		try:
+			for id_ in ids_LT:
+				with bd.atomic():
+					LT.update(is_active = True).where(LT.id_ == id_ and LT.is_active == False)
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
 				res = 'error'
 		return res
 
@@ -620,6 +628,9 @@ class ControladorMatricula(Controlador):
 #LT_HA.create(id_lt_fk='776', item='h1')
 
 #c = ControladorLT()
-#c.insertarExperienciaLaboralLT('776', ['e1', 'e2'])
+#c.insertarExperienciaLaboralLT('222000', ['e1', 'e2'])
+#d = [{'id_lt_fk':'222000', 'item':'h1'},{'id_lt_fk':'222000', 'item':'h2'}]
+#with bd.atomic():
+#	LT_HA.insert_many(d).execute()
 #print sql.next()
 

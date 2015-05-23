@@ -104,6 +104,11 @@ class ServidorSocket():
 					r3 = self._fachada.controlLT.insertarExperienciaLaboralLT(id_LT, expLaboral)
 				if r2 == 'ok' and r3 == 'ok':
 					return 'ok'
+				else:
+					return 'error'
+			elif funcion == 'activarLT':
+				ids = parametros["ids"]
+				return self._fachada.controlLT.activarLT(ids)
 		except Exception as ex:
 			print "Error en responder..." , ex
 			return 'error'

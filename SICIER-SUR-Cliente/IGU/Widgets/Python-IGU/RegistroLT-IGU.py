@@ -2,14 +2,13 @@
 
 # Form implementation generated from reading ui file 'RegistroLT-IGU.ui'
 #
-# Created: Mon May 11 15:24:00 2015
+# Created: Sat May 23 09:19:12 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 
 from PyQt4 import QtCore, QtGui
-
+import sys
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -25,6 +24,10 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class VentanaRegistroLT(QtGui.QFrame):
+	def __init__(self):
+		super(VentanaRegistroLT, self).__init__()
+		self.setupUi(self)
+
     def setupUi(self, VentanaRegistroLT):
         VentanaRegistroLT.setObjectName(_fromUtf8("VentanaRegistroLT"))
         VentanaRegistroLT.resize(727, 611)
@@ -176,9 +179,13 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaDep = QtGui.QLabel(self.tab_2)
         self.etiquetaDep.setGeometry(QtCore.QRect(320, 180, 251, 16))
         self.etiquetaDep.setObjectName(_fromUtf8("etiquetaDep"))
-        self.campoDep = QtGui.QLineEdit(self.tab_2)
-        self.campoDep.setGeometry(QtCore.QRect(320, 210, 291, 23))
-        self.campoDep.setObjectName(_fromUtf8("campoDep"))
+        self.comboDep = QtGui.QComboBox(self.tab_2)
+        self.comboDep.setGeometry(QtCore.QRect(320, 200, 121, 25))
+        self.comboDep.setObjectName(_fromUtf8("comboDep"))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -220,7 +227,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.botonSalir.setObjectName(_fromUtf8("botonSalir"))
 
         self.retranslateUi(VentanaRegistroLT)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(VentanaRegistroLT)
 
     def retranslateUi(self, VentanaRegistroLT):
@@ -251,6 +258,10 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.radbtnLenguaje.setText(_translate("VentanaRegistroLT", "Lenguaje", None))
         self.label.setText(_translate("VentanaRegistroLT", "Historial Académico", None))
         self.etiquetaDep.setText(_translate("VentanaRegistroLT", "Departamento *", None))
+        self.comboDep.setItemText(0, _translate("VentanaRegistroLT", "Valle del Cauca", None))
+        self.comboDep.setItemText(1, _translate("VentanaRegistroLT", "Nariño", None))
+        self.comboDep.setItemText(2, _translate("VentanaRegistroLT", "Choco", None))
+        self.comboDep.setItemText(3, _translate("VentanaRegistroLT", "Cauca", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroLT", "Información Profesional", None))
         self.etiquetaExp.setText(_translate("VentanaRegistroLT", "Experiencia Laboral:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroLT", "Adicional", None))
@@ -259,14 +270,4 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaSubTit2.setText(_translate("VentanaRegistroLT", "(*) Obligatorio", None))
         self.botonEnviar.setText(_translate("VentanaRegistroLT", "Enviar", None))
         self.botonSalir.setText(_translate("VentanaRegistroLT", "Salir", None))
-
-    def __init__(self):
-		super(VentanaRegistroLT, self).__init__()
-		self.setupUi(self)
-
-if __name__  == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    w = VentanaRegistroLT()
-    w.show()
-    sys.exit(app.exec_())
 

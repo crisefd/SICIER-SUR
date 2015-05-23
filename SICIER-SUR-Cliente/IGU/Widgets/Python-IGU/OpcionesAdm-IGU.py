@@ -2,11 +2,10 @@
 
 # Form implementation generated from reading ui file 'OpcionesAdm-IGU.ui'
 #
-# Created: Fri May  8 10:13:20 2015
+# Created: Sat May 23 12:33:45 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 
 from PyQt4 import QtCore, QtGui
 
@@ -24,7 +23,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class VentantaOpcionesAdm(QtGui.QFrame):	
+class Ui_ventantaOpcionesAdm(object):
     def setupUi(self, ventantaOpcionesAdm):
         ventantaOpcionesAdm.setObjectName(_fromUtf8("ventantaOpcionesAdm"))
         ventantaOpcionesAdm.resize(541, 322)
@@ -39,7 +38,7 @@ class VentantaOpcionesAdm(QtGui.QFrame):
         self.etiquetaTitutlo.setFont(font)
         self.etiquetaTitutlo.setObjectName(_fromUtf8("etiquetaTitutlo"))
         self.botonEditarPerfil = QtGui.QPushButton(ventantaOpcionesAdm)
-        self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 141, 27))
+        self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 151, 27))
         self.botonEditarPerfil.setObjectName(_fromUtf8("botonEditarPerfil"))
         self.botonCerrarSesion = QtGui.QPushButton(ventantaOpcionesAdm)
         self.botonCerrarSesion.setGeometry(QtCore.QRect(410, 20, 98, 27))
@@ -48,14 +47,16 @@ class VentantaOpcionesAdm(QtGui.QFrame):
         self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
         self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
         self.botonReportes = QtGui.QPushButton(ventantaOpcionesAdm)
-        self.botonReportes.setGeometry(QtCore.QRect(70, 190, 121, 27))
+        self.botonReportes.setGeometry(QtCore.QRect(60, 150, 161, 27))
         self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
         self.botonAdmCursos = QtGui.QPushButton(ventantaOpcionesAdm)
-        self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
+        self.botonAdmCursos.setGeometry(QtCore.QRect(270, 150, 151, 27))
         self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
+        self.botonListaBecados = QtGui.QPushButton(ventantaOpcionesAdm)
+        self.botonListaBecados.setGeometry(QtCore.QRect(60, 200, 161, 27))
+        self.botonListaBecados.setObjectName(_fromUtf8("botonListaBecados"))
 
         self.retranslateUi(ventantaOpcionesAdm)
-        #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentantaOpcionesAdm.close)
         QtCore.QMetaObject.connectSlotsByName(ventantaOpcionesAdm)
 
     def retranslateUi(self, ventantaOpcionesAdm):
@@ -66,14 +67,5 @@ class VentantaOpcionesAdm(QtGui.QFrame):
         self.botonAdmUsuarios.setText(_translate("ventantaOpcionesAdm", "Administrar Usuarios", None))
         self.botonReportes.setText(_translate("ventantaOpcionesAdm", "Ver Reportes", None))
         self.botonAdmCursos.setText(_translate("ventantaOpcionesAdm", "Administrar Cursos", None))
-
-    def __init__(self):
-		super(VentantaOpcionesAdm, self).__init__()
-		self.setupUi(self)
-
-if __name__  == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    w = VentantaOpcionesAdm()
-    w.show()
-    sys.exit(app.exec_())
+        self.botonListaBecados.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Becados", None))
 

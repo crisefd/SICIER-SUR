@@ -32,10 +32,12 @@ class ClienteSocket():
 		try:
 			self._socket.connect((HOST, PORT))
 		except socket.gaierror:
+			self.hayConexion = False
 			print 'Hostname could not be resolved. Exiting'
-			sys.exit()
+			#sys.exit()
 		print "Socket Connected to  host {0} with port {1}".format(HOST, PORT)
 		self.hayConexion = True
+	
 
 	def desconectar(self):
 		try:

@@ -8,6 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 import sys
+from thread import *
 import imp
 import os
 clientesocket = None
@@ -416,6 +417,25 @@ class VentanaOpcionesAdm(QtGui.QFrame):
         super(VentanaOpcionesAdm, self).__init__()
         self.ventanaAdmCursos = VentanaAdministrarCursos()
         self.setupUi(self)
+        
+    def mostrarAdmCursos(self):
+		self.ventanaAdmCursos.show()
+
+    def ingresarListaBecados(self):
+		global clienteSocket
+		ruta = QtGui.QFileDialog.getOpenFileName(None, _fromUtf8("Open File"), "/home", _fromUtf8("Files (*.txt *.ini)"))
+		archivo = open(ruta, 'r')
+		lineas = archivo.readlines()
+		archivo.close()
+		for i in range(0, len(lineas)):
+			lineas[i] = lineas[i].replace("\n", "")
+		datos = {'funcion':'activarLT', 'parametros': lineas}
+		clienteSocket.enviarMensaje(datos)
+		res = clienteSocket.recibirRespuesta();
+		if 'ok' in res:
+			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("La lista de becados se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in res:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("La lista de becados no se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
     def setupUi(self, VentanaOpcionesAdm):
         VentanaOpcionesAdm.setObjectName(_fromUtf8("VentanaOpcionesAdm"))
@@ -445,14 +465,18 @@ class VentanaOpcionesAdm(QtGui.QFrame):
         self.botonAdmCursos = QtGui.QPushButton(VentanaOpcionesAdm)
         self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
         self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
+        self.botonListaBecados = QtGui.QPushButton(VentanaOpcionesAdm)
+        self.botonListaBecados.setGeometry(QtCore.QRect(60, 220, 161, 27))
+        self.botonListaBecados.setObjectName(_fromUtf8("botonListaBecados"))
 
         self.retranslateUi(VentanaOpcionesAdm)
         #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.close)
         QtCore.QObject.connect(self.botonAdmCursos, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarAdmCursos)
+        QtCore.QObject.connect(self.botonListaBecados, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.ingresarListaBecados)
         QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesAdm)
-    
-    def mostrarAdmCursos(self):
-		self.ventanaAdmCursos.show()
+
+	
+
 
     def retranslateUi(self, VentanaOpcionesAdm):
         VentanaOpcionesAdm.setWindowTitle(_translate("VentanaOpcionesAdm", "Opciones Adm", None))
@@ -462,6 +486,7 @@ class VentanaOpcionesAdm(QtGui.QFrame):
         self.botonAdmUsuarios.setText(_translate("VentanaOpcionesAdm", "Administrar Usuarios", None))
         self.botonReportes.setText(_translate("VentanaOpcionesAdm", "Ver Reportes", None))
         self.botonAdmCursos.setText(_translate("VentanaOpcionesAdm", "Administrar Cursos", None))
+        self.botonListaBecados.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Becados", None))
 
 
 class VentanaRegistroLT(QtGui.QFrame):
@@ -621,6 +646,16 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.textEdit = QtGui.QTextEdit(self.tab_2)
         self.textEdit.setGeometry(QtCore.QRect(180, 300, 471, 111))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.etiquetaDep = QtGui.QLabel(self.tab_2)
+        self.etiquetaDep.setGeometry(QtCore.QRect(320, 180, 251, 16))
+        self.etiquetaDep.setObjectName(_fromUtf8("etiquetaDep"))
+        self.comboDep = QtGui.QComboBox(self.tab_2)
+        self.comboDep.setGeometry(QtCore.QRect(320, 200, 121, 25))
+        self.comboDep.setObjectName(_fromUtf8("comboDep"))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -697,6 +732,11 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.radbtnCiencias.setText(_translate("VentanaRegistroLT", "Ciencias Naturales y Ed. Ambiental    ", None))
         self.radbtnLenguaje.setText(_translate("VentanaRegistroLT", "Lenguaje", None))
         self.label.setText(_translate("VentanaRegistroLT", "Historial Académico", None))
+        self.etiquetaDep.setText(_translate("VentanaRegistroLT", "Departamento *", None))
+        self.comboDep.setItemText(0, _translate("VentanaRegistroLT", "Valle del Cauca", None))
+        self.comboDep.setItemText(1, _translate("VentanaRegistroLT", "Nariño", None))
+        self.comboDep.setItemText(2, _translate("VentanaRegistroLT", "Choco", None))
+        self.comboDep.setItemText(3, _translate("VentanaRegistroLT", "Cauca", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroLT", "Información Profesional", None))
         self.etiquetaExp.setText(_translate("VentanaRegistroLT", "Experiencia Laboral:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroLT", "Adicional", None))
@@ -759,6 +799,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         if secretaria == '':
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Secretaría es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
             return 'error'
+        departamento = str(self.comboDep.currentText())
         area = ''
         if self.radbtnMatematicas.isChecked():
             area = 'Matemáticas'
@@ -772,11 +813,11 @@ class VentanaRegistroLT(QtGui.QFrame):
         experienciaLaboral = ''
         try:
             txt1 = str(self.textEdit.toPlainText())
-            txt1 = txt1.replace("\n", "")
-            historialAcademico = txt1.split(",")
+            historialAcademico = txt1.split("\n")
+            #historialAcademico = txt1.split(",")
             txt2 = str(self.areaExp.toPlainText())
-            text2 = txt2.replace("\n", "")
-            experienciaLaboral = txt2.split(",")
+            #text2 = txt2.replace("\n", "")
+            experienciaLaboral = txt2.split("\n")
         except Exception as ex:
             print ex
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("La experiencia laboral y \n el historial academico deben tener todos sus items separados por comas"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
@@ -786,7 +827,7 @@ class VentanaRegistroLT(QtGui.QFrame):
         dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': False,
                     'address': direccion, 'sex': sex, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
                     'institution': institucion, 'grade': grado, 'city':municipio, 'area':area, 'secretariat':secretaria,
-                    'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
+                    'department': departamento, 'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
         return dictDatos
 
     def registrarLT(self):
@@ -801,7 +842,8 @@ class VentanaRegistroLT(QtGui.QFrame):
             res = None
             if m != 'error':
                 res = clienteSocket.recibirRespuesta()
-                if res == 'ok':
+                print "Respuesta de registroLT", res
+                if 'ok' in res:
                     msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Registro exitoso"),_fromUtf8("Su suscripción ha sido enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                     self.close()
                 else:
@@ -821,13 +863,15 @@ class VentanaLogin(QtGui.QFrame):
         super(VentanaLogin, self).__init__()
         self.ventanaRegLT = VentanaRegistroLT()
         self.ventanaOpAdm = VentanaOpcionesAdm()
+        self.ventanaOpLT = VentanaRevisarNotas()
+        self.ventanaOpMT = VentanaAsignarNotas()
         self.setupUi(self)
         try:
             clienteSocket.conectar()
+            msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Conexion con el servidor establecida"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
         except Exception as ex:
             clienteSocket.desconectar()
             msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("No hay conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-            
 
     def setupUi(self, VentanaLogin):
         VentanaLogin.setObjectName(_fromUtf8("VentanaLogin"))
@@ -927,6 +971,8 @@ class VentanaLogin(QtGui.QFrame):
                         print "Respuesta", res[2]
                         if res[2] == '1':
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                            self.hide()
+                            self.ventanaOpMT.show()
                         else:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Leader Teacher":
@@ -938,6 +984,8 @@ class VentanaLogin(QtGui.QFrame):
                         print "Respuesta", res[2]
                         if res[2] == '1':
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                            self.hide()
+                            self.ventanaOpLT.show()
                         else:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
         else:

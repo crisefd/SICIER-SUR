@@ -32,7 +32,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -578,15 +578,35 @@
       <string>Departamento *</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="campoDep">
+    <widget class="QComboBox" name="comboDep">
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>210</y>
-       <width>291</width>
-       <height>23</height>
+       <y>200</y>
+       <width>121</width>
+       <height>25</height>
       </rect>
      </property>
+     <item>
+      <property name="text">
+       <string>Valle del Cauca</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Nariño</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Choco</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Cauca</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
