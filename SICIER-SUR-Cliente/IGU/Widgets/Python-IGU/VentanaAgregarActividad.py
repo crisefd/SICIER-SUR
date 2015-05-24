@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'VentanaAgregarActividad.ui'
+#
+# Created: Sat May 23 16:52:39 2015
+#      by: PyQt4 UI code generator 4.11.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt4 import QtCore, QtGui
+import sys
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class VentanaAgregarActividad(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaAgregarActividad, self).__init__()
+        self.setupUi(self)
+
+    def setupUi(self, VentanaAgregarActividad):
+        VentanaAgregarActividad.setObjectName(_fromUtf8("VentanaAgregarActividad"))
+        VentanaAgregarActividad.resize(435, 337)
+        VentanaAgregarActividad.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaAgregarActividad.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitulo = QtGui.QLabel(VentanaAgregarActividad)
+        self.etiquetaTitulo.setGeometry(QtCore.QRect(110, 30, 251, 31))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitulo.setFont(font)
+        self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
+        self.formLayoutWidget = QtGui.QWidget(VentanaAgregarActividad)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(50, 90, 311, 111))
+        self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
+        self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
+        self.formLayout.setMargin(0)
+        self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        self.etiquetaIDActividad = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaIDActividad.setObjectName(_fromUtf8("etiquetaIDActividad"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.etiquetaIDActividad)
+        self.etiquetaFechaInicio = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaFechaInicio.setObjectName(_fromUtf8("etiquetaFechaInicio"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.etiquetaFechaInicio)
+        self.etiquetaFechaFin = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaFechaFin.setObjectName(_fromUtf8("etiquetaFechaFin"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.etiquetaFechaFin)
+        self.selectorFechaInicio = QtGui.QDateEdit(self.formLayoutWidget)
+        self.selectorFechaInicio.setObjectName(_fromUtf8("selectorFechaInicio"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.selectorFechaInicio)
+        self.campoIDActividad = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoIDActividad.setObjectName(_fromUtf8("campoIDActividad"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.campoIDActividad)
+        self.selectorFechaFin = QtGui.QDateEdit(self.formLayoutWidget)
+        self.selectorFechaFin.setObjectName(_fromUtf8("selectorFechaFin"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.selectorFechaFin)
+        self.botonAgregar = QtGui.QPushButton(VentanaAgregarActividad)
+        self.botonAgregar.setGeometry(QtCore.QRect(150, 230, 131, 27))
+        self.botonAgregar.setObjectName(_fromUtf8("botonAgregar"))
+
+        self.retranslateUi(VentanaAgregarActividad)
+        QtCore.QMetaObject.connectSlotsByName(VentanaAgregarActividad)
+
+    def retranslateUi(self, VentanaAgregarActividad):
+        VentanaAgregarActividad.setWindowTitle(_translate("VentanaAgregarActividad", "VentanaAgregarActividad", None))
+        self.etiquetaTitulo.setText(_translate("VentanaAgregarActividad", "Agregar Actividades", None))
+        self.etiquetaIDActividad.setText(_translate("VentanaAgregarActividad", "ID actividad", None))
+        self.etiquetaFechaInicio.setText(_translate("VentanaAgregarActividad", "Fecha Inicio", None))
+        self.etiquetaFechaFin.setText(_translate("VentanaAgregarActividad", "Fecha Fin", None))
+        self.botonAgregar.setText(_translate("VentanaAgregarActividad", "Agregar a curso", None))
+
+if __name__  == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    w = VentanaAgregarActividad()
+    w.show()
+    sys.exit(app.exec_())

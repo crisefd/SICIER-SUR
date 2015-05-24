@@ -232,9 +232,95 @@ class VentanaRevisarNotas(QtGui.QFrame):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("ventana", "Generar reportes", None))
         self.pushButton.setText(_translate("ventana", "Cerrar", None))
 
+class VentanaAgregarActividad(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaAgregarActividad, self).__init__()
+        self.setupUi(self)
+        
+    def asignarIDCurso(self, id_):
+		self.id_curso = id_
+	
+    def agregarActividad(self):
+		global clienteSocket
+		actividad = str(self.campoIDActividad.text())
+		inicio = self.selectorFechaInicio.date() #.toString("yyyy.MM.dd"))
+		fin = self.selectorFechaFin.date() #.toString("yyyy.MM.dd"))
+		if actividad == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo actividad no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		if (inicio.year() > fin.year()) or (inicio.year() < fin.year() and inicio.month() > fin.month()) or (inicio.year() < fin.year() and inicio.month() < fin.month() and inicio.day() > fin.day()):
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Las fechas deben ser coherentes"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		datos = {'funcion': 'insertarCursoActividad', 
+				'parametros':{'start_date': str(inicio.toString("yyyy.MM.dd")),
+				               'end_date':str(fin.toString("yyyy.MM.dd")),
+				               'id_course_fk': self.id_curso,
+				               'activity': actividad
+				               }}
+		clienteSocket.enviarMensaje(datos)
+		res = clienteSocket.recibirRespuesta()
+		if 'ok' in res:
+			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Actividad agregada correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in res:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("La actividad no pudo ser agregada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			
+
+    def setupUi(self, VentanaAgregarActividad):
+        VentanaAgregarActividad.setObjectName(_fromUtf8("VentanaAgregarActividad"))
+        VentanaAgregarActividad.resize(435, 337)
+        VentanaAgregarActividad.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaAgregarActividad.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitulo = QtGui.QLabel(VentanaAgregarActividad)
+        self.etiquetaTitulo.setGeometry(QtCore.QRect(110, 30, 251, 31))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitulo.setFont(font)
+        self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
+        self.formLayoutWidget = QtGui.QWidget(VentanaAgregarActividad)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(50, 90, 311, 111))
+        self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
+        self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
+        self.formLayout.setMargin(0)
+        self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        self.etiquetaIDActividad = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaIDActividad.setObjectName(_fromUtf8("etiquetaIDActividad"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.etiquetaIDActividad)
+        self.etiquetaFechaInicio = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaFechaInicio.setObjectName(_fromUtf8("etiquetaFechaInicio"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.etiquetaFechaInicio)
+        self.etiquetaFechaFin = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaFechaFin.setObjectName(_fromUtf8("etiquetaFechaFin"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.etiquetaFechaFin)
+        self.selectorFechaInicio = QtGui.QDateEdit(self.formLayoutWidget)
+        self.selectorFechaInicio.setObjectName(_fromUtf8("selectorFechaInicio"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.selectorFechaInicio)
+        self.campoIDActividad = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoIDActividad.setObjectName(_fromUtf8("campoIDActividad"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.campoIDActividad)
+        self.selectorFechaFin = QtGui.QDateEdit(self.formLayoutWidget)
+        self.selectorFechaFin.setObjectName(_fromUtf8("selectorFechaFin"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.selectorFechaFin)
+        self.botonAgregar = QtGui.QPushButton(VentanaAgregarActividad)
+        self.botonAgregar.setGeometry(QtCore.QRect(150, 230, 131, 27))
+        self.botonAgregar.setObjectName(_fromUtf8("botonAgregar"))
+
+        self.retranslateUi(VentanaAgregarActividad)
+        QtCore.QObject.connect(self.botonAgregar, QtCore.SIGNAL(_fromUtf8("pressed()")), self.agregarActividad)
+        QtCore.QMetaObject.connectSlotsByName(VentanaAgregarActividad)
+        
+    def retranslateUi(self, VentanaAgregarActividad):
+        VentanaAgregarActividad.setWindowTitle(_translate("VentanaAgregarActividad", "VentanaAgregarActividad", None))
+        self.etiquetaTitulo.setText(_translate("VentanaAgregarActividad", "Agregar Actividades", None))
+        self.etiquetaIDActividad.setText(_translate("VentanaAgregarActividad", "ID actividad", None))
+        self.etiquetaFechaInicio.setText(_translate("VentanaAgregarActividad", "Fecha Inicio", None))
+        self.etiquetaFechaFin.setText(_translate("VentanaAgregarActividad", "Fecha Fin", None))
+        self.botonAgregar.setText(_translate("VentanaAgregarActividad", "Agregar a curso", None))
 
 class VentanaAdministrarCursos(QtGui.QFrame):
     def __init__(self):
+        self.ventanaAgregarAct = VentanaAgregarActividad()
         super(VentanaAdministrarCursos, self).__init__()
         self.setupUi(self)
 
@@ -378,8 +464,27 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
 
         self.retranslateUi(VentanaAdministrarCursos)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
+        #QtCore.QObject.connect(self.botonCrearActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
         QtCore.QMetaObject.connectSlotsByName(VentanaAdministrarCursos)
+
+    def agregarCurso(self):
+		global clienteSocket
+		id_ = str(self.campoCrearIdCurso.text())
+		descripcion = str(self.campoCrearDescripcionCurso.text())
+		inicio = self.campoCrearInicioCurso.date().toString("yyyy.MM.dd")
+		fin = self.campoCrearFinCurso.date().toString("yyyy.MM.dd")
+		datos = {'funcion':'insertarCurso', 'parametros':{'id':id_, 'end_date':str(fin), 
+		           'start_date':str(inicio), 'description':descripcion}
+		}
+		clienteSocket.enviarMensaje(datos)
+		res = clienteSocket.recibirRespuesta()
+		if 'ok' in res:
+			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("El curso se agrego correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in res:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El curso no se agrego correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+
 
     def retranslateUi(self, VentanaAdministrarCursos):
         VentanaAdministrarCursos.setWindowTitle(_translate("VentanaAdministrarCursos", "Form", None))
@@ -411,6 +516,12 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.botonEditarCurso.setText(_translate("VentanaAdministrarCursos", "Editar", None))
         self.botonEditarQuitarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Quitar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
+        QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
+        QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
+
+    def mostrarVentanaAgregarActividad(self):
+		self.ventanaAgregarAct.asignarIDCurso(str(self.campoCrearIdCurso.text()))
+		self.ventanaAgregarAct.show()
 
 class VentanaOpcionesAdm(QtGui.QFrame):
     def __init__(self):
@@ -656,6 +767,10 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.comboDep.addItem(_fromUtf8(""))
         self.comboDep.addItem(_fromUtf8(""))
         self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -735,8 +850,12 @@ class VentanaRegistroLT(QtGui.QFrame):
         self.etiquetaDep.setText(_translate("VentanaRegistroLT", "Departamento *", None))
         self.comboDep.setItemText(0, _translate("VentanaRegistroLT", "Valle del Cauca", None))
         self.comboDep.setItemText(1, _translate("VentanaRegistroLT", "Nariño", None))
-        self.comboDep.setItemText(2, _translate("VentanaRegistroLT", "Choco", None))
+        self.comboDep.setItemText(2, _translate("VentanaRegistroLT", "Tolima", None))
         self.comboDep.setItemText(3, _translate("VentanaRegistroLT", "Cauca", None))
+        self.comboDep.setItemText(4, _translate("VentanaRegistroLT", "Huila", None))
+        self.comboDep.setItemText(5, _translate("VentanaRegistroLT", "Caqueta", None))
+        self.comboDep.setItemText(6, _translate("VentanaRegistroLT", "Putumayo", None))
+        self.comboDep.setItemText(7, _translate("VentanaRegistroLT", "Amazonas", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroLT", "Información Profesional", None))
         self.etiquetaExp.setText(_translate("VentanaRegistroLT", "Experiencia Laboral:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroLT", "Adicional", None))

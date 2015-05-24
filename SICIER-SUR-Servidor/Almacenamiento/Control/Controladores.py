@@ -486,34 +486,47 @@ class ControladorLT(Controlador):
 
 class ControladorCurso(Controlador):
 
-	def insertarCurso(self, **datos):
+	def insertarCurso(self, datos):
+		global bd
 		self._conectarBD
-		with bd.atomic():
-			try:
+		res = 'ok'
+		try:
+			c = None
+			with bd.atomic():
 				c = Curso.create(**datos)
-				d.save()#Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
-
-	def insertarCursoActividades(self, id_curso, actividades):
-		self._conectarBD
-		with bd.atomic():
+			if c.save() != 1:
+				res = 'error'
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
 			try:
-				for act in actividades:
-					a = CursoAct.create(id_curso, act)
-					a.save() #Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
+
+	def insertarCursoActividad(self, datos):
+		global bd
+		self._conectarBD
+		res = 'ok'
+		try:
+			ca = None
+			with bd.atomic():
+				 ca = CursoAct.create(**datos)
+			if ca.save() != 1:
+				res = 'error'
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
 
 	def insertarCursoCohortes(self, id_curso, cohortes):
 		self._conectarBD

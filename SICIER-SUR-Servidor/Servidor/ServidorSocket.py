@@ -109,6 +109,10 @@ class ServidorSocket():
 			elif funcion == 'activarLT':
 				ids = parametros['ids']
 				return self._fachada.controlLT.activarLT(ids)
+			elif funcion == 'insertarCurso':
+				return self._fachada.controlCurso.insertarCurso(parametros)
+			elif funcion == "insertarCursoActividad":
+				return self._fachada.controlCurso.insertarCursoActividad(parametros)
 		except Exception as ex:
 			print "Error en responder..." , ex
 			return 'error'

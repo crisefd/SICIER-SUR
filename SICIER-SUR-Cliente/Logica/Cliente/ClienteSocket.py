@@ -65,6 +65,7 @@ class ClienteSocket():
 	def recibirRespuesta(self):
 		datos = None
 		print "Recibiendo respuesta"
+		print datos
 		try:
 			d = self._socket.recv(81920)
 			#print "Tipo Respuesta d ", type(d)
