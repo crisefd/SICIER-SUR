@@ -151,12 +151,13 @@ CREATE TABLE Course_Activity(
 	activity VARCHAR(50),
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
+	weight FLOAT NOT NULL,--cambio de shaitan--
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
 	PRIMARY KEY(id_course_fk, activity),
 	UNIQUE(activity)
 );
-
+/*
 DROP TABLE IF EXISTS Activity_Grade CASCADE;
 CREATE TABLE Activity_Grade(
 	id_course_fk VARCHAR(50) NOT NULL,
@@ -165,7 +166,7 @@ CREATE TABLE Activity_Grade(
 	FOREIGN KEY(id_course_fk, activity_fk)
 	REFERENCES Course_Activity(id_course_fk, activity),
 	PRIMARY KEY(id_course_fk, activity_fk, weight)
-);
+);*/
 
 DROP TABLE IF EXISTS Course_Cohort CASCADE;
 CREATE TABLE Course_Cohort(
@@ -293,16 +294,17 @@ INSERT INTO Course values('252527M', 'Curso basico de Ofimatica nivel 3', '2015-
 
 ------ Course Act-----
 
-INSERT INTO Course_Activity values('252525M', '45456A', '2015-05-30', '2015-06-05');
-INSERT INTO Course_Activity values('252525M', '45457A', '2015-06-30', '2015-07-05');
-INSERT INTO Course_Activity values('252525M', '45458A', '2015-07-30', '2015-08-05');
-INSERT INTO Course_Activity values('252526M', '45459A', '2015-05-30', '2015-06-05');
-INSERT INTO Course_Activity values('252526M', '45450A', '2015-06-30', '2015-07-05');
-INSERT INTO Course_Activity values('252526M', '45451A', '2015-07-30', '2015-08-05');
-INSERT INTO Course_Activity values('252527M', '45452A', '2015-05-30', '2015-06-05');
-INSERT INTO Course_Activity values('252527M', '45453A', '2015-06-30', '2015-07-05');
-INSERT INTO Course_Activity values('252527M', '45454A', '2015-07-30', '2015-08-05');
+INSERT INTO Course_Activity values('252525M', '45456A', '2015-05-30', '2015-06-05', '0.333');
+INSERT INTO Course_Activity values('252525M', '45457A', '2015-06-30', '2015-07-05', '0.333');
+INSERT INTO Course_Activity values('252525M', '45458A', '2015-07-30', '2015-08-05', '0.333');
+INSERT INTO Course_Activity values('252526M', '45459A', '2015-05-30', '2015-06-05', '0.333');
+INSERT INTO Course_Activity values('252526M', '45450A', '2015-06-30', '2015-07-05', '0.333');
+INSERT INTO Course_Activity values('252526M', '45451A', '2015-07-30', '2015-08-05', '0.333');
+INSERT INTO Course_Activity values('252527M', '45452A', '2015-05-30', '2015-06-05', '0.333');
+INSERT INTO Course_Activity values('252527M', '45453A', '2015-06-30', '2015-07-05', '0.333');
+INSERT INTO Course_Activity values('252527M', '45454A', '2015-07-30', '2015-08-05', '0.333');
 
+/*
 ----- Act grade-------
 INSERT INTO Activity_Grade values('252525M', '45456A', '0.333');
 INSERT INTO Activity_Grade values('252525M', '45457A', '0.333');
@@ -313,7 +315,7 @@ INSERT INTO Activity_Grade values('252526M', '45451A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45452A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45453A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45454A', '0.333');
-
+*/
 --- Act grade Lt---
 
 INSERT INTO Activity_Grade_LT values('1243829284', '45456A', '3.7')
