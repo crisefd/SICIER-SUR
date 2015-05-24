@@ -222,21 +222,21 @@ CREATE TABLE Enrollment(
 
 
 
-ALTER TABLE Activity_Grade OWNER TO crisefd;
-ALTER TABLE Course_activity OWNER TO crisefd;
-ALTER TABLE Administrator OWNER TO crisefd;
-ALTER TABLE Coordinator OWNER TO crisefd;
-ALTER TABLE MasterTeacher OWNER TO crisefd;
-ALTER TABLE LeaderTeacher OWNER TO crisefd;
-ALTER TABLE Course OWNER TO crisefd;
-ALTER TABLE Enrollment OWNER TO crisefd;
-ALTER TABLE Course_Cohort OWNER TO crisefd;
-ALTER TABLE LT_academic_backg OWNER TO crisefd;
-ALTER TABLE MT_academic_backg OWNER TO crisefd;
-ALTER TABLE LT_labor_exp OWNER TO crisefd;
-ALTER TABLE MT_labor_exp OWNER TO crisefd;
-ALTER TABLE LT_Cohort OWNER TO crisefd;
-
+ALTER TABLE Activity_Grade OWNER TO shaitan;
+ALTER TABLE Course_activity OWNER TO shaitan;
+ALTER TABLE Administrator OWNER TO shaitan;
+ALTER TABLE Coordinator OWNER TO shaitan;
+ALTER TABLE MasterTeacher OWNER TO shaitan;
+ALTER TABLE LeaderTeacher OWNER TO shaitan;
+ALTER TABLE Course OWNER TO shaitan;
+ALTER TABLE Enrollment OWNER TO shaitan;
+ALTER TABLE Course_Cohort OWNER TO shaitan;
+ALTER TABLE LT_academic_backg OWNER TO shaitan;
+ALTER TABLE MT_academic_backg OWNER TO shaitan;
+ALTER TABLE LT_labor_exp OWNER TO shaitan;
+ALTER TABLE MT_labor_exp OWNER TO shaitan;
+ALTER TABLE LT_Cohort OWNER TO shaitan;
+/*
 ------POBLACIÓN PRUEBA-----------------------------
 
 -----MT------
@@ -304,7 +304,7 @@ INSERT INTO Course_Activity values('252527M', '45452A', '2015-05-30', '2015-06-0
 INSERT INTO Course_Activity values('252527M', '45453A', '2015-06-30', '2015-07-05', '0.333');
 INSERT INTO Course_Activity values('252527M', '45454A', '2015-07-30', '2015-08-05', '0.333');
 
-/*
+
 ----- Act grade-------
 INSERT INTO Activity_Grade values('252525M', '45456A', '0.333');
 INSERT INTO Activity_Grade values('252525M', '45457A', '0.333');
@@ -315,7 +315,7 @@ INSERT INTO Activity_Grade values('252526M', '45451A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45452A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45453A', '0.333');
 INSERT INTO Activity_Grade values('252527M', '45454A', '0.333');
-*/
+
 --- Act grade Lt---
 
 INSERT INTO Activity_Grade_LT values('1243829284', '252525M,45456A', '3.7');
@@ -341,3 +341,4 @@ INSERT INTO Enrollment values('1143829284', '1243829285', '252525M','0.0');
 INSERT INTO Enrollment values('1143829285', '1243829286', '252526M','0.0');
 INSERT INTO Enrollment values('1143829285', '1243829287', '252527M','0.0');
 INSERT INTO Enrollment values('1143829286', '1243829286', '252525M','0.0');
+*/
