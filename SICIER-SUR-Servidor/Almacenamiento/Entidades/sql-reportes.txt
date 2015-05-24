@@ -1,8 +1,12 @@
+1-
 select  id_course_fk from (select distinct A.id_course_fk, (select count(id_course_fk) from Enrollment where id_course_fk = A.id_course_fk) as count from Enrollment as A order by count desc) as F limit 10;
 ---------------------------------------------------------------------------------------------------------------------
-
+2-
+AJUSTARLE A ESTE LA FECHA POR QUE TIENE FIJA 2015-05-24
 select department, count(*) as count from(
-select LeaderTeacher.department as department from LeaderTeacher inner join (select distinct Enrollment.id_LT_fk as LTID  from Enrollment inner join  (select distinct Enrollment.id_course_fk as CourseID from Enrollment inner join Course on Enrollment.id_course_fk = Course.id where Course.start_date = 4)as A on Enrollment.id_course_fk = A.CourseID)as B on LeaderTeacher.id = B.LTID
-) group by department
+select LeaderTeacher.department as department from LeaderTeacher inner join (select distinct Enrollment.id_LT_fk as LTID  from Enrollment inner join  (select distinct Enrollment.id_course_fk as CourseID from Enrollment inner join Course on Enrollment.id_course_fk = Course.id where Course.start_date = '2015-05-24')as A on Enrollment.id_course_fk = A.CourseID)as B on LeaderTeacher.id = B.LTID
+)as B group by department;
 
+-------------------------------------------------------------------------------------------------------------------------
+3-
 

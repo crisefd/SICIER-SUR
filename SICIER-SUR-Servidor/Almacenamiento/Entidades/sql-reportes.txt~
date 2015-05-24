@@ -1,4 +1,4 @@
-select TOP 10  id_course_fk from (select distinct A.id_course_fk, (select count(id_course_fk) from Enrollment where id_course_fk = A.id_course_fk) as count from Enrollment as A order by count desc);
+select  id_course_fk from (select distinct A.id_course_fk, (select count(id_course_fk) from Enrollment where id_course_fk = A.id_course_fk) as count from Enrollment as A order by count desc) as F limit 10;
 ---------------------------------------------------------------------------------------------------------------------
 
 select department, count(*) as count from(
