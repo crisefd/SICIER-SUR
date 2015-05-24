@@ -33,7 +33,7 @@ CREATE TABLE Administrator(
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	is_active BOOLEAN NOT NULL,
-	pass VARCHAR(50),
+	pass VARCHoscar
 	UNIQUE(email)
 	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)
@@ -223,20 +223,20 @@ CREATE TABLE Enrollment(
 
 
 
-ALTER TABLE Activity_Grade_LT OWNER TO shaitan;
-ALTER TABLE Course_activity OWNER TO shaitan;
-ALTER TABLE Administrator OWNER TO shaitan;
-ALTER TABLE Coordinator OWNER TO shaitan;
-ALTER TABLE MasterTeacher OWNER TO shaitan;
-ALTER TABLE LeaderTeacher OWNER TO shaitan;
-ALTER TABLE Course OWNER TO shaitan;
-ALTER TABLE Enrollment OWNER TO shaitan;
-ALTER TABLE Course_Cohort OWNER TO shaitan;
-ALTER TABLE LT_academic_backg OWNER TO shaitan;
-ALTER TABLE MT_academic_backg OWNER TO shaitan;
-ALTER TABLE LT_labor_exp OWNER TO shaitan;
-ALTER TABLE MT_labor_exp OWNER TO shaitan;
-ALTER TABLE LT_Cohort OWNER TO shaitan;
+ALTER TABLE Activity_Grade_LT OWNER TO oscar;
+ALTER TABLE Course_activity OWNER TO oscar;
+ALTER TABLE Administrator OWNER TO oscar;
+ALTER TABLE Coordinator OWNER TO oscar;
+ALTER TABLE MasterTeacher OWNER TO oscar;
+ALTER TABLE LeaderTeacher OWNER TO oscar;
+ALTER TABLE Course OWNER TO oscar;
+ALTER TABLE Enrollment OWNER TO oscar;
+ALTER TABLE Course_Cohort OWNER TO oscar;
+ALTER TABLE LT_academic_backg OWNER TO oscar;
+ALTER TABLE MT_academic_backg OWNER TO oscar;
+ALTER TABLE LT_labor_exp OWNER TO oscar;
+ALTER TABLE MT_labor_exp OWNER TO oscar;
+ALTER TABLE LT_Cohort OWNER TO oscar;
 
 ------POBLACIÓN PRUEBA-----------------------------
 
@@ -274,11 +274,11 @@ INSERT INTO MT_academic_backg values('1143829287', 'CIER-SUR matematicas 2');
 
 ---LT----
 
-INSERT INTO LeaderTeacher values ('1243829284', 'Fernando', 'Bolaños', '2739490', 'Cali', 'Fernando@gmail.com', 'M', '1983-12-12', 'soltero', 'Univalle','Sistemas', 'Ingeniero de Sistemas', 'algo', 'discretas', TRUE, 'lpass123');
-INSERT INTO LeaderTeacher values ('1243829285', 'Daniel', 'Henao', '2739491', 'Cali', 'Daniel@gmail.com', 'M', '1983-02-07', 'casado', 'Univalle', 'electronica', 'Ingeniero electronico', 'algo', 'SO', TRUE, 'lpass124');
-INSERT INTO LeaderTeacher values ('1243829286', 'Camilo', 'Castaño', '2739492', 'Cali', 'Camilo@gmail.com', 'M', '1983-06-11', 'soltero', 'Javeriana', 'Química', 'Quimico', 'algo', 'Química organica', TRUE, 'lpass125');
-INSERT INTO LeaderTeacher values ('1243829287', 'Andres', 'Rojas', '2739493', 'Palmira', 'Andres@gmail.com', 'M', '1983-12-12', 'soltero', 'Icesi', 'matematicas', 'Lic. Matematicas', 'algo', 'Geometria', TRUE, 'lpass126');	
-INSERT INTO LeaderTeacher values ('1243829288', 'Maria', 'Rojas', '2739494', 'Buga', 'MariaR@gmail.com', 'F', '1983-04-02', 'casada', 'Autonoma', 'Química', 'Ingeniera Química', 'algo', 'Química inorganica', TRUE, 'lpass127');
+INSERT INTO LeaderTeacher values ('1243829284', 'Fernando', 'Bolaños', '2739490', 'Cali', 'Fernando@gmail.com', 'M', '1983-12-12', 'soltero', 'Univalle','Valle del Cauca', 'Ingeniero de Sistemas', 'algo', 'discretas', TRUE, 'lpass123');
+INSERT INTO LeaderTeacher values ('1243829285', 'Daniel', 'Henao', '2739491', 'Cali', 'Daniel@gmail.com', 'M', '1983-02-07', 'casado', 'Univalle', 'Valle del Cauca', 'Ingeniero electronico', 'algo', 'SO', TRUE, 'lpass124');
+INSERT INTO LeaderTeacher values ('1243829286', 'Camilo', 'Castaño', '2739492', 'Cali', 'Camilo@gmail.com', 'M', '1983-06-11', 'soltero', 'Javeriana', 'Valle del Cauca', 'Quimico', 'algo', 'Química organica', TRUE, 'lpass125');
+INSERT INTO LeaderTeacher values ('1243829287', 'Andres', 'Rojas', '2739493', 'Palmira', 'Andres@gmail.com', 'M', '1983-12-12', 'soltero', 'Icesi', 'Valle del Cauca', 'Lic. Matematicas', 'algo', 'Geometria', TRUE, 'lpass126');	
+INSERT INTO LeaderTeacher values ('1243829288', 'Maria', 'Rojas', '2739494', 'Buga', 'MariaR@gmail.com', 'F', '1983-04-02', 'casada', 'Autonoma', 'Valle del Cauca', 'Ingeniera Química', 'algo', 'Química inorganica', TRUE, 'lpass127');
 
 ----LT exp lab-----
 
