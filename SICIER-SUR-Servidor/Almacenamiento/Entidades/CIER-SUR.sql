@@ -318,18 +318,26 @@ INSERT INTO Activity_Grade values('252527M', '45454A', '0.333');
 */
 --- Act grade Lt---
 
-INSERT INTO Activity_Grade_LT values('1243829284', '45456A', '3.7')
-INSERT INTO Activity_Grade_LT values('1243829285', '45459A', '4.2')
-INSERT INTO Activity_Grade_LT values('1243829286', '45452A', '2.7')
+INSERT INTO Activity_Grade_LT values('1243829284', '252525M,45456A', '3.7');
+INSERT INTO Activity_Grade_LT values('1243829285', '252526M,45459A', '4.2');
+INSERT INTO Activity_Grade_LT values('1243829286', '252527M,45452A', '2.7');
 
 -----Course cohort -----
 
-INSERT INTO Course_Cohort values('252525M', '1')
-INSERT INTO Course_Cohort values('252526M', '1')
-INSERT INTO Course_Cohort values('252527M', '1')
+INSERT INTO Course_Cohort values('252525M', '1');
+INSERT INTO Course_Cohort values('252526M', '1');
+INSERT INTO Course_Cohort values('252527M', '1');
 
 ----LT Cohort-----
 
-INSERT INTO LT_Cohort values('124382928x', '25252xM', )
-INSERT INTO LT_Cohort values('124382928x', '25252xM', )
-INSERT INTO LT_Cohort values('124382928x', '25252xM', )
+INSERT INTO LT_Cohort values('1243829284', '252525M','252525M,1' );
+INSERT INTO LT_Cohort values('1243829285', '252526M','252526M,1' );
+INSERT INTO LT_Cohort values('1243829286', '252527M','252527M,1' );
+
+----Enrrol------
+
+INSERT INTO Enrollment values('1143829284', '1243829284', '252525M','0.0');
+INSERT INTO Enrollment values('1143829284', '1243829285', '252525M','0.0');
+INSERT INTO Enrollment values('1143829285', '1243829286', '252526M','0.0');
+INSERT INTO Enrollment values('1143829285', '1243829287', '252527M','0.0');
+INSERT INTO Enrollment values('1143829286', '1243829286', '252525M','0.0');
