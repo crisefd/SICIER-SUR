@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS Person CASCADE;/*
+﻿/*DROP TABLE IF EXISTS Person CASCADE;
 CREATE TABLE Person(
 	id VARCHAR(50) PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE Administrator(
 	REFERENCES Person(id) */
 );
 
-DROP TABLE IF EXISTS Teacher CASCADE;/*
+/*DROP TABLE IF EXISTS Teacher CASCADE;
 CREATE TABLE Teacher(
 	id VARCHAR(50) PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -174,8 +174,8 @@ CREATE TABLE Course_Cohort(
 	cohort VARCHAR(50) NOT NULL,
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
-	PRIMARY KEY(id_course_fk, cohort),
-	UNIQUE(cohort)
+	PRIMARY KEY(id_course_fk, cohort)
+	--UNIQUE(cohort)
 	
 );
 
@@ -237,8 +237,17 @@ ALTER TABLE MT_academic_backg OWNER TO shaitan;
 ALTER TABLE LT_labor_exp OWNER TO shaitan;
 ALTER TABLE MT_labor_exp OWNER TO shaitan;
 ALTER TABLE LT_Cohort OWNER TO shaitan;
-/*
+
 ------POBLACIÓN PRUEBA-----------------------------
+
+---- Admin------
+
+INSERT INTO Administrator values ('11111', 'shaitan', 'Tigreros', '123456', 'Cali', 'tigreros@gmail.com', TRUE, '12345ADMIN');
+INSERT INTO Administrator values ('11115', 'cristhian', 'fuertes', '654321', 'Cali', 'fuertes@gmail.com', TRUE, '54321ADMIN');
+
+----- coord----
+INSERT INTO Coordinator values ('21111', 'daniel', 'Henao', '09876', 'Cali', 'henao@gmail.com', TRUE, '12345coord');
+INSERT INTO Coordinator values ('21115', 'fabian', 'cano', '67890', 'Cali', 'cano@gmail.com', TRUE, '54321coord');
 
 -----MT------
 
@@ -265,11 +274,11 @@ INSERT INTO MT_academic_backg values('1143829287', 'CIER-SUR matematicas 2');
 
 ---LT----
 
-INSERT INTO LeaderTeacher values ('1243829284', 'Fernando', 'Bolaños', '2739490', 'Cali', 'Fernando@gmail.com', 'M', '1983-12-12', 'soltero', 'Univalle', 'Ingeniero de Sistemas', 'algo', 'discretas', TRUE, 'lpass123');
-INSERT INTO LeaderTeacher values ('1243829285', 'Daniel', 'Henao', '2739491', 'Cali', 'Daniel@gmail.com', 'M', '1983-02-07', 'casado', 'Univalle', 'Ingeniero electronico', 'algo', 'SO', TRUE, 'lpass124');
-INSERT INTO LeaderTeacher values ('1243829286', 'Camilo', 'Castaño', '2739492', 'Cali', 'Camilo@gmail.com', 'M', '1983-06-11', 'soltero', 'Javeriana', 'Quimico', 'algo', 'Química organica', TRUE, 'lpass125');
-INSERT INTO LeaderTeacher values ('1243829287', 'Andres', 'Rojas', '2739493', 'Palmira', 'Andres@gmail.com', 'M', '1983-12-12', 'soltero', 'Icesi', 'Lic. Matematicas', 'algo', 'Geometria', TRUE, 'lpass126');	
-INSERT INTO LeaderTeacher values ('1243829288', 'Maria', 'Rojas', '2739494', 'Buga', 'MariaR@gmail.com', 'F', '1983-04-02', 'casada', 'Autonoma', 'Ingeniera Química', 'algo', 'Química inorganica', TRUE, 'lpass127');
+INSERT INTO LeaderTeacher values ('1243829284', 'Fernando', 'Bolaños', '2739490', 'Cali', 'Fernando@gmail.com', 'M', '1983-12-12', 'soltero', 'Univalle','Sistemas', 'Ingeniero de Sistemas', 'algo', 'discretas', TRUE, 'lpass123');
+INSERT INTO LeaderTeacher values ('1243829285', 'Daniel', 'Henao', '2739491', 'Cali', 'Daniel@gmail.com', 'M', '1983-02-07', 'casado', 'Univalle', 'electronica', 'Ingeniero electronico', 'algo', 'SO', TRUE, 'lpass124');
+INSERT INTO LeaderTeacher values ('1243829286', 'Camilo', 'Castaño', '2739492', 'Cali', 'Camilo@gmail.com', 'M', '1983-06-11', 'soltero', 'Javeriana', 'Química', 'Quimico', 'algo', 'Química organica', TRUE, 'lpass125');
+INSERT INTO LeaderTeacher values ('1243829287', 'Andres', 'Rojas', '2739493', 'Palmira', 'Andres@gmail.com', 'M', '1983-12-12', 'soltero', 'Icesi', 'matematicas', 'Lic. Matematicas', 'algo', 'Geometria', TRUE, 'lpass126');	
+INSERT INTO LeaderTeacher values ('1243829288', 'Maria', 'Rojas', '2739494', 'Buga', 'MariaR@gmail.com', 'F', '1983-04-02', 'casada', 'Autonoma', 'Química', 'Ingeniera Química', 'algo', 'Química inorganica', TRUE, 'lpass127');
 
 ----LT exp lab-----
 
@@ -307,21 +316,21 @@ INSERT INTO Course_Activity values('252527M', '45454A', '2015-07-30', '2015-08-0
 
 
 ----- Act grade-------
-INSERT INTO Activity_Grade values('252525M', '45456A', '0.333');
-INSERT INTO Activity_Grade values('252525M', '45457A', '0.333');
-INSERT INTO Activity_Grade values('252525M', '45458A', '0.333');
-INSERT INTO Activity_Grade values('252526M', '45459A', '0.333');
-INSERT INTO Activity_Grade values('252526M', '45450A', '0.333');
-INSERT INTO Activity_Grade values('252526M', '45451A', '0.333');
-INSERT INTO Activity_Grade values('252527M', '45452A', '0.333');
-INSERT INTO Activity_Grade values('252527M', '45453A', '0.333');
-INSERT INTO Activity_Grade values('252527M', '45454A', '0.333');
+--INSERT INTO Activity_Grade values('252525M', '45456A', '0.333');
+--INSERT INTO Activity_Grade values('252525M', '45457A', '0.333');
+--INSERT INTO Activity_Grade values('252525M', '45458A', '0.333');
+--INSERT INTO Activity_Grade values('252526M', '45459A', '0.333');
+--INSERT INTO Activity_Grade values('252526M', '45450A', '0.333');
+--INSERT INTO Activity_Grade values('252526M', '45451A', '0.333');
+--INSERT INTO Activity_Grade values('252527M', '45452A', '0.333');
+--INSERT INTO Activity_Grade values('252527M', '45453A', '0.333');
+--INSERT INTO Activity_Grade values('252527M', '45454A', '0.333');
 
 --- Act grade Lt---
 
-INSERT INTO Activity_Grade_LT values('1243829284', '252525M,45456A', '3.7');
-INSERT INTO Activity_Grade_LT values('1243829285', '252526M,45459A', '4.2');
-INSERT INTO Activity_Grade_LT values('1243829286', '252527M,45452A', '2.7');
+INSERT INTO Activity_Grade_LT values('1243829284', '45456A', '3.7');
+INSERT INTO Activity_Grade_LT values('1243829285', '45459A', '4.2');
+INSERT INTO Activity_Grade_LT values('1243829286', '45452A', '2.7');
 
 -----Course cohort -----
 
@@ -331,15 +340,14 @@ INSERT INTO Course_Cohort values('252527M', '1');
 
 ----LT Cohort-----
 
-INSERT INTO LT_Cohort values('1243829284', '252525M','252525M,1' );
-INSERT INTO LT_Cohort values('1243829285', '252526M','252526M,1' );
-INSERT INTO LT_Cohort values('1243829286', '252527M','252527M,1' );
+INSERT INTO LT_Cohort values('1243829284', '252525M','1' );
+INSERT INTO LT_Cohort values('1243829285', '252526M','1' );
+INSERT INTO LT_Cohort values('1243829286', '252527M','1' );
 
 ----Enrrol------
 
 INSERT INTO Enrollment values('1143829284', '1243829284', '252525M','0.0');
-INSERT INTO Enrollment values('1143829284', '1243829285', '252525M','0.0');
+INSERT INTO Enrollment values('1143829284', '1243829285', '252526M','0.0');
 INSERT INTO Enrollment values('1143829285', '1243829286', '252526M','0.0');
 INSERT INTO Enrollment values('1143829285', '1243829287', '252527M','0.0');
 INSERT INTO Enrollment values('1143829286', '1243829286', '252525M','0.0');
-*/
