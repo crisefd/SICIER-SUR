@@ -154,7 +154,7 @@ CREATE TABLE Course_Activity(
 	weight FLOAT NOT NULL,--cambio de shaitan--
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
-	PRIMARY KEY(id_course_fk, activity),
+	PRIMARY KEY(activity),
 	UNIQUE(activity)
 );
 /*
@@ -198,9 +198,10 @@ CREATE TABLE Activity_Grade_LT(
 	activity_fk VARCHAR(50) NOT NULL,
 	score FLOAT,
 	FOREIGN KEY(id_LT_fk)
-	REFERENCES LeaderTeacher
-	FOREIGN KEY(course_activity_fk)
-	REFERENCES Course_Activity
+	REFERENCES LeaderTeacher,
+	FOREIGN KEY(activity_fk)
+	REFERENCES Course_Activity(activity),
+	PRIMARY KEY (id_LT_fk, activity_fk)
 
 );
 
@@ -222,7 +223,7 @@ CREATE TABLE Enrollment(
 
 
 
-ALTER TABLE Activity_Grade OWNER TO shaitan;
+ALTER TABLE Activity_Grade_LT OWNER TO shaitan;
 ALTER TABLE Course_activity OWNER TO shaitan;
 ALTER TABLE Administrator OWNER TO shaitan;
 ALTER TABLE Coordinator OWNER TO shaitan;
