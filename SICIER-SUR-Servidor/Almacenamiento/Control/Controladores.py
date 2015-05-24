@@ -24,6 +24,7 @@ CursoAct = modelos.CourseActivity
 ActNota = modelos.ActivityGrade
 CursoCohorte = modelos.CourseCohort
 Matricula = modelos.Enrollment
+ActNotaLT = modelos.ActivityGradeLt
 
 
 
@@ -499,6 +500,40 @@ class ControladorCurso(Controlador):
 		for cursoAct in query:
 			ls.append([str(cursoAct.id), str(cursoAct.description), str(cursoAct.start_date), str(cursoAct.end_date)])
 		return ls
+	
+	def eliminarCurso(self, datos):
+		global bd
+		self._conectarBD
+		res = 'ok'
+		try:
+			id_curso = datos['id']
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
+	
+	def eliminarCursoAct(self, id_curso):
+		global bd
+		self._conectarBD
+		res = 'ok'
+		try:
+			pass
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
 	
 	def consultarCursos(self):
 		global bd

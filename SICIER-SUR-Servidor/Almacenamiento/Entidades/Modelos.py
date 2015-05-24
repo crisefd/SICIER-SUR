@@ -26,6 +26,36 @@ class BaseModel(Model):
     class Meta:
         database = database
 
+class ActivityGrade(BaseModel):
+    activity_fk = CharField()
+    id_course_fk = CharField()
+    weight = FloatField()
+
+    class Meta:
+        db_table = 'activity_grade'
+        primary_key = CompositeKey('activity_fk', 'id_course_fk', 'weight')
+
+class Leaderteacher(BaseModel):
+    area = CharField()
+    birth_date = DateField()
+    city = CharField()
+    department = CharField()
+    email = CharField(unique=True)
+    first_name = CharField()
+    grade = CharField()
+    id = CharField(primary_key=True)
+    institution = CharField()
+    is_active = BooleanField()
+    last_name = CharField()
+    marital_status = CharField()
+    pass_ = CharField(db_column='pass', null=True)
+    secretariat = CharField()
+    sex = CharField()
+    tel_num = CharField()
+
+    class Meta:
+        db_table = 'leaderteacher'
+
 class Course(BaseModel):
     description = CharField()
     end_date = DateField()
@@ -36,23 +66,23 @@ class Course(BaseModel):
         db_table = 'course'
 
 class CourseActivity(BaseModel):
-    activity = CharField(unique=True)
+    activity = CharField(primary_key=True)
     end_date = DateField()
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
     start_date = DateField()
-
-    class Meta:
-        db_table = 'course_activity'
-        primary_key = CompositeKey('activity', 'id_course_fk')
-
-class ActivityGrade(BaseModel):
-    activity_fk = ForeignKeyField(db_column='activity_fk', rel_model=CourseActivity, related_name='course_activity_activity_fk_set', to_field='activity')
-    id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=CourseActivity, related_name='course_activity_id_course_fk_set', to_field='activity')
     weight = FloatField()
 
     class Meta:
-        db_table = 'activity_grade'
-        primary_key = CompositeKey('activity_fk', 'id_course_fk', 'weight')
+        db_table = 'course_activity'
+
+class ActivityGradeLt(BaseModel):
+    activity_fk = ForeignKeyField(db_column='activity_fk', rel_model=CourseActivity, to_field='activity')
+    id_lt_fk = ForeignKeyField(db_column='id_lt_fk', rel_model=Leaderteacher, to_field='id')
+    score = FloatField(null=True)
+
+    class Meta:
+        db_table = 'activity_grade_lt'
+        primary_key = CompositeKey('activity_fk', 'id_lt_fk')
 
 class Administrator(BaseModel):
     city = CharField()
@@ -108,27 +138,6 @@ class Masterteacher(BaseModel):
     class Meta:
         db_table = 'masterteacher'
 
-class Leaderteacher(BaseModel):
-    area = CharField()
-    birth_date = DateField()
-    city = CharField()
-    department = CharField()
-    email = CharField(unique=True)
-    first_name = CharField()
-    grade = CharField()
-    id = CharField(primary_key=True)
-    institution = CharField()
-    is_active = BooleanField()
-    last_name = CharField()
-    marital_status = CharField()
-    pass_ = CharField(db_column='pass', null=True)
-    secretariat = CharField()
-    sex = CharField()
-    tel_num = CharField()
-
-    class Meta:
-        db_table = 'leaderteacher'
-
 class Enrollment(BaseModel):
     def_grade = FloatField(null=True)
     id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
@@ -173,8 +182,8 @@ class MtAcademicBackg(BaseModel):
         primary_key = CompositeKey('id_mt_fk', 'item')
 
 class MtCourse(BaseModel):
-    id_course_fk = ForeignKeyField(db_column='id_course_fk', rel_model=Course, to_field='id')
-    id_mt_fk = ForeignKeyField(db_column='id_mt_fk', rel_model=Masterteacher, to_field='id')
+    id_course_fk = CharField()
+    id_mt_fk = CharField()
 
     class Meta:
         db_table = 'mt_course'
@@ -187,3 +196,4 @@ class MtLaborExp(BaseModel):
     class Meta:
         db_table = 'mt_labor_exp'
         primary_key = CompositeKey('id_mt_fk', 'item')
+

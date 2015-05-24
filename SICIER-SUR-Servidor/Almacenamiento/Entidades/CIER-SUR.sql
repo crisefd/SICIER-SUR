@@ -6,7 +6,6 @@ CREATE TABLE Person(
 	tel_num VARCHAR(50) NOT NULL,
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL
-
 );*/
 
 DROP TABLE IF EXISTS Coordinator CASCADE;
@@ -152,12 +151,13 @@ CREATE TABLE Course_Activity(
 	activity VARCHAR(50),
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
+	weight FLOAT NOT NULL,--cambio de shaitan--
 	FOREIGN KEY(id_course_fk)
 	REFERENCES Course(id),
-	PRIMARY KEY(id_course_fk, activity),
+	PRIMARY KEY(activity),
 	UNIQUE(activity)
 );
-
+/*
 DROP TABLE IF EXISTS Activity_Grade CASCADE;
 CREATE TABLE Activity_Grade(
 	id_course_fk VARCHAR(50) NOT NULL,
@@ -166,7 +166,7 @@ CREATE TABLE Activity_Grade(
 	FOREIGN KEY(id_course_fk, activity_fk)
 	REFERENCES Course_Activity(id_course_fk, activity),
 	PRIMARY KEY(id_course_fk, activity_fk, weight)
-);
+);*/
 
 DROP TABLE IF EXISTS Course_Cohort CASCADE;
 CREATE TABLE Course_Cohort(
@@ -192,6 +192,19 @@ CREATE TABLE LT_Cohort(
 	
 );
 
+DROP TABLE IF EXISTS Activity_Grade_LT;
+CREATE TABLE Activity_Grade_LT(
+	id_LT_fk VARCHAR(50) NOT NULL,
+	activity_fk VARCHAR(50) NOT NULL,
+	score FLOAT,
+	FOREIGN KEY(id_LT_fk)
+	REFERENCES LeaderTeacher,
+	FOREIGN KEY(activity_fk)
+	REFERENCES Course_Activity(activity),
+	PRIMARY KEY (id_LT_fk, activity_fk)
+
+);
+
 DROP TABLE IF EXISTS Enrollment CASCADE;
 CREATE TABLE Enrollment(
 	id_MT_fk VARCHAR(50) NOT NULL,
@@ -208,17 +221,7 @@ CREATE TABLE Enrollment(
 	
 );
 
-DROP TABLE IF EXISTS MT_Course CASCADE;
-CREATE TABLE MT_Course(
-	id_MT_fk VARCHAR(50) NOT NULL,
-	id_course_fk VARCHAR(50) NOT NULL,
-	FOREIGN KEY(id_MT_fk)
-	REFERENCES MasterTeacher(id),
-	FOREIGN KEY(id_course_fk)
-	REFERENCES Course(id),
-	PRIMARY KEY(id_MT_fk, id_course_fk)
-	
-);
+
 
 ALTER TABLE Activity_Grade OWNER TO crisefd;
 ALTER TABLE Course_activity OWNER TO crisefd;
@@ -233,6 +236,5 @@ ALTER TABLE LT_academic_backg OWNER TO crisefd;
 ALTER TABLE MT_academic_backg OWNER TO crisefd;
 ALTER TABLE LT_labor_exp OWNER TO crisefd;
 ALTER TABLE MT_labor_exp OWNER TO crisefd;
-ALTER TABLE MT_Course OWNER TO crisefd;
 ALTER TABLE LT_Cohort OWNER TO crisefd;
-
+ALTER TABLE Activity_Grade_LT OWNER TO crisefd;

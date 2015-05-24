@@ -313,11 +313,13 @@ class VentanaAgregarActividad(QtGui.QFrame):
 		if (inicio.year() > fin.year()) or (inicio.year() < fin.year() and inicio.month() > fin.month()) or (inicio.year() < fin.year() and inicio.month() < fin.month() and inicio.day() > fin.day()):
 			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Las fechas deben ser coherentes"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 			return
+		peso = str(self.campoPeso.text())
 		datos = {'funcion': 'insertarCursoActividad', 
 				'parametros':{'start_date': str(inicio.toString("yyyy.MM.dd")),
 				               'end_date':str(fin.toString("yyyy.MM.dd")),
 				               'id_course_fk': self.id_curso,
-				               'activity': actividad
+				               'activity': actividad,
+				               'weight': peso
 				               }}
 		clienteSocket.enviarMensaje(datos)
 		res = clienteSocket.recibirRespuesta(False)
@@ -364,6 +366,12 @@ class VentanaAgregarActividad(QtGui.QFrame):
         self.selectorFechaFin = QtGui.QDateEdit(self.formLayoutWidget)
         self.selectorFechaFin.setObjectName(_fromUtf8("selectorFechaFin"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.selectorFechaFin)
+        self.etiquetaPeso = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaPeso.setObjectName(_fromUtf8("etiquetaPeso"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.etiquetaPeso)
+        self.campoPeso = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoPeso.setObjectName(_fromUtf8("campoPeso"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.campoPeso)
         self.botonAgregar = QtGui.QPushButton(VentanaAgregarActividad)
         self.botonAgregar.setGeometry(QtCore.QRect(150, 230, 131, 27))
         self.botonAgregar.setObjectName(_fromUtf8("botonAgregar"))
@@ -378,6 +386,7 @@ class VentanaAgregarActividad(QtGui.QFrame):
         self.etiquetaIDActividad.setText(_translate("VentanaAgregarActividad", "ID actividad", None))
         self.etiquetaFechaInicio.setText(_translate("VentanaAgregarActividad", "Fecha Inicio", None))
         self.etiquetaFechaFin.setText(_translate("VentanaAgregarActividad", "Fecha Fin", None))
+         self.etiquetaPeso.setText(_translate("Frame", "Peso:", None))
         self.botonAgregar.setText(_translate("VentanaAgregarActividad", "Agregar a curso", None))
 
 class VentanaAdministrarCursos(QtGui.QFrame):
