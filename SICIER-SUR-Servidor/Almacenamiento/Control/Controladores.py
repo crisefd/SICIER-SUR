@@ -528,20 +528,25 @@ class ControladorCurso(Controlador):
 				res = 'error'
 		return res
 
-	def insertarCursoCohortes(self, id_curso, cohortes):
+	def insertarCursoCohorte(self, datos):
+		global bd
+		print "insertando cohorte", datos
+		ls = [datos]
 		self._conectarBD
-		with bd.atomic():
+		res = 'ok'
+		try:
+			with bd.atomic():
+				CursoCohorte.insert_many(ls).execute()
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
 			try:
-				for cohorte in cohortes:
-					a = CursoCohorte.create(id_curso, cohorte)
-					a.save() #Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
 
 		def insertarActNota(self, **datos):
 			self._conectarBD

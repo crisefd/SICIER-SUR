@@ -113,6 +113,8 @@ class ServidorSocket():
 				return self._fachada.controlCurso.insertarCurso(parametros)
 			elif funcion == "insertarCursoActividad":
 				return self._fachada.controlCurso.insertarCursoActividad(parametros)
+			elif funcion == "insertarCursoCohorte":
+				return self._fachada.controlCurso.insertarCursoCohorte(parametros)
 		except Exception as ex:
 			print "Error en responder..." , ex
 			return 'error'

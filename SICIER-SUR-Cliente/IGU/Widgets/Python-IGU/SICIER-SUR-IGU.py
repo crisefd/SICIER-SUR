@@ -232,6 +232,68 @@ class VentanaRevisarNotas(QtGui.QFrame):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("ventana", "Generar reportes", None))
         self.pushButton.setText(_translate("ventana", "Cerrar", None))
 
+class VentanaAgregarCohorte(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaAgregarCohorte, self).__init__()
+        self.setupUi(self)
+    
+    def asignarIDCurso(self, id_):
+		self.id_curso = id_
+    
+    def agregarCohorte(self):
+		global clienteSocket
+		cohorte = str(self.campoCohorteID.text())
+		if cohorte == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo cohorte no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		else:
+			datos = {'funcion':'insertarCursoCohorte', 'parametros':{'id_course_fk':self.id_curso, 'cohort':cohorte}}
+			clienteSocket.enviarMensaje(datos)
+			res = clienteSocket.recibirRespuesta()
+			if 'ok' in res:
+				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bien"),_fromUtf8("La cohorte se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			elif 'error' in res:
+				msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("La cohorte no pudo ser ingresada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+    def setupUi(self, VentanaAgregarCohorte):
+        VentanaAgregarCohorte.setObjectName(_fromUtf8("VentanaAgregarCohorte"))
+        VentanaAgregarCohorte.resize(421, 229)
+        VentanaAgregarCohorte.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaAgregarCohorte.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitulo = QtGui.QLabel(VentanaAgregarCohorte)
+        self.etiquetaTitulo.setGeometry(QtCore.QRect(90, 20, 221, 31))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitulo.setFont(font)
+        self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
+        self.formLayoutWidget = QtGui.QWidget(VentanaAgregarCohorte)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(60, 80, 291, 51))
+        self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
+        self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
+        self.formLayout.setMargin(0)
+        self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        self.etiquetaCohorteID = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaCohorteID.setObjectName(_fromUtf8("etiquetaCohorteID"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.etiquetaCohorteID)
+        self.campoCohorteID = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoCohorteID.setObjectName(_fromUtf8("campoCohorteID"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.campoCohorteID)
+        self.botonAgregar = QtGui.QPushButton(VentanaAgregarCohorte)
+        self.botonAgregar.setGeometry(QtCore.QRect(130, 160, 141, 27))
+        self.botonAgregar.setObjectName(_fromUtf8("botonAgregar"))
+
+        self.retranslateUi(VentanaAgregarCohorte)
+        QtCore.QObject.connect(self.botonAgregar, QtCore.SIGNAL(_fromUtf8("pressed()")), self.agregarCohorte)
+        QtCore.QMetaObject.connectSlotsByName(VentanaAgregarCohorte)
+
+    def retranslateUi(self, VentanaAgregarCohorte):
+        VentanaAgregarCohorte.setWindowTitle(_translate("VentanaAgregarCohorte", "Frame", None))
+        self.etiquetaTitulo.setText(_translate("VentanaAgregarCohorte", "Agregar Cohortes", None))
+        self.etiquetaCohorteID.setText(_translate("VentanaAgregarCohorte", "Cohorte ID:", None))
+        self.botonAgregar.setText(_translate("VentanaAgregarCohorte", "Agregar a curso", None))
+
 class VentanaAgregarActividad(QtGui.QFrame):
     def __init__(self):
         super(VentanaAgregarActividad, self).__init__()
@@ -321,6 +383,7 @@ class VentanaAgregarActividad(QtGui.QFrame):
 class VentanaAdministrarCursos(QtGui.QFrame):
     def __init__(self):
         self.ventanaAgregarAct = VentanaAgregarActividad()
+        self.ventanaAgregarCoh = VentanaAgregarCohorte()
         super(VentanaAdministrarCursos, self).__init__()
         self.setupUi(self)
 
@@ -407,14 +470,17 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.campoCrearFinCurso = QtGui.QDateEdit(self.tab_3)
         self.campoCrearFinCurso.setGeometry(QtCore.QRect(200, 130, 110, 27))
         self.campoCrearFinCurso.setObjectName(_fromUtf8("campoCrearFinCurso"))
-        self.campoCrearActividadCurso = QtGui.QLineEdit(self.tab_3)
-        self.campoCrearActividadCurso.setGeometry(QtCore.QRect(200, 160, 113, 27))
-        self.campoCrearActividadCurso.setObjectName(_fromUtf8("campoCrearActividadCurso"))
-        self.etiquetaCrearActividadCurso = QtGui.QLabel(self.tab_3)
-        self.etiquetaCrearActividadCurso.setGeometry(QtCore.QRect(40, 170, 131, 17))
-        self.etiquetaCrearActividadCurso.setObjectName(_fromUtf8("etiquetaCrearActividadCurso"))
+        self.botonCrearAgregarCohorteCurso = QtGui.QPushButton(self.tab_3)
+        self.botonCrearAgregarCohorteCurso.setGeometry(QtCore.QRect(100, 160, 150, 27))
+        self.botonCrearAgregarCohorteCurso.setObjectName(_fromUtf8("botonCrearAgregarCohorteCurso"))
+        #self.campoCrearActividadCurso = QtGui.QLineEdit(self.tab_3)
+        #self.campoCrearActividadCurso.setGeometry(QtCore.QRect(200, 160, 113, 27))
+        #self.campoCrearActividadCurso.setObjectName(_fromUtf8("campoCrearActividadCurso"))
+        #self.etiquetaCrearActividadCurso = QtGui.QLabel(self.tab_3)
+        #self.etiquetaCrearActividadCurso.setGeometry(QtCore.QRect(40, 170, 131, 17))
+        #self.etiquetaCrearActividadCurso.setObjectName(_fromUtf8("etiquetaCrearActividadCurso"))
         self.botonCrearAgregarActividadCurso = QtGui.QPushButton(self.tab_3)
-        self.botonCrearAgregarActividadCurso.setGeometry(QtCore.QRect(330, 160, 81, 27))
+        self.botonCrearAgregarActividadCurso.setGeometry(QtCore.QRect(330, 160, 150, 27))
         self.botonCrearAgregarActividadCurso.setObjectName(_fromUtf8("botonCrearAgregarActividadCurso"))
         self.botonCrearCurso = QtGui.QPushButton(self.tab_3)
         self.botonCrearCurso.setGeometry(QtCore.QRect(80, 220, 98, 27))
@@ -465,7 +531,9 @@ class VentanaAdministrarCursos(QtGui.QFrame):
 
         self.retranslateUi(VentanaAdministrarCursos)
         self.tabWidget.setCurrentIndex(0)
-        #QtCore.QObject.connect(self.botonCrearActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
+        QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
+        QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
+        QtCore.QObject.connect(self.botonCrearAgregarCohorteCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarCohorte)
         QtCore.QMetaObject.connectSlotsByName(VentanaAdministrarCursos)
 
     def agregarCurso(self):
@@ -503,8 +571,9 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.etiquetaCrearDescripcionCurso.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
         self.etiquetaCrearInicioCurso.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
         self.etiquetaCrearFinCurso.setText(_translate("VentanaAdministrarCursos", "Fin", None))
-        self.etiquetaCrearActividadCurso.setText(_translate("VentanaAdministrarCursos", "Nombre Actividad", None))
-        self.botonCrearAgregarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Agregar", None))
+        #self.etiquetaCrearActividadCurso.setText(_translate("VentanaAdministrarCursos", "Actividad", None))
+        self.botonCrearAgregarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Actividades", None))
+        self.botonCrearAgregarCohorteCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Cohortes", None))
         self.botonCrearCurso.setText(_translate("VentanaAdministrarCursos", "Crear", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaAdministrarCursos", "Crear", None))
         self.label_7.setText(_translate("VentanaAdministrarCursos", "ID", None))
@@ -516,12 +585,18 @@ class VentanaAdministrarCursos(QtGui.QFrame):
         self.botonEditarCurso.setText(_translate("VentanaAdministrarCursos", "Editar", None))
         self.botonEditarQuitarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Quitar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
-        QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
-        QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
 
     def mostrarVentanaAgregarActividad(self):
 		self.ventanaAgregarAct.asignarIDCurso(str(self.campoCrearIdCurso.text()))
 		self.ventanaAgregarAct.show()
+	
+    def mostrarVentanaAgregarCohorte(self):
+		txt = str(self.campoCrearIdCurso.text())
+		if txt == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo id del curso no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		self.ventanaAgregarCoh.asignarIDCurso(txt)
+		self.ventanaAgregarCoh.show()
 
 class VentanaOpcionesAdm(QtGui.QFrame):
     def __init__(self):
