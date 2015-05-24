@@ -58,20 +58,22 @@ class ClienteSocket():
 			self.hayConexion = False
 			return 'error'
 		except Exception as ex2:
-			print 'Serialization failed', ex2
+			print 'Send Serialization failed', ex2
 			return 'error'
 		return 'ok'
 
-	def recibirRespuesta(self):
+	def recibirRespuesta(self, flag):
 		datos = None
 		print "Recibiendo respuesta"
-		print datos
+		#print datos
 		try:
 			d = self._socket.recv(81920)
 			#print "Tipo Respuesta d ", type(d)
-			if type(d) != type('a'):
-				print "Serializando"
-				datos = pickle.loads()
+			if flag:
+				print "Deserializando"
+				print "Antes de deserializar ", type(d)
+				datos = pickle.loads(pickle.loads(d))
+				print "Despues de deserializar ", type(datos)
 			else:
 				datos = d
 		except socket.error as ex1:
@@ -82,6 +84,7 @@ class ClienteSocket():
 		except Exception as ex2:
 			print "Answer deserialization failed ", ex2
 			return "" 
+		#print datos
 		return datos
 
 

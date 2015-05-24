@@ -249,7 +249,7 @@ class VentanaAgregarCohorte(QtGui.QFrame):
 		else:
 			datos = {'funcion':'insertarCursoCohorte', 'parametros':{'id_course_fk':self.id_curso, 'cohort':cohorte}}
 			clienteSocket.enviarMensaje(datos)
-			res = clienteSocket.recibirRespuesta()
+			res = clienteSocket.recibirRespuesta(False)
 			if 'ok' in res:
 				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bien"),_fromUtf8("La cohorte se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 			elif 'error' in res:
@@ -320,7 +320,7 @@ class VentanaAgregarActividad(QtGui.QFrame):
 				               'activity': actividad
 				               }}
 		clienteSocket.enviarMensaje(datos)
-		res = clienteSocket.recibirRespuesta()
+		res = clienteSocket.recibirRespuesta(False)
 		if 'ok' in res:
 			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Actividad agregada correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 		elif 'error' in res:
@@ -381,172 +381,192 @@ class VentanaAgregarActividad(QtGui.QFrame):
         self.botonAgregar.setText(_translate("VentanaAgregarActividad", "Agregar a curso", None))
 
 class VentanaAdministrarCursos(QtGui.QFrame):
-    def __init__(self):
-        self.ventanaAgregarAct = VentanaAgregarActividad()
-        self.ventanaAgregarCoh = VentanaAgregarCohorte()
-        super(VentanaAdministrarCursos, self).__init__()
-        self.setupUi(self)
+	def mostrarVentanaAgregarActividad(self):
+		self.ventanaAgregarAct.asignarIDCurso(str(self.campoCrearIdCurso.text()))
+		self.ventanaAgregarAct.show()
+		
+	def mostrarVentanaAgregarCohorte(self):
+		txt = str(self.campoCrearIdCurso.text())
+		if txt == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo id del curso no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		self.ventanaAgregarCoh.asignarIDCurso(txt)
+		self.ventanaAgregarCoh.show()
 
-    def setupUi(self, VentanaAdministrarCursos):
-        VentanaAdministrarCursos.setObjectName(_fromUtf8("VentanaAdministrarCursos"))
-        VentanaAdministrarCursos.resize(554, 370)
-        self.tabWidget = QtGui.QTabWidget(VentanaAdministrarCursos)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 10, 551, 291))
-        self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        self.Buscar = QtGui.QWidget()
-        self.Buscar.setObjectName(_fromUtf8("Buscar"))
-        self.botonBuscarCurso = QtGui.QPushButton(self.Buscar)
-        self.botonBuscarCurso.setGeometry(QtCore.QRect(30, 180, 98, 27))
-        self.botonBuscarCurso.setObjectName(_fromUtf8("botonBuscarCurso"))
-        self.campoBuscarIdCurso = QtGui.QLineEdit(self.Buscar)
-        self.campoBuscarIdCurso.setGeometry(QtCore.QRect(110, 20, 113, 27))
-        self.campoBuscarIdCurso.setObjectName(_fromUtf8("campoBuscarIdCurso"))
-        self.etiquetaBuscarIdCurso = QtGui.QLabel(self.Buscar)
-        self.etiquetaBuscarIdCurso.setGeometry(QtCore.QRect(20, 30, 66, 17))
-        self.etiquetaBuscarIdCurso.setObjectName(_fromUtf8("etiquetaBuscarIdCurso"))
-        self.etiquetaBuscarDescripcionCurso = QtGui.QLabel(self.Buscar)
-        self.etiquetaBuscarDescripcionCurso.setGeometry(QtCore.QRect(20, 60, 91, 17))
-        self.etiquetaBuscarDescripcionCurso.setObjectName(_fromUtf8("etiquetaBuscarDescripcionCurso"))
-        self.etiquetaBuscarInicioCurso = QtGui.QLabel(self.Buscar)
-        self.etiquetaBuscarInicioCurso.setGeometry(QtCore.QRect(20, 90, 66, 17))
-        self.etiquetaBuscarInicioCurso.setObjectName(_fromUtf8("etiquetaBuscarInicioCurso"))
-        self.etiquetaBuscarFinCurso = QtGui.QLabel(self.Buscar)
-        self.etiquetaBuscarFinCurso.setGeometry(QtCore.QRect(20, 120, 66, 17))
-        self.etiquetaBuscarFinCurso.setObjectName(_fromUtf8("etiquetaBuscarFinCurso"))
-        self.botonBuscarLimparCurso = QtGui.QPushButton(self.Buscar)
-        self.botonBuscarLimparCurso.setGeometry(QtCore.QRect(20, 210, 131, 27))
-        self.botonBuscarLimparCurso.setObjectName(_fromUtf8("botonBuscarLimparCurso"))
-        self.campoBuscarDescripcionCurso = QtGui.QLineEdit(self.Buscar)
-        self.campoBuscarDescripcionCurso.setGeometry(QtCore.QRect(110, 50, 113, 27))
-        self.campoBuscarDescripcionCurso.setObjectName(_fromUtf8("campoBuscarDescripcionCurso"))
-        self.campoBuscarInicioCurso = QtGui.QLineEdit(self.Buscar)
-        self.campoBuscarInicioCurso.setGeometry(QtCore.QRect(110, 80, 113, 27))
-        self.campoBuscarInicioCurso.setObjectName(_fromUtf8("campoBuscarInicioCurso"))
-        self.campoBuscarFinCurso = QtGui.QLineEdit(self.Buscar)
-        self.campoBuscarFinCurso.setGeometry(QtCore.QRect(110, 110, 113, 27))
-        self.campoBuscarFinCurso.setObjectName(_fromUtf8("campoBuscarFinCurso"))
-        self.etiquetaBuscarActividadesCurso = QtGui.QLabel(self.Buscar)
-        self.etiquetaBuscarActividadesCurso.setGeometry(QtCore.QRect(260, 30, 161, 17))
-        self.etiquetaBuscarActividadesCurso.setObjectName(_fromUtf8("etiquetaBuscarActividadesCurso"))
-        self.listaBuscarActividadescurso = QtGui.QListWidget(self.Buscar)
-        self.listaBuscarActividadescurso.setGeometry(QtCore.QRect(260, 50, 256, 192))
-        self.listaBuscarActividadescurso.setObjectName(_fromUtf8("listaBuscarActividadescurso"))
-        self.tabWidget.addTab(self.Buscar, _fromUtf8(""))
-        self.tab_2 = QtGui.QWidget()
-        self.tab_2.setObjectName(_fromUtf8("tab_2"))
-        self.campoBorrarCurso = QtGui.QLineEdit(self.tab_2)
-        self.campoBorrarCurso.setGeometry(QtCore.QRect(90, 40, 113, 27))
-        self.campoBorrarCurso.setObjectName(_fromUtf8("campoBorrarCurso"))
-        self.etiquetaBorrarCurso = QtGui.QLabel(self.tab_2)
-        self.etiquetaBorrarCurso.setGeometry(QtCore.QRect(20, 50, 66, 17))
-        self.etiquetaBorrarCurso.setObjectName(_fromUtf8("etiquetaBorrarCurso"))
-        self.BotonBorrarCurso = QtGui.QPushButton(self.tab_2)
-        self.BotonBorrarCurso.setGeometry(QtCore.QRect(240, 40, 98, 27))
-        self.BotonBorrarCurso.setObjectName(_fromUtf8("BotonBorrarCurso"))
-        self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
-        self.tab_3 = QtGui.QWidget()
-        self.tab_3.setObjectName(_fromUtf8("tab_3"))
-        self.campoCrearIdCurso = QtGui.QLineEdit(self.tab_3)
-        self.campoCrearIdCurso.setGeometry(QtCore.QRect(200, 40, 113, 27))
-        self.campoCrearIdCurso.setObjectName(_fromUtf8("campoCrearIdCurso"))
-        self.campoCrearDescripcionCurso = QtGui.QLineEdit(self.tab_3)
-        self.campoCrearDescripcionCurso.setGeometry(QtCore.QRect(200, 70, 113, 27))
-        self.campoCrearDescripcionCurso.setObjectName(_fromUtf8("campoCrearDescripcionCurso"))
-        self.etiquetaCrearIdCurso = QtGui.QLabel(self.tab_3)
-        self.etiquetaCrearIdCurso.setGeometry(QtCore.QRect(40, 40, 66, 17))
-        self.etiquetaCrearIdCurso.setObjectName(_fromUtf8("etiquetaCrearIdCurso"))
-        self.etiquetaCrearDescripcionCurso = QtGui.QLabel(self.tab_3)
-        self.etiquetaCrearDescripcionCurso.setGeometry(QtCore.QRect(40, 70, 91, 17))
-        self.etiquetaCrearDescripcionCurso.setObjectName(_fromUtf8("etiquetaCrearDescripcionCurso"))
-        self.etiquetaCrearInicioCurso = QtGui.QLabel(self.tab_3)
-        self.etiquetaCrearInicioCurso.setGeometry(QtCore.QRect(40, 110, 66, 17))
-        self.etiquetaCrearInicioCurso.setObjectName(_fromUtf8("etiquetaCrearInicioCurso"))
-        self.etiquetaCrearFinCurso = QtGui.QLabel(self.tab_3)
-        self.etiquetaCrearFinCurso.setGeometry(QtCore.QRect(40, 140, 66, 17))
-        self.etiquetaCrearFinCurso.setObjectName(_fromUtf8("etiquetaCrearFinCurso"))
-        self.campoCrearInicioCurso = QtGui.QDateEdit(self.tab_3)
-        self.campoCrearInicioCurso.setGeometry(QtCore.QRect(200, 100, 110, 27))
-        self.campoCrearInicioCurso.setObjectName(_fromUtf8("campoCrearInicioCurso"))
-        self.campoCrearFinCurso = QtGui.QDateEdit(self.tab_3)
-        self.campoCrearFinCurso.setGeometry(QtCore.QRect(200, 130, 110, 27))
-        self.campoCrearFinCurso.setObjectName(_fromUtf8("campoCrearFinCurso"))
-        self.botonCrearAgregarCohorteCurso = QtGui.QPushButton(self.tab_3)
-        self.botonCrearAgregarCohorteCurso.setGeometry(QtCore.QRect(100, 160, 150, 27))
-        self.botonCrearAgregarCohorteCurso.setObjectName(_fromUtf8("botonCrearAgregarCohorteCurso"))
-        #self.campoCrearActividadCurso = QtGui.QLineEdit(self.tab_3)
-        #self.campoCrearActividadCurso.setGeometry(QtCore.QRect(200, 160, 113, 27))
-        #self.campoCrearActividadCurso.setObjectName(_fromUtf8("campoCrearActividadCurso"))
-        #self.etiquetaCrearActividadCurso = QtGui.QLabel(self.tab_3)
-        #self.etiquetaCrearActividadCurso.setGeometry(QtCore.QRect(40, 170, 131, 17))
-        #self.etiquetaCrearActividadCurso.setObjectName(_fromUtf8("etiquetaCrearActividadCurso"))
-        self.botonCrearAgregarActividadCurso = QtGui.QPushButton(self.tab_3)
-        self.botonCrearAgregarActividadCurso.setGeometry(QtCore.QRect(330, 160, 150, 27))
-        self.botonCrearAgregarActividadCurso.setObjectName(_fromUtf8("botonCrearAgregarActividadCurso"))
-        self.botonCrearCurso = QtGui.QPushButton(self.tab_3)
-        self.botonCrearCurso.setGeometry(QtCore.QRect(80, 220, 98, 27))
-        self.botonCrearCurso.setObjectName(_fromUtf8("botonCrearCurso"))
-        self.tabWidget.addTab(self.tab_3, _fromUtf8(""))
-        self.tab = QtGui.QWidget()
-        self.tab.setObjectName(_fromUtf8("tab"))
-        self.campoEditarIdcurso = QtGui.QLineEdit(self.tab)
-        self.campoEditarIdcurso.setGeometry(QtCore.QRect(170, 40, 113, 27))
-        self.campoEditarIdcurso.setObjectName(_fromUtf8("campoEditarIdcurso"))
-        self.campoEditardescripcioncurso = QtGui.QLineEdit(self.tab)
-        self.campoEditardescripcioncurso.setGeometry(QtCore.QRect(170, 70, 113, 27))
-        self.campoEditardescripcioncurso.setObjectName(_fromUtf8("campoEditardescripcioncurso"))
-        self.campoEditarActividadcurso = QtGui.QLineEdit(self.tab)
-        self.campoEditarActividadcurso.setGeometry(QtCore.QRect(170, 160, 113, 27))
-        self.campoEditarActividadcurso.setObjectName(_fromUtf8("campoEditarActividadcurso"))
-        self.campoEditarFincurso = QtGui.QDateEdit(self.tab)
-        self.campoEditarFincurso.setGeometry(QtCore.QRect(170, 130, 110, 27))
-        self.campoEditarFincurso.setObjectName(_fromUtf8("campoEditarFincurso"))
-        self.campoEditarIniciocurso = QtGui.QDateEdit(self.tab)
-        self.campoEditarIniciocurso.setGeometry(QtCore.QRect(170, 100, 110, 27))
-        self.campoEditarIniciocurso.setObjectName(_fromUtf8("campoEditarIniciocurso"))
-        self.label_7 = QtGui.QLabel(self.tab)
-        self.label_7.setGeometry(QtCore.QRect(30, 50, 66, 17))
-        self.label_7.setObjectName(_fromUtf8("label_7"))
-        self.label_8 = QtGui.QLabel(self.tab)
-        self.label_8.setGeometry(QtCore.QRect(30, 80, 91, 17))
-        self.label_8.setObjectName(_fromUtf8("label_8"))
-        self.label_9 = QtGui.QLabel(self.tab)
-        self.label_9.setGeometry(QtCore.QRect(30, 110, 66, 17))
-        self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.label_10 = QtGui.QLabel(self.tab)
-        self.label_10.setGeometry(QtCore.QRect(30, 140, 66, 17))
-        self.label_10.setObjectName(_fromUtf8("label_10"))
-        self.label_11 = QtGui.QLabel(self.tab)
-        self.label_11.setGeometry(QtCore.QRect(30, 170, 131, 17))
-        self.label_11.setObjectName(_fromUtf8("label_11"))
-        self.botonEditarAgregarActividadCurso = QtGui.QPushButton(self.tab)
-        self.botonEditarAgregarActividadCurso.setGeometry(QtCore.QRect(310, 160, 81, 27))
-        self.botonEditarAgregarActividadCurso.setObjectName(_fromUtf8("botonEditarAgregarActividadCurso"))
-        self.botonEditarCurso = QtGui.QPushButton(self.tab)
-        self.botonEditarCurso.setGeometry(QtCore.QRect(110, 210, 98, 27))
-        self.botonEditarCurso.setObjectName(_fromUtf8("botonEditarCurso"))
-        self.botonEditarQuitarActividadCurso = QtGui.QPushButton(self.tab)
-        self.botonEditarQuitarActividadCurso.setGeometry(QtCore.QRect(400, 160, 98, 27))
-        self.botonEditarQuitarActividadCurso.setObjectName(_fromUtf8("botonEditarQuitarActividadCurso"))
-        self.tabWidget.addTab(self.tab, _fromUtf8(""))
+	def __init__(self):
+		self.ventanaAgregarAct = VentanaAgregarActividad()
+		self.ventanaAgregarCoh = VentanaAgregarCohorte()
+		super(VentanaAdministrarCursos, self).__init__()
+		self.setupUi(self)
 
-        self.retranslateUi(VentanaAdministrarCursos)
-        self.tabWidget.setCurrentIndex(0)
-        QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
-        QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
-        QtCore.QObject.connect(self.botonCrearAgregarCohorteCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarCohorte)
-        QtCore.QMetaObject.connectSlotsByName(VentanaAdministrarCursos)
+	def setupUi(self, VentanaAdministrarCursos):
+		VentanaAdministrarCursos.setObjectName(_fromUtf8("VentanaAdministrarCursos"))
+		VentanaAdministrarCursos.resize(896, 325)
+		self.tabWidget = QtGui.QTabWidget(VentanaAdministrarCursos)
+		self.tabWidget.setGeometry(QtCore.QRect(0, 0, 891, 371))
+		self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
+		self.Buscar = QtGui.QWidget()
+		self.Buscar.setObjectName(_fromUtf8("Buscar"))
+		self.botonBuscarCurso = QtGui.QPushButton(self.Buscar)
+		self.botonBuscarCurso.setGeometry(QtCore.QRect(30, 180, 98, 27))
+		self.botonBuscarCurso.setObjectName(_fromUtf8("botonBuscarCurso"))
+		self.campoBuscarIdCurso = QtGui.QLineEdit(self.Buscar)
+		self.campoBuscarIdCurso.setGeometry(QtCore.QRect(110, 20, 113, 27))
+		self.campoBuscarIdCurso.setObjectName(_fromUtf8("campoBuscarIdCurso"))
+		self.etiquetaBuscarIdCurso = QtGui.QLabel(self.Buscar)
+		self.etiquetaBuscarIdCurso.setGeometry(QtCore.QRect(20, 30, 66, 17))
+		self.etiquetaBuscarIdCurso.setObjectName(_fromUtf8("etiquetaBuscarIdCurso"))
+		#self.etiquetaBuscarDescripcionCurso = QtGui.QLabel(self.Buscar)
+		#self.etiquetaBuscarDescripcionCurso.setGeometry(QtCore.QRect(20, 60, 91, 17))
+		#self.etiquetaBuscarDescripcionCurso.setObjectName(_fromUtf8("etiquetaBuscarDescripcionCurso"))
+		#self.etiquetaBuscarInicioCurso = QtGui.QLabel(self.Buscar)
+		#self.etiquetaBuscarInicioCurso.setGeometry(QtCore.QRect(20, 90, 66, 17))
+		#self.etiquetaBuscarInicioCurso.setObjectName(_fromUtf8("etiquetaBuscarInicioCurso"))
+		#self.etiquetaBuscarFinCurso = QtGui.QLabel(self.Buscar)
+		#self.etiquetaBuscarFinCurso.setGeometry(QtCore.QRect(20, 120, 66, 17))
+		#self.etiquetaBuscarFinCurso.setObjectName(_fromUtf8("etiquetaBuscarFinCurso"))
+		#self.campoBuscarDescripcionCurso = QtGui.QLineEdit(self.Buscar)
+		#self.campoBuscarDescripcionCurso.setGeometry(QtCore.QRect(110, 50, 113, 27))
+		#self.campoBuscarDescripcionCurso.setObjectName(_fromUtf8("campoBuscarDescripcionCurso"))
+		#self.campoBuscarInicioCurso = QtGui.QLineEdit(self.Buscar)
+		#self.campoBuscarInicioCurso.setGeometry(QtCore.QRect(110, 80, 113, 27))
+		#self.campoBuscarInicioCurso.setObjectName(_fromUtf8("campoBuscarInicioCurso"))
+		#self.campoBuscarFinCurso = QtGui.QLineEdit(self.Buscar)
+		#self.campoBuscarFinCurso.setGeometry(QtCore.QRect(110, 110, 113, 27))
+		#self.campoBuscarFinCurso.setObjectName(_fromUtf8("campoBuscarFinCurso"))
+		self.etiquetaBuscarActividadesCurso = QtGui.QLabel(self.Buscar)
+		self.etiquetaBuscarActividadesCurso.setGeometry(QtCore.QRect(250, 0, 161, 17))
+		self.etiquetaBuscarActividadesCurso.setObjectName(_fromUtf8("etiquetaBuscarActividadesCurso"))
+		self.listaBuscarCurso = QtGui.QListWidget(self.Buscar)
+		self.listaBuscarCurso.setGeometry(QtCore.QRect(240, 20, 641, 192))
+		self.listaBuscarCurso.setObjectName(_fromUtf8("listaBuscarCurso"))
+		self.tabWidget.addTab(self.Buscar, _fromUtf8(""))
+		self.tab_2 = QtGui.QWidget()
+		self.tab_2.setObjectName(_fromUtf8("tab_2"))
+		self.campoBorrarCurso = QtGui.QLineEdit(self.tab_2)
+		self.campoBorrarCurso.setGeometry(QtCore.QRect(90, 40, 113, 27))
+		self.campoBorrarCurso.setObjectName(_fromUtf8("campoBorrarCurso"))
+		self.etiquetaBorrarCurso = QtGui.QLabel(self.tab_2)
+		self.etiquetaBorrarCurso.setGeometry(QtCore.QRect(20, 50, 66, 17))
+		self.etiquetaBorrarCurso.setObjectName(_fromUtf8("etiquetaBorrarCurso"))
+		self.botonBorrarCurso = QtGui.QPushButton(self.tab_2)
+		self.botonBorrarCurso.setGeometry(QtCore.QRect(240, 40, 98, 27))
+		self.botonBorrarCurso.setObjectName(_fromUtf8("botonBorrarCurso"))
+		self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
+		self.tab_3 = QtGui.QWidget()
+		self.tab_3.setObjectName(_fromUtf8("tab_3"))
+		self.campoCrearIdCurso = QtGui.QLineEdit(self.tab_3)
+		self.campoCrearIdCurso.setGeometry(QtCore.QRect(200, 40, 113, 27))
+		self.campoCrearIdCurso.setObjectName(_fromUtf8("campoCrearIdCurso"))
+		self.campoCrearDescripcionCurso = QtGui.QLineEdit(self.tab_3)
+		self.campoCrearDescripcionCurso.setGeometry(QtCore.QRect(200, 70, 113, 27))
+		self.campoCrearDescripcionCurso.setObjectName(_fromUtf8("campoCrearDescripcionCurso"))
+		self.etiquetaCrearIdCurso = QtGui.QLabel(self.tab_3)
+		self.etiquetaCrearIdCurso.setGeometry(QtCore.QRect(40, 40, 66, 17))
+		self.etiquetaCrearIdCurso.setObjectName(_fromUtf8("etiquetaCrearIdCurso"))
+		self.etiquetaCrearDescripcionCurso = QtGui.QLabel(self.tab_3)
+		self.etiquetaCrearDescripcionCurso.setGeometry(QtCore.QRect(40, 70, 91, 17))
+		self.etiquetaCrearDescripcionCurso.setObjectName(_fromUtf8("etiquetaCrearDescripcionCurso"))
+		self.etiquetaCrearInicioCurso = QtGui.QLabel(self.tab_3)
+		self.etiquetaCrearInicioCurso.setGeometry(QtCore.QRect(40, 110, 66, 17))
+		self.etiquetaCrearInicioCurso.setObjectName(_fromUtf8("etiquetaCrearInicioCurso"))
+		self.etiquetaCrearFinCurso = QtGui.QLabel(self.tab_3)
+		self.etiquetaCrearFinCurso.setGeometry(QtCore.QRect(40, 140, 66, 17))
+		self.etiquetaCrearFinCurso.setObjectName(_fromUtf8("etiquetaCrearFinCurso"))
+		self.campoCrearInicioCurso = QtGui.QDateEdit(self.tab_3)
+		self.campoCrearInicioCurso.setGeometry(QtCore.QRect(200, 100, 110, 27))
+		self.campoCrearInicioCurso.setObjectName(_fromUtf8("campoCrearInicioCurso"))
+		self.campoCrearFinCurso = QtGui.QDateEdit(self.tab_3)
+		self.campoCrearFinCurso.setGeometry(QtCore.QRect(200, 130, 110, 27))
+		self.campoCrearFinCurso.setObjectName(_fromUtf8("campoCrearFinCurso"))
+		self.botonCrearAgregarActividadCurso = QtGui.QPushButton(self.tab_3)
+		self.botonCrearAgregarActividadCurso.setGeometry(QtCore.QRect(370, 40, 131, 27))
+		self.botonCrearAgregarActividadCurso.setObjectName(_fromUtf8("botonCrearAgregarActividadCurso"))
+		self.botonCrearCurso = QtGui.QPushButton(self.tab_3)
+		self.botonCrearCurso.setGeometry(QtCore.QRect(370, 140, 98, 27))
+		self.botonCrearCurso.setObjectName(_fromUtf8("botonCrearCurso"))
+		self.botonCrearAgregarCohorteCurso = QtGui.QPushButton(self.tab_3)
+		self.botonCrearAgregarCohorteCurso.setGeometry(QtCore.QRect(370, 90, 131, 27))
+		self.botonCrearAgregarCohorteCurso.setObjectName(_fromUtf8("botonCrearAgregarCohorteCurso"))
+		self.tabWidget.addTab(self.tab_3, _fromUtf8(""))
+		self.tab = QtGui.QWidget()
+		self.tab.setObjectName(_fromUtf8("tab"))
+		self.campoEditarIdcurso = QtGui.QLineEdit(self.tab)
+		self.campoEditarIdcurso.setGeometry(QtCore.QRect(170, 40, 113, 27))
+		self.campoEditarIdcurso.setObjectName(_fromUtf8("campoEditarIdcurso"))
+		self.campoEditardescripcioncurso = QtGui.QLineEdit(self.tab)
+		self.campoEditardescripcioncurso.setGeometry(QtCore.QRect(170, 70, 113, 27))
+		self.campoEditardescripcioncurso.setObjectName(_fromUtf8("campoEditardescripcioncurso"))
+		self.campoEditarFincurso = QtGui.QDateEdit(self.tab)
+		self.campoEditarFincurso.setGeometry(QtCore.QRect(170, 130, 110, 27))
+		self.campoEditarFincurso.setObjectName(_fromUtf8("campoEditarFincurso"))
+		self.campoEditarIniciocurso = QtGui.QDateEdit(self.tab)
+		self.campoEditarIniciocurso.setGeometry(QtCore.QRect(170, 100, 110, 27))
+		self.campoEditarIniciocurso.setObjectName(_fromUtf8("campoEditarIniciocurso"))
+		self.label_7 = QtGui.QLabel(self.tab)
+		self.label_7.setGeometry(QtCore.QRect(30, 50, 66, 17))
+		self.label_7.setObjectName(_fromUtf8("label_7"))
+		self.label_8 = QtGui.QLabel(self.tab)
+		self.label_8.setGeometry(QtCore.QRect(30, 80, 91, 17))
+		self.label_8.setObjectName(_fromUtf8("label_8"))
+		self.label_9 = QtGui.QLabel(self.tab)
+		self.label_9.setGeometry(QtCore.QRect(30, 110, 66, 17))
+		self.label_9.setObjectName(_fromUtf8("label_9"))
+		self.label_10 = QtGui.QLabel(self.tab)
+		self.label_10.setGeometry(QtCore.QRect(30, 140, 66, 17))
+		self.label_10.setObjectName(_fromUtf8("label_10"))
+		self.botonEditarActividadCurso = QtGui.QPushButton(self.tab)
+		self.botonEditarActividadCurso.setGeometry(QtCore.QRect(380, 70, 121, 27))
+		self.botonEditarActividadCurso.setObjectName(_fromUtf8("botonEditarActividadCurso"))
+		self.botonEditarCurso = QtGui.QPushButton(self.tab)
+		self.botonEditarCurso.setGeometry(QtCore.QRect(380, 20, 121, 27))
+		self.botonEditarCurso.setObjectName(_fromUtf8("botonEditarCurso"))
+		self.botonEditarCohorteCurso = QtGui.QPushButton(self.tab)
+		self.botonEditarCohorteCurso.setGeometry(QtCore.QRect(380, 120, 131, 27))
+		self.botonEditarCohorteCurso.setObjectName(_fromUtf8("botonEditarCohorteCurso"))
+		self.tabWidget.addTab(self.tab, _fromUtf8(""))
+		self.retranslateUi(VentanaAdministrarCursos)
+		self.tabWidget.setCurrentIndex(0)
+		QtCore.QObject.connect(self.botonBuscarCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.buscarCurso)
+		QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
+		QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
+		QtCore.QObject.connect(self.botonCrearAgregarCohorteCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarCohorte)
+		QtCore.QMetaObject.connectSlotsByName(VentanaAdministrarCursos)
 
-    def agregarCurso(self):
+	def buscarCurso(self):
+		global clienteSocket
+		id_curso = str(self.campoBuscarIdCurso.text())
+		self.listaBuscarCurso.clear()
+		if id_curso != '':
+			datos = {'funcion':'consultarCursoPorID', 'parametros': {'id':id_curso}}
+			clienteSocket.enviarMensaje(datos)
+			ls = clienteSocket.recibirRespuesta(True)
+			for item in ls:
+				str_item = "|"
+				for cad in item:
+					str_item += cad + "|"
+				self.listaBuscarCurso.addItem(QtGui.QListWidgetItem(_fromUtf8(str_item), self.listaBuscarCurso, 0))
+		else:
+			datos = {'funcion': 'consultarCursos', 'parametros':{}}
+			clienteSocket.enviarMensaje(datos)
+			ls = clienteSocket.recibirRespuesta(True)
+			for item in ls:
+				str_item = "|"
+				for cad in item:
+					str_item += cad + "|"
+				self.listaBuscarCurso.addItem(QtGui.QListWidgetItem(_fromUtf8(str_item), self.listaBuscarCurso, 0))
+
+	def agregarCurso(self):
 		global clienteSocket
 		id_ = str(self.campoCrearIdCurso.text())
 		descripcion = str(self.campoCrearDescripcionCurso.text())
 		inicio = self.campoCrearInicioCurso.date().toString("yyyy.MM.dd")
 		fin = self.campoCrearFinCurso.date().toString("yyyy.MM.dd")
 		datos = {'funcion':'insertarCurso', 'parametros':{'id':id_, 'end_date':str(fin), 
-		           'start_date':str(inicio), 'description':descripcion}
+						'start_date':str(inicio), 'description':descripcion}
 		}
 		clienteSocket.enviarMensaje(datos)
-		res = clienteSocket.recibirRespuesta()
+		res = clienteSocket.recibirRespuesta(False)
 		if 'ok' in res:
 			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("El curso se agrego correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 		elif 'error' in res:
@@ -554,49 +574,34 @@ class VentanaAdministrarCursos(QtGui.QFrame):
 
 
 
-    def retranslateUi(self, VentanaAdministrarCursos):
-        VentanaAdministrarCursos.setWindowTitle(_translate("VentanaAdministrarCursos", "Form", None))
-        self.botonBuscarCurso.setText(_translate("VentanaAdministrarCursos", "Buscar", None))
-        self.etiquetaBuscarIdCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
-        self.etiquetaBuscarDescripcionCurso.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
-        self.etiquetaBuscarInicioCurso.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
-        self.etiquetaBuscarFinCurso.setText(_translate("VentanaAdministrarCursos", "Fin", None))
-        self.botonBuscarLimparCurso.setText(_translate("VentanaAdministrarCursos", "Limpiar campos", None))
-        self.etiquetaBuscarActividadesCurso.setText(_translate("VentanaAdministrarCursos", "Nombre Actividadades", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Buscar), _translate("VentanaAdministrarCursos", "Buscar", None))
-        self.etiquetaBorrarCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
-        self.BotonBorrarCurso.setText(_translate("VentanaAdministrarCursos", "Borrar", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaAdministrarCursos", "Borrar", None))
-        self.etiquetaCrearIdCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
-        self.etiquetaCrearDescripcionCurso.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
-        self.etiquetaCrearInicioCurso.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
-        self.etiquetaCrearFinCurso.setText(_translate("VentanaAdministrarCursos", "Fin", None))
-        #self.etiquetaCrearActividadCurso.setText(_translate("VentanaAdministrarCursos", "Actividad", None))
-        self.botonCrearAgregarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Actividades", None))
-        self.botonCrearAgregarCohorteCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Cohortes", None))
-        self.botonCrearCurso.setText(_translate("VentanaAdministrarCursos", "Crear", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaAdministrarCursos", "Crear", None))
-        self.label_7.setText(_translate("VentanaAdministrarCursos", "ID", None))
-        self.label_8.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
-        self.label_9.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
-        self.label_10.setText(_translate("VentanaAdministrarCursos", "Fin", None))
-        self.label_11.setText(_translate("VentanaAdministrarCursos", "Nombre Actividad", None))
-        self.botonEditarAgregarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Agregar", None))
-        self.botonEditarCurso.setText(_translate("VentanaAdministrarCursos", "Editar", None))
-        self.botonEditarQuitarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Quitar", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
-
-    def mostrarVentanaAgregarActividad(self):
-		self.ventanaAgregarAct.asignarIDCurso(str(self.campoCrearIdCurso.text()))
-		self.ventanaAgregarAct.show()
-	
-    def mostrarVentanaAgregarCohorte(self):
-		txt = str(self.campoCrearIdCurso.text())
-		if txt == '':
-			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo id del curso no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-			return
-		self.ventanaAgregarCoh.asignarIDCurso(txt)
-		self.ventanaAgregarCoh.show()
+	def retranslateUi(self, VentanaAdministrarCursos):
+		VentanaAdministrarCursos.setWindowTitle(_translate("VentanaAdministrarCursos", "Form", None))
+		self.botonBuscarCurso.setText(_translate("VentanaAdministrarCursos", "Buscar", None))
+		self.etiquetaBuscarIdCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
+		#self.etiquetaBuscarDescripcionCurso.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
+		#self.etiquetaBuscarInicioCurso.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
+		#self.etiquetaBuscarFinCurso.setText(_translate("VentanaAdministrarCursos", "Fin", None))
+		#self.etiquetaBuscarActividadesCurso.setText(_translate("VentanaAdministrarCursos", "Resultados", None))
+		self.tabWidget.setTabText(self.tabWidget.indexOf(self.Buscar), _translate("VentanaAdministrarCursos", "Buscar", None))
+		self.etiquetaBorrarCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
+		self.botonBorrarCurso.setText(_translate("VentanaAdministrarCursos", "Borrar", None))
+		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaAdministrarCursos", "Borrar", None))
+		self.etiquetaCrearIdCurso.setText(_translate("VentanaAdministrarCursos", "ID", None))
+		self.etiquetaCrearDescripcionCurso.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
+		self.etiquetaCrearInicioCurso.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
+		self.etiquetaCrearFinCurso.setText(_translate("VentanaAdministrarCursos", "Fin", None))
+		self.botonCrearAgregarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Actividad", None))
+		self.botonCrearCurso.setText(_translate("VentanaAdministrarCursos", "Crear Curso", None))
+		self.botonCrearAgregarCohorteCurso.setText(_translate("VentanaAdministrarCursos", "Agregar Cohorte", None))
+		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaAdministrarCursos", "Crear", None))
+		self.label_7.setText(_translate("VentanaAdministrarCursos", "ID", None))
+		self.label_8.setText(_translate("VentanaAdministrarCursos", "Descripcion", None))
+		self.label_9.setText(_translate("VentanaAdministrarCursos", "Inicio", None))
+		self.label_10.setText(_translate("VentanaAdministrarCursos", "Fin", None))
+		self.botonEditarActividadCurso.setText(_translate("VentanaAdministrarCursos", "Editar Actividad", None))
+		self.botonEditarCurso.setText(_translate("VentanaAdministrarCursos", "Editar Curso", None))
+		self.botonEditarCohorteCurso.setText(_translate("VentanaAdministrarCursos", "Editar Cohorte", None))
+		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
 
 class VentanaOpcionesAdm(QtGui.QFrame):
     def __init__(self):
@@ -617,7 +622,7 @@ class VentanaOpcionesAdm(QtGui.QFrame):
 			lineas[i] = lineas[i].replace("\n", "")
 		datos = {'funcion':'activarLT', 'parametros': {'ids':lineas}}
 		clienteSocket.enviarMensaje(datos)
-		res = clienteSocket.recibirRespuesta();
+		res = clienteSocket.recibirRespuesta(False);
 		if 'ok' in res:
 			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("La lista de becados se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 		elif 'error' in res:
@@ -1035,7 +1040,7 @@ class VentanaRegistroLT(QtGui.QFrame):
             m = clienteSocket.enviarMensaje(datos)
             res = None
             if m != 'error':
-                res = clienteSocket.recibirRespuesta()
+                res = clienteSocket.recibirRespuesta(False)
                 print "Respuesta de registroLT", res
                 if 'ok' in res:
                     msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Registro exitoso"),_fromUtf8("Su suscripción ha sido enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
@@ -1133,7 +1138,7 @@ class VentanaLogin(QtGui.QFrame):
                              'parametros': {'usr': usr, 'pass': pass_}}
                     m = clienteSocket.enviarMensaje(datos)
                     if m == 'ok':
-                        res = clienteSocket.recibirRespuesta()
+                        res = clienteSocket.recibirRespuesta(False)
                         msgBox = QtGui.QMessageBox;
                         print "Respuesta ", res[2]
                         if res[2] == '1':
@@ -1149,7 +1154,7 @@ class VentanaLogin(QtGui.QFrame):
                     datos = {'funcion':'consultarCoorPassUsr','parametros':{'usr':usr, 'pass':pass_}}
                     m = clienteSocket.enviarMensaje(datos)
                     if m == 'ok':
-                        res = clienteSocket.recibirRespuesta()
+                        res = clienteSocket.recibirRespuesta(False)
                         msgBox = QtGui.QMessageBox;
                         print "Respuesta", res[2]
                         if res[2] == '1':
@@ -1160,7 +1165,7 @@ class VentanaLogin(QtGui.QFrame):
                     datos = {'funcion':'consultarMTPassUsr','parametros':{'usr':usr, 'pass':pass_}}
                     m = clienteSocket.enviarMensaje(datos)
                     if m == 'ok':
-                        res = clienteSocket.recibirRespuesta()
+                        res = clienteSocket.recibirRespuesta(False)
                         msgBox = QtGui.QMessageBox;
                         print "Respuesta", res[2]
                         if res[2] == '1':
@@ -1173,7 +1178,7 @@ class VentanaLogin(QtGui.QFrame):
                     datos = {'funcion':'consultarLTPassUsr','parametros':{'usr':usr, 'pass':pass_}}
                     m = clienteSocket.enviarMensaje(datos)
                     if m == 'ok':
-                        res = clienteSocket.recibirRespuesta()
+                        res = clienteSocket.recibirRespuesta(False)
                         msgBox = QtGui.QMessageBox;
                         print "Respuesta", res[2]
                         if res[2] == '1':

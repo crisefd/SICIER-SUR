@@ -115,8 +115,15 @@ class ServidorSocket():
 				return self._fachada.controlCurso.insertarCursoActividad(parametros)
 			elif funcion == "insertarCursoCohorte":
 				return self._fachada.controlCurso.insertarCursoCohorte(parametros)
+			elif funcion == "consultarCursoPorID":
+				id_ = parametros['id']
+				res = self._fachada.controlCurso.consultarCursoPorID(id_)
+				return pickle.dumps(res)
+			elif funcion == "consultarCursos":
+				res =  self._fachada.controlCurso.consultarCursos()
+				return pickle.dumps(res)
 		except Exception as ex:
-			print "Error en responder..." , ex
+			print "Error en responder..." , ex, type(ex)
 			return 'error'
 
 	

@@ -486,6 +486,74 @@ class ControladorLT(Controlador):
 
 class ControladorCurso(Controlador):
 
+	def queryCourseToList(self, query):
+		#print "Query: ", query.next().id
+		#ls = [str(curso.id), str(curso.description), str(curso.start_date), str(curso.end_date)]
+		ls = []
+		for curso in query:
+			ls.append(["id: "+str(curso.id), "desc: "+str(curso.description), "f_ini: "+str(curso.start_date), "f_fin: "+str(curso.end_date)])
+		return ls
+
+	def queryCourseActToList(self, query):
+		ls = []
+		for cursoAct in query:
+			ls.append([str(cursoAct.id), str(cursoAct.description), str(cursoAct.start_date), str(cursoAct.end_date)])
+		return ls
+	
+	def consultarCursos(self):
+		global bd
+		self._conectarBD
+		res = []
+		try:
+			query = Curso.select()
+			res = self.queryCourseToList(query.iterator())
+		except Exception as ex1:
+			print ex1
+			res = []
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = []
+		return res
+
+	def consultarCursoAct(self, id_curso):
+		global bd
+		self._conectarBD
+		res = []
+		try:
+			query = CursoAct.select().where(CursoAct.id== id_)
+			res = self.queryCourseActToList(query.iterator())
+		except Exception as ex1:
+			print ex1
+			res = []
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = []
+		return res
+	
+	def consultarCursoPorID(self, id_):
+		global bd
+		self._conectarBD
+		res = []
+		try:
+			query = Curso.select().where(Curso.id== id_)
+			res = self.queryCourseToList(query.iterator())
+		except Exception as ex1:
+			print ex1
+			res = []
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = []
+		return res
+
 	def insertarCurso(self, datos):
 		global bd
 		self._conectarBD
