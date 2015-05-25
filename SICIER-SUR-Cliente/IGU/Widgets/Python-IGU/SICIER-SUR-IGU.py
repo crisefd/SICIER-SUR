@@ -173,10 +173,145 @@ class VentanaRegistroAdm(QtGui.QFrame):
         self.botonAtras.setText(_translate("VentanaRegistroAdm", "Atras", None))
         self.botonEnviar.setText(_translate("VentanaRegistroAdm", "Enviar", None))
 
+class VentanaRegistroCoor(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaRegistroCoor, self).__init__()
+        self.setupUi(self)
+
+    def setupUi(self, VentanaRegistroCoor):
+        VentanaRegistroCoor.setObjectName(_fromUtf8("VentanaRegistroCoor"))
+        VentanaRegistroCoor.resize(733, 533)
+        VentanaRegistroCoor.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaRegistroCoor.setFrameShadow(QtGui.QFrame.Raised)
+        self.etiquetaTitulo = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaTitulo.setGeometry(QtCore.QRect(110, 20, 371, 20))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitulo.setFont(font)
+        self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
+        self.etiquetaSubTit = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaSubTit.setGeometry(QtCore.QRect(260, 60, 101, 17))
+        self.etiquetaSubTit.setStyleSheet(_fromUtf8("color: rgb(255, 55, 29);"))
+        self.etiquetaSubTit.setObjectName(_fromUtf8("etiquetaSubTit"))
+        self.etiquetaNombre = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaNombre.setGeometry(QtCore.QRect(50, 100, 91, 17))
+        self.etiquetaNombre.setObjectName(_fromUtf8("etiquetaNombre"))
+        self.etiquetaApellido = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaApellido.setGeometry(QtCore.QRect(380, 100, 91, 17))
+        self.etiquetaApellido.setObjectName(_fromUtf8("etiquetaApellido"))
+        self.etiquetaID = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaID.setGeometry(QtCore.QRect(50, 200, 211, 17))
+        self.etiquetaID.setObjectName(_fromUtf8("etiquetaID"))
+        self.etiquetaCorreo = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaCorreo.setGeometry(QtCore.QRect(50, 380, 66, 17))
+        self.etiquetaCorreo.setObjectName(_fromUtf8("etiquetaCorreo"))
+        self.etiquetaTel = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaTel.setGeometry(QtCore.QRect(390, 300, 81, 17))
+        self.etiquetaTel.setObjectName(_fromUtf8("etiquetaTel"))
+        self.etiquetaDir = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaDir.setGeometry(QtCore.QRect(50, 300, 81, 17))
+        self.etiquetaDir.setObjectName(_fromUtf8("etiquetaDir"))
+        self.etiquetaCiudad = QtGui.QLabel(VentanaRegistroCoor)
+        self.etiquetaCiudad.setGeometry(QtCore.QRect(380, 200, 191, 17))
+        self.etiquetaCiudad.setObjectName(_fromUtf8("etiquetaCiudad"))
+        self.campoNombres = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoNombres.setGeometry(QtCore.QRect(30, 130, 301, 27))
+        self.campoNombres.setObjectName(_fromUtf8("campoNombres"))
+        self.campoApellidos = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoApellidos.setGeometry(QtCore.QRect(370, 130, 301, 27))
+        self.campoApellidos.setObjectName(_fromUtf8("campoApellidos"))
+        self.campoID = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoID.setGeometry(QtCore.QRect(30, 230, 301, 27))
+        self.campoID.setObjectName(_fromUtf8("campoID"))
+        self.campoCiudad = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoCiudad.setGeometry(QtCore.QRect(370, 230, 301, 27))
+        self.campoCiudad.setObjectName(_fromUtf8("campoCiudad"))
+        self.campoDir = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoDir.setGeometry(QtCore.QRect(30, 330, 301, 27))
+        self.campoDir.setObjectName(_fromUtf8("campoDir"))
+        self.campoTel = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoTel.setGeometry(QtCore.QRect(370, 330, 301, 27))
+        self.campoTel.setObjectName(_fromUtf8("campoTel"))
+        self.campoCorreo = QtGui.QLineEdit(VentanaRegistroCoor)
+        self.campoCorreo.setGeometry(QtCore.QRect(30, 410, 301, 27))
+        self.campoCorreo.setObjectName(_fromUtf8("campoCorreo"))
+        self.botonAtras = QtGui.QPushButton(VentanaRegistroCoor)
+        self.botonAtras.setGeometry(QtCore.QRect(160, 480, 98, 27))
+        self.botonAtras.setObjectName(_fromUtf8("botonAtras"))
+        self.botonEnviar = QtGui.QPushButton(VentanaRegistroCoor)
+        self.botonEnviar.setGeometry(QtCore.QRect(360, 480, 98, 27))
+        self.botonEnviar.setObjectName(_fromUtf8("botonEnviar"))
+
+        self.retranslateUi(VentanaRegistroCoor)
+        print "Presionando enviar Coor"
+        QtCore.QObject.connect(self.botonEnviar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroCoor.agregarCoor)
+        QtCore.QMetaObject.connectSlotsByName(VentanaRegistroCoor)
+    
+    def agregarCoor(self):
+		print "Agregando Coor"
+		global clienteSocket
+		nombre = str(self.campoNombres.text())
+		if nombre == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo nombre no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		apellido = str(self.campoApellidos.text())
+		if apellido == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo apellido no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		id_ = str(self.campoID.text())
+		if id_ == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo ID no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		ciudad = str(self.campoCiudad.text())
+		if ciudad == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo ciudad no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		direccion = str(self.campoDir.text())
+		if direccion == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo direccion no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		tel = str(self.campoTel.text())
+		if tel == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo telefono no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		correo = str(self.campoCorreo.text())
+		if correo == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo correo no puede estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		datos = {'funcion': 'insertarCoor', 
+				'parametros':{'first_name':nombre,'last_name':apellido,
+				'id':id_, 'city':ciudad, 'tel_num':tel, 'email':correo,
+				'is_active':True, 'pass_':nombre[0]+id_+apellido[0]
+				}}
+		clienteSocket.enviarMensaje(datos)
+		res = clienteSocket.recibirRespuesta(False)
+		print res
+		if 'ok' in res:
+			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("El usuario fue ingresado correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in res:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El usuario no fue igresado correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+    def retranslateUi(self, VentanaRegistroCoor):
+        VentanaRegistroCoor.setWindowTitle(_translate("VentanaRegistroCoor", "Frame", None))
+        self.etiquetaTitulo.setText(_translate("VentanaRegistroCoor", "Registro de Administradores de CIER-SUR", None))
+        self.etiquetaSubTit.setText(_translate("VentanaRegistroCoor", "(*)Obligatorio", None))
+        self.etiquetaNombre.setText(_translate("VentanaRegistroCoor", "Nombres *", None))
+        self.etiquetaApellido.setText(_translate("VentanaRegistroCoor", "Apellidos *", None))
+        self.etiquetaID.setText(_translate("VentanaRegistroCoor", "Número de Documento de ID *", None))
+        self.etiquetaCorreo.setText(_translate("VentanaRegistroCoor", "Correo *", None))
+        self.etiquetaTel.setText(_translate("VentanaRegistroCoor", "Teléfono *", None))
+        self.etiquetaDir.setText(_translate("VentanaRegistroCoor", "Dirección *", None))
+        self.etiquetaCiudad.setText(_translate("VentanaRegistroCoor", " Municipio de residencia *", None))
+        self.botonAtras.setText(_translate("VentanaRegistroCoor", "Atras", None))
+        self.botonEnviar.setText(_translate("VentanaRegistroCoor", "Enviar", None))
+
 class VentanaOpcionesRegistroCoor(QtGui.QFrame):
     def __init__(self):
         super(VentanaOpcionesRegistroCoor, self).__init__()
         self.ventanaRegMT = VentanaRegistroMT()
+        self.ventanaRegCoor = VentanaRegistroCoor()
         self.setupUi(self)
 
     def setupUi(self, VentanaOpcionesRegistroCoor):
@@ -202,9 +337,13 @@ class VentanaOpcionesRegistroCoor(QtGui.QFrame):
         self.retranslateUi(VentanaOpcionesRegistroCoor)
         QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesRegistroCoor)
         QtCore.QObject.connect(self.botonMT, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesRegistroCoor.mostrarVentanaRegMT)
+        QtCore.QObject.connect(self.botonCoor, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesRegistroCoor.mostrarVentanaRegCoor)
 
     def mostrarVentanaRegMT(self):
         self.ventanaRegMT.show()
+
+    def mostrarVentanaRegCoor(self):
+		self.ventanaRegCoor.show()
 
     def retranslateUi(self, VentanaOpcionesRegistroCoor):
         VentanaOpcionesRegistroCoor.setWindowTitle(_translate("VentanaOpcionesRegistroCoor", "Frame", None))
@@ -216,10 +355,14 @@ class VentanaOpcionesRegistroAdm(QtGui.QFrame):
 	def __init__(self):
 		super(VentanaOpcionesRegistroAdm, self).__init__()
 		self.ventanaRegAdm = VentanaRegistroAdm()
+		self.ventanaRegCoor = VentanaRegistroCoor()
 		self.setupUi(self)
 
 	def mostrarVentanaRegAdm(self):
 		self.ventanaRegAdm.show()
+	
+	def mostrarVentanaRegCoor(self):
+		self.ventanaRegCoor.show()
 
 	def setupUi(self, VentanaOpcionesRegistroAdm):
 		VentanaOpcionesRegistroAdm.setObjectName(_fromUtf8("VentanaOpcionesRegistroAdm"))
@@ -243,6 +386,7 @@ class VentanaOpcionesRegistroAdm(QtGui.QFrame):
 
 		self.retranslateUi(VentanaOpcionesRegistroAdm)
 		QtCore.QObject.connect(self.botonAdm, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesRegistroAdm.mostrarVentanaRegAdm)
+		QtCore.QObject.connect(self.botonCoor, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesRegistroAdm.mostrarVentanaRegCoor)
 		QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesRegistroAdm)
 
 

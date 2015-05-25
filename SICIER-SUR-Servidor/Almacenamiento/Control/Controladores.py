@@ -163,20 +163,25 @@ class ControladorAdm(Controlador):
 
 class ControladorCoor(Controlador):
 
-	def insertarCoor(self, **datos):
+	def insertarCoor(self, datos):
 		global bd
+		res = 'ok'
 		self._conectarBD()
 		try:
 			with bd.atomic():
 				coor = Coor.create(**datos)
-			print coor.save() # Falta validar insercion
+			if coor.save() != 1:
+				res = 'error'
 		except Exception as ex1:
 			print ex1
+			res = 'error'
 		finally:
 			try:
 				self._desconectarBD()
 			except Exception as ex2:
 				print ex2
+				res = 'error'
+		return res
 
 	def consultarCoorPassUsr(self, usr, pass_):
 		global bd

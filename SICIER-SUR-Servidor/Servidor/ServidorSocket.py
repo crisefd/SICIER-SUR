@@ -143,6 +143,8 @@ class ServidorSocket():
 				return pickle.dumps(res)
 			elif funcion == "insertarAdm":
 				return self._fachada.controlAdm.insertarAdm(parametros)
+			elif funcion == "insertarCoor":
+				return self._fachada.controlCoor.insertarCoor(parametros)
 		except Exception as ex:
 			print "Error en responder..." , ex, type(ex)
 			return 'error'
