@@ -10,3 +10,19 @@ select LeaderTeacher.department as department from LeaderTeacher inner join (sel
 -------------------------------------------------------------------------------------------------------------------------
 3-
 select A.id_course_fk, (cast (B.count as float ))/(cast (A.count as float))*100 as percent_potential  from (select id_course_fk, count(id_course_fk) from course_activity group by id_course_fk) as A inner join (select id_course_fk, count (id_course_fk) as count from course_activity where end_date <= current_date group by id_course_fk )as B on A.id_course_fk = B.id_course_fk limit 5;
+
+------------------------------------------------------------------------------------------------------------------------
+4-
+
+------------------------------------------------------------------------------------------------------------------------
+5-
+
+------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------reportes 2-------------------------------------------------------------------------
+
+1-
+
+------------------------------------------------------------------------------------------------------------------------
+
+2- cambiar el id_course_fk que esta fijo en 252525M
+select E.id_lt_fk as Code, LT.first_name as Name,E.def_grade as note from ( select id_lt_fk, def_grade from enrollment where ((def_grade>= '3.0')AND(id_course_fk= '252525M')))  as E inner join leaderteacher as LT on E.id_lt_fk = LT.id;
