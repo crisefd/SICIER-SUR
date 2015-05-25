@@ -51,22 +51,26 @@ class Controlador():
 
 class ControladorAdm(Controlador):
 
-	def insertarAdm(self, **datos):
+	def insertarAdm(self, datos):
 		global bd
 		self._conectarBD()
+		res = 'ok'
 		try:
 			adm = None
 			with bd.atomic():
 				adm = Adm.create(**datos)
-			#print adm
-			print adm.save() # Falta validar insercion
+			if adm.save() != 1:
+				res = 'error'
 		except Exception as ex1:
 			print ex1
+			res = 'error'
 		finally:
 			try:
 				self._desconectarBD()
 			except Exception as ex2:
+				res = 'error'
 				print ex2
+		return res
 		
 	def actualizarAdm(self, id_, datos):
 		self._conectarBD()

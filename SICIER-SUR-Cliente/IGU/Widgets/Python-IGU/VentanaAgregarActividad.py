@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'VentanaAgregarActividad.ui'
 #
-# Created: Sat May 23 16:57:51 2015
+# Created: Sun May 24 16:41:46 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,7 +38,7 @@ class Ui_Frame(object):
         self.etiquetaTitulo.setFont(font)
         self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
         self.formLayoutWidget = QtGui.QWidget(Frame)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(50, 90, 311, 111))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(50, 90, 311, 181))
         self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
         self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
         self.formLayout.setMargin(0)
@@ -61,8 +61,14 @@ class Ui_Frame(object):
         self.selectorFechaFin = QtGui.QDateEdit(self.formLayoutWidget)
         self.selectorFechaFin.setObjectName(_fromUtf8("selectorFechaFin"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.selectorFechaFin)
+        self.etiquetaPeso = QtGui.QLabel(self.formLayoutWidget)
+        self.etiquetaPeso.setObjectName(_fromUtf8("etiquetaPeso"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.etiquetaPeso)
+        self.campoPeso = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoPeso.setObjectName(_fromUtf8("campoPeso"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.campoPeso)
         self.botonAgregar = QtGui.QPushButton(Frame)
-        self.botonAgregar.setGeometry(QtCore.QRect(150, 230, 131, 27))
+        self.botonAgregar.setGeometry(QtCore.QRect(150, 280, 131, 27))
         self.botonAgregar.setObjectName(_fromUtf8("botonAgregar"))
 
         self.retranslateUi(Frame)
@@ -74,5 +80,6 @@ class Ui_Frame(object):
         self.etiquetaIDActividad.setText(_translate("Frame", "ID actividad", None))
         self.etiquetaFechaInicio.setText(_translate("Frame", "Fecha Inicio", None))
         self.etiquetaFechaFin.setText(_translate("Frame", "Fecha Fin", None))
+        self.etiquetaPeso.setText(_translate("Frame", "Peso:", None))
         self.botonAgregar.setText(_translate("Frame", "Agregar a curso", None))
 
