@@ -260,20 +260,76 @@ class ControladorCoor(Controlador):
 		return sq
 
 class ControladorMT(Controlador):
-
-	def insertarMT(self, **datos):
+	def insertarMT(self, datos):
+		global bd
 		self._conectarBD()
-		with bd.atomic():
-			try:
+		res = 'ok'
+		try:
+			mt = None
+			with bd.atomic():
 				mt = MT.create(**datos)
-				mt.save() # Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				n = mt.save()
+				if n == 0:
+					print "Insercion de MT fallida"
+					res = 'error'
+				else:
+					print "Insercion de MT exitosa"
+					res = 'ok'
+		except Exception as ex1:
+			res = 'error'
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		return res
+	
+	def insertarHistorialAcademicoMT(self, id_MT, historial):
+		global bd
+		self._conectarBD()
+		res = 'ok'
+		try:
+			print "Insertando hist acad ", historial
+			registros = []
+			for item in historial:
+				registros.append({'id_mt_fk':id_MT, 'item':item})
+			with bd.atomic():
+				MT_HA.insert_many(registros).execute()
+		except Exception as ex1:
+			res = 'error'
+			print "1. ", type(ex1)
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print "2. ", type(ex2)
+				print ex2
+		return res
+
+	def insertarExperienciaLaboralMT(self, id_MT, experiencia):
+		global bd
+		self._conectarBD()
+		#id_MT = str(id_MT)
+		res = 'ok'
+		try:
+			print "Insertado exp lab ", experiencia
+			registros = []
+			for item in experiencia:
+				registros.append({'id_mt_fk':id_MT, 'item':item})
+			#print "REGISTROS", registros
+			with bd.atomic():
+				MT_EL.insert_many(registros).execute()
+		except Exception as ex1:
+			print "1", ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print "2", ex2
+				res = 'error'
+		return res
 
 	def consultarMTPassUsr(self, usr, pass_):
 		global bd

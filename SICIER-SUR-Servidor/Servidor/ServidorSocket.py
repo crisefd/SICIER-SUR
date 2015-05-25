@@ -106,6 +106,21 @@ class ServidorSocket():
 					return 'ok'
 				else:
 					return 'error'
+			elif funcion == 'insertarMT':
+				id_MT = parametros['id']
+				histAcad = parametros['academic_background']
+				expLaboral = parametros['labor_experience']
+				del parametros['academic_background']
+				del parametros['labor_experience']
+				r1 = self._fachada.controlMT.insertarMT(parametros)
+				r2 = ''; r3 = ''
+				if r1 == 'ok':
+					r2 = self._fachada.controlMT.insertarHistorialAcademicoMT(id_MT, histAcad)
+					r3 = self._fachada.controlMT.insertarExperienciaLaboralMT(id_MT, expLaboral)
+				if r2 == 'ok' and r3 == 'ok':
+					return 'ok'
+				else:
+					return 'error'
 			elif funcion == 'activarLT':
 				ids = parametros['ids']
 				return self._fachada.controlLT.activarLT(ids)

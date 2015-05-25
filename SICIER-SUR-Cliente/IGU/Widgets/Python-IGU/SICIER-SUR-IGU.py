@@ -173,6 +173,45 @@ class VentanaRegistroAdm(QtGui.QFrame):
         self.botonAtras.setText(_translate("VentanaRegistroAdm", "Atras", None))
         self.botonEnviar.setText(_translate("VentanaRegistroAdm", "Enviar", None))
 
+class VentanaOpcionesRegistroCoor(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaOpcionesRegistroCoor, self).__init__()
+        self.ventanaRegMT = VentanaRegistroMT()
+        self.setupUi(self)
+
+    def setupUi(self, VentanaOpcionesRegistroCoor):
+        VentanaOpcionesRegistroCoor.setObjectName(_fromUtf8("VentanaOpcionesRegistroCoor"))
+        VentanaOpcionesRegistroCoor.resize(297, 217)
+        VentanaOpcionesRegistroCoor.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaOpcionesRegistroCoor.setFrameShadow(QtGui.QFrame.Raised)
+        self.label = QtGui.QLabel(VentanaOpcionesRegistroCoor)
+        self.label.setGeometry(QtCore.QRect(40, 30, 221, 31))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.botonMT = QtGui.QPushButton(VentanaOpcionesRegistroCoor)
+        self.botonMT.setGeometry(QtCore.QRect(90, 80, 100, 27))
+        self.botonMT.setObjectName(_fromUtf8("botonMT"))
+        self.botonCoor = QtGui.QPushButton(VentanaOpcionesRegistroCoor)
+        self.botonCoor.setGeometry(QtCore.QRect(90, 150, 100, 27))
+        self.botonCoor.setObjectName(_fromUtf8("botonCoor"))
+
+        self.retranslateUi(VentanaOpcionesRegistroCoor)
+        QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesRegistroCoor)
+        QtCore.QObject.connect(self.botonMT, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesRegistroCoor.mostrarVentanaRegMT)
+
+    def mostrarVentanaRegMT(self):
+        self.ventanaRegMT.show()
+
+    def retranslateUi(self, VentanaOpcionesRegistroCoor):
+        VentanaOpcionesRegistroCoor.setWindowTitle(_translate("VentanaOpcionesRegistroCoor", "Frame", None))
+        self.label.setText(_translate("VentanaOpcionesRegistroCoor", "Registrar  Usuario", None))
+        self.botonMT.setText(_translate("VentanaOpcionesRegistroCoor", "MasterTeacher", None))
+        self.botonCoor.setText(_translate("VentanaOpcionesRegistroCoor", "Coordinator", None))
+
 class VentanaOpcionesRegistroAdm(QtGui.QFrame):
 	def __init__(self):
 		super(VentanaOpcionesRegistroAdm, self).__init__()
@@ -865,6 +904,378 @@ class VentanaOpcionesAdm(QtGui.QFrame):
         self.botonListaBecados.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Becados", None))
 
 
+class VentanaRegistroMT(QtGui.QFrame):
+    def __init__(self):
+        super(VentanaRegistroMT, self).__init__()
+        self.setupUi(self)
+
+
+    def setupUi(self, VentanaRegistroMT):
+        VentanaRegistroMT.setObjectName(_fromUtf8("VentanaRegistroMT"))
+        VentanaRegistroMT.resize(727, 611)
+        VentanaRegistroMT.setStyleSheet(_fromUtf8(""))
+        VentanaRegistroMT.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaRegistroMT.setFrameShadow(QtGui.QFrame.Raised)
+        self.tabWidget = QtGui.QTabWidget(VentanaRegistroMT)
+        self.tabWidget.setGeometry(QtCore.QRect(0, 60, 721, 481))
+        self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
+        self.tab = QtGui.QWidget()
+        self.tab.setObjectName(_fromUtf8("tab"))
+        self.etiquetaNombres = QtGui.QLabel(self.tab)
+        self.etiquetaNombres.setGeometry(QtCore.QRect(20, 30, 71, 16))
+        self.etiquetaNombres.setObjectName(_fromUtf8("etiquetaNombres"))
+        self.etiquetaApellidos = QtGui.QLabel(self.tab)
+        self.etiquetaApellidos.setGeometry(QtCore.QRect(390, 30, 81, 16))
+        self.etiquetaApellidos.setObjectName(_fromUtf8("etiquetaApellidos"))
+        self.etiquetaID = QtGui.QLabel(self.tab)
+        self.etiquetaID.setGeometry(QtCore.QRect(20, 110, 141, 16))
+        self.etiquetaID.setObjectName(_fromUtf8("etiquetaID"))
+        self.etiquetaCorreo = QtGui.QLabel(self.tab)
+        self.etiquetaCorreo.setGeometry(QtCore.QRect(390, 110, 61, 16))
+        self.etiquetaCorreo.setObjectName(_fromUtf8("etiquetaCorreo"))
+        self.etiquetaTel = QtGui.QLabel(self.tab)
+        self.etiquetaTel.setGeometry(QtCore.QRect(20, 190, 71, 16))
+        self.etiquetaTel.setObjectName(_fromUtf8("etiquetaTel"))
+        self.etiquetaDir = QtGui.QLabel(self.tab)
+        self.etiquetaDir.setGeometry(QtCore.QRect(390, 190, 81, 16))
+        self.etiquetaDir.setObjectName(_fromUtf8("etiquetaDir"))
+        self.campoNombre = QtGui.QLineEdit(self.tab)
+        self.campoNombre.setGeometry(QtCore.QRect(20, 60, 311, 23))
+        self.campoNombre.setObjectName(_fromUtf8("campoNombre"))
+        self.campoApellidos = QtGui.QLineEdit(self.tab)
+        self.campoApellidos.setGeometry(QtCore.QRect(390, 60, 301, 23))
+        self.campoApellidos.setObjectName(_fromUtf8("campoApellidos"))
+        self.campoID = QtGui.QLineEdit(self.tab)
+        self.campoID.setGeometry(QtCore.QRect(20, 140, 311, 23))
+        self.campoID.setObjectName(_fromUtf8("campoID"))
+        self.campoCorreo = QtGui.QLineEdit(self.tab)
+        self.campoCorreo.setGeometry(QtCore.QRect(390, 140, 311, 23))
+        self.campoCorreo.setText(_fromUtf8(""))
+        self.campoCorreo.setObjectName(_fromUtf8("campoCorreo"))
+        self.campoTel = QtGui.QLineEdit(self.tab)
+        self.campoTel.setGeometry(QtCore.QRect(20, 220, 311, 23))
+        self.campoTel.setObjectName(_fromUtf8("campoTel"))
+        self.campoDir = QtGui.QLineEdit(self.tab)
+        self.campoDir.setGeometry(QtCore.QRect(380, 220, 311, 23))
+        self.campoDir.setObjectName(_fromUtf8("campoDir"))
+        self.etiquetaSexo = QtGui.QLabel(self.tab)
+        self.etiquetaSexo.setGeometry(QtCore.QRect(20, 270, 71, 16))
+        self.etiquetaSexo.setObjectName(_fromUtf8("etiquetaSexo"))
+        self.etiquetaFecha = QtGui.QLabel(self.tab)
+        self.etiquetaFecha.setGeometry(QtCore.QRect(380, 270, 131, 16))
+        self.etiquetaFecha.setObjectName(_fromUtf8("etiquetaFecha"))
+        self.dateEdit = QtGui.QDateEdit(self.tab)
+        self.dateEdit.setGeometry(QtCore.QRect(380, 300, 110, 29))
+        self.dateEdit.setDate(QtCore.QDate(2015, 1, 1))
+        self.dateEdit.setMaximumDateTime(QtCore.QDateTime(QtCore.QDate(7999, 12, 31), QtCore.QTime(23, 59, 59)))
+        self.dateEdit.setMinimumDate(QtCore.QDate(1920, 1, 1))
+        self.dateEdit.setCalendarPopup(True)
+        self.dateEdit.setObjectName(_fromUtf8("dateEdit"))
+        self.etiquetaEstadoCivil = QtGui.QLabel(self.tab)
+        self.etiquetaEstadoCivil.setGeometry(QtCore.QRect(20, 350, 101, 16))
+        self.etiquetaEstadoCivil.setObjectName(_fromUtf8("etiquetaEstadoCivil"))
+        self.comboEstadosCiviles = QtGui.QComboBox(self.tab)
+        self.comboEstadosCiviles.setGeometry(QtCore.QRect(20, 380, 101, 25))
+        self.comboEstadosCiviles.setModelColumn(0)
+        self.comboEstadosCiviles.setObjectName(_fromUtf8("comboEstadosCiviles"))
+        self.comboEstadosCiviles.addItem(_fromUtf8(""))
+        self.comboEstadosCiviles.addItem(_fromUtf8(""))
+        self.comboEstadosCiviles.addItem(_fromUtf8(""))
+        self.comboEstadosCiviles.addItem(_fromUtf8(""))
+        self.comboSexo = QtGui.QComboBox(self.tab)
+        self.comboSexo.setGeometry(QtCore.QRect(20, 300, 311, 23))
+        self.comboSexo.setObjectName(_fromUtf8("comboSexo"))
+        self.comboSexo.setModelColumn(0)
+        self.comboSexo.addItem(_fromUtf8(""))
+        self.comboSexo.addItem(_fromUtf8(""))
+        self.tabWidget.addTab(self.tab, _fromUtf8(""))
+        self.tab_2 = QtGui.QWidget()
+        self.tab_2.setObjectName(_fromUtf8("tab_2"))
+        self.etiquetaSede = QtGui.QLabel(self.tab_2)
+        self.etiquetaSede.setGeometry(QtCore.QRect(330, 30, 171, 16))
+        self.etiquetaSede.setObjectName(_fromUtf8("etiquetaSede"))
+        self.etiquetaInstitucion = QtGui.QLabel(self.tab_2)
+        self.etiquetaInstitucion.setGeometry(QtCore.QRect(20, 30, 211, 16))
+        self.etiquetaInstitucion.setObjectName(_fromUtf8("etiquetaInstitucion"))
+        self.etiquetaGrado = QtGui.QLabel(self.tab_2)
+        self.etiquetaGrado.setGeometry(QtCore.QRect(20, 80, 54, 15))
+        self.etiquetaGrado.setObjectName(_fromUtf8("etiquetaGrado"))
+        self.label_14 = QtGui.QLabel(self.tab_2)
+        self.label_14.setGeometry(QtCore.QRect(20, 140, 54, 15))
+        self.label_14.setText(_fromUtf8(""))
+        self.label_14.setObjectName(_fromUtf8("label_14"))
+        self.etiquetaSecEd = QtGui.QLabel(self.tab_2)
+        self.etiquetaSecEd.setGeometry(QtCore.QRect(320, 130, 251, 16))
+        self.etiquetaSecEd.setObjectName(_fromUtf8("etiquetaSecEd"))
+        self.etiquetaMunicipio = QtGui.QLabel(self.tab_2)
+        self.etiquetaMunicipio.setGeometry(QtCore.QRect(320, 80, 91, 16))
+        self.etiquetaMunicipio.setObjectName(_fromUtf8("etiquetaMunicipio"))
+        self.etiquetaArea = QtGui.QLabel(self.tab_2)
+        self.etiquetaArea.setGeometry(QtCore.QRect(20, 140, 211, 16))
+        self.etiquetaArea.setObjectName(_fromUtf8("etiquetaArea"))
+        self.etiquetaOtro = QtGui.QLabel(self.tab_2)
+        self.etiquetaOtro.setGeometry(QtCore.QRect(20, 250, 31, 16))
+        self.etiquetaOtro.setObjectName(_fromUtf8("etiquetaOtro"))
+        self.campoOtro = QtGui.QLineEdit(self.tab_2)
+        self.campoOtro.setGeometry(QtCore.QRect(60, 250, 161, 23))
+        self.campoOtro.setObjectName(_fromUtf8("campoOtro"))
+        self.campoSede = QtGui.QLineEdit(self.tab_2)
+        self.campoSede.setGeometry(QtCore.QRect(20, 50, 261, 23))
+        self.campoSede.setObjectName(_fromUtf8("campoSede"))
+        self.campoInstitucion = QtGui.QLineEdit(self.tab_2)
+        self.campoInstitucion.setGeometry(QtCore.QRect(320, 50, 291, 23))
+        self.campoInstitucion.setObjectName(_fromUtf8("campoInstitucion"))
+        self.campoGrado = QtGui.QLineEdit(self.tab_2)
+        self.campoGrado.setGeometry(QtCore.QRect(20, 100, 261, 23))
+        self.campoGrado.setObjectName(_fromUtf8("campoGrado"))
+        self.campoSecEdu = QtGui.QLineEdit(self.tab_2)
+        self.campoSecEdu.setGeometry(QtCore.QRect(320, 150, 281, 23))
+        self.campoSecEdu.setObjectName(_fromUtf8("campoSecEdu"))
+        self.campoMunicipio = QtGui.QLineEdit(self.tab_2)
+        self.campoMunicipio.setGeometry(QtCore.QRect(320, 100, 291, 23))
+        self.campoMunicipio.setObjectName(_fromUtf8("campoMunicipio"))
+        self.groupBox = QtGui.QGroupBox(self.tab_2)
+        self.groupBox.setGeometry(QtCore.QRect(20, 160, 271, 80))
+        self.groupBox.setTitle(_fromUtf8(""))
+        self.groupBox.setObjectName(_fromUtf8("groupBox"))
+        self.radbtnMatematicas = QtGui.QRadioButton(self.groupBox)
+        self.radbtnMatematicas.setGeometry(QtCore.QRect(0, 10, 151, 21))
+        self.radbtnMatematicas.setObjectName(_fromUtf8("radbtnMatematicas"))
+        self.radbtnCiencias = QtGui.QRadioButton(self.groupBox)
+        self.radbtnCiencias.setGeometry(QtCore.QRect(0, 30, 261, 21))
+        self.radbtnCiencias.setObjectName(_fromUtf8("radbtnCiencias"))
+        self.radbtnLenguaje = QtGui.QRadioButton(self.groupBox)
+        self.radbtnLenguaje.setGeometry(QtCore.QRect(0, 50, 95, 21))
+        self.radbtnLenguaje.setObjectName(_fromUtf8("radbtnLenguaje"))
+        self.label = QtGui.QLabel(self.tab_2)
+        self.label.setGeometry(QtCore.QRect(30, 350, 141, 17))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.scrollArea_2 = QtGui.QScrollArea(self.tab_2)
+        self.scrollArea_2.setGeometry(QtCore.QRect(180, 300, 471, 111))
+        self.scrollArea_2.setWidgetResizable(True)
+        self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
+        self.scrollAreaWidgetContents_2 = QtGui.QWidget()
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 469, 109))
+        self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
+        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+        self.textEdit = QtGui.QTextEdit(self.tab_2)
+        self.textEdit.setGeometry(QtCore.QRect(180, 300, 471, 111))
+        self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.etiquetaDep = QtGui.QLabel(self.tab_2)
+        self.etiquetaDep.setGeometry(QtCore.QRect(320, 180, 251, 16))
+        self.etiquetaDep.setObjectName(_fromUtf8("etiquetaDep"))
+        self.comboDep = QtGui.QComboBox(self.tab_2)
+        self.comboDep.setGeometry(QtCore.QRect(320, 200, 121, 25))
+        self.comboDep.setObjectName(_fromUtf8("comboDep"))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.comboDep.addItem(_fromUtf8(""))
+        self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
+        self.tab_3 = QtGui.QWidget()
+        self.tab_3.setObjectName(_fromUtf8("tab_3"))
+        self.etiquetaExp = QtGui.QLabel(self.tab_3)
+        self.etiquetaExp.setGeometry(QtCore.QRect(10, 80, 151, 17))
+        self.etiquetaExp.setObjectName(_fromUtf8("etiquetaExp"))
+        self.scrollArea = QtGui.QScrollArea(self.tab_3)
+        self.scrollArea.setGeometry(QtCore.QRect(210, 40, 461, 141))
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
+        self.scrollAreaWidgetContents = QtGui.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 459, 139))
+        self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.areaExp = QtGui.QTextEdit(self.tab_3)
+        self.areaExp.setGeometry(QtCore.QRect(210, 40, 461, 141))
+        self.areaExp.setObjectName(_fromUtf8("areaExp"))
+        self.tabWidget.addTab(self.tab_3, _fromUtf8(""))
+        self.etiquetaTitulo = QtGui.QLabel(VentanaRegistroMT)
+        self.etiquetaTitulo.setGeometry(QtCore.QRect(300, 0, 91, 16))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.etiquetaTitulo.setFont(font)
+        self.etiquetaTitulo.setObjectName(_fromUtf8("etiquetaTitulo"))
+        self.etiquetaSubTit1 = QtGui.QLabel(VentanaRegistroMT)
+        self.etiquetaSubTit1.setGeometry(QtCore.QRect(70, 20, 581, 20))
+        self.etiquetaSubTit1.setObjectName(_fromUtf8("etiquetaSubTit1"))
+        self.etiquetaSubTit2 = QtGui.QLabel(VentanaRegistroMT)
+        self.etiquetaSubTit2.setGeometry(QtCore.QRect(310, 40, 101, 16))
+        self.etiquetaSubTit2.setStyleSheet(_fromUtf8("color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 0, 0, 255), stop:1 rgba(255, 0, 0, 255));"))
+        self.etiquetaSubTit2.setObjectName(_fromUtf8("etiquetaSubTit2"))
+        self.botonEnviar = QtGui.QPushButton(VentanaRegistroMT)
+        self.botonEnviar.setGeometry(QtCore.QRect(170, 570, 91, 24))
+        self.botonEnviar.setObjectName(_fromUtf8("botonEnviar"))
+        self.botonSalir = QtGui.QPushButton(VentanaRegistroMT)
+        self.botonSalir.setGeometry(QtCore.QRect(410, 570, 91, 24))
+        self.botonSalir.setObjectName(_fromUtf8("botonSalir"))
+
+        #print "en setupUi", type(self.comboSexo)
+        self.retranslateUi(VentanaRegistroMT)
+        self.tabWidget.setCurrentIndex(0)
+        QtCore.QMetaObject.connectSlotsByName(VentanaRegistroMT)
+        QtCore.QObject.connect(self.botonSalir, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroMT.close)
+        QtCore.QObject.connect(self.botonEnviar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaRegistroMT.registrarMT)
+
+    def retranslateUi(self, VentanaRegistroMT):
+        VentanaRegistroMT.setWindowTitle(_translate("VentanaRegistroMT", "Frame", None))
+        self.etiquetaNombres.setText(_translate("VentanaRegistroMT", "Nombres *", None))
+        self.etiquetaApellidos.setText(_translate("VentanaRegistroMT", "Apellidos *", None))
+        self.etiquetaID.setText(_translate("VentanaRegistroMT", "Num. Identificación *", None))
+        self.etiquetaCorreo.setText(_translate("VentanaRegistroMT", "Correo *", None))
+        self.etiquetaTel.setText(_translate("VentanaRegistroMT", "Teléfono *", None))
+        self.etiquetaDir.setText(_translate("VentanaRegistroMT", "Dirección *", None))
+        self.etiquetaSexo.setText(_translate("VentanaRegistroMT", "Sexo *", None))
+        self.etiquetaFecha.setText(_translate("VentanaRegistroMT", "Fecha Nacimiento *", None))
+        self.etiquetaEstadoCivil.setText(_translate("VentanaRegistroMT", "Estado civil *", None))
+        self.comboEstadosCiviles.setItemText(0, _translate("VentanaRegistroMT", "Soltero", None))
+        self.comboEstadosCiviles.setItemText(1, _translate("VentanaRegistroMT", "Casado", None))
+        self.comboEstadosCiviles.setItemText(2, _translate("VentanaRegistroMT", "Viudo", None))
+        self.comboEstadosCiviles.setItemText(3, _translate("VentanaRegistroMT", "Union Libre", None))
+        self.comboSexo.setItemText(0, _translate("VentanaRegistroMT", "Masculino", None))
+        self.comboSexo.setItemText(1, _translate("VentanaRegistroMT", "Femenino", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaRegistroMT", "Información Personal", None))
+        self.etiquetaSede.setText(_translate("VentanaRegistroMT", "Sede a la que pertenece *", None))
+        self.etiquetaInstitucion.setText(_translate("VentanaRegistroMT", "Institución a la que pertenece *", None))
+        self.etiquetaGrado.setText(_translate("VentanaRegistroMT", "Grado *", None))
+        self.etiquetaSecEd.setText(_translate("VentanaRegistroMT", "Secretaría de Educación *", None))
+        self.etiquetaMunicipio.setText(_translate("VentanaRegistroMT", "Municipio *", None))
+        self.etiquetaArea.setText(_translate("VentanaRegistroMT", "Área a la cual se va a inscribir *", None))
+        self.etiquetaOtro.setText(_translate("VentanaRegistroMT", "Otro:", None))
+        self.radbtnMatematicas.setText(_translate("VentanaRegistroMT", " Matemáticas", None))
+        self.radbtnCiencias.setText(_translate("VentanaRegistroMT", "Ciencias Naturales y Ed. Ambiental    ", None))
+        self.radbtnLenguaje.setText(_translate("VentanaRegistroMT", "Lenguaje", None))
+        self.label.setText(_translate("VentanaRegistroMT", "Historial Académico", None))
+        self.etiquetaDep.setText(_translate("VentanaRegistroMT", "Departamento *", None))
+        self.comboDep.setItemText(0, _translate("VentanaRegistroMT", "Valle del Cauca", None))
+        self.comboDep.setItemText(1, _translate("VentanaRegistroMT", "Nariño", None))
+        self.comboDep.setItemText(2, _translate("VentanaRegistroMT", "Tolima", None))
+        self.comboDep.setItemText(3, _translate("VentanaRegistroMT", "Cauca", None))
+        self.comboDep.setItemText(4, _translate("VentanaRegistroMT", "Huila", None))
+        self.comboDep.setItemText(5, _translate("VentanaRegistroMT", "Caqueta", None))
+        self.comboDep.setItemText(6, _translate("VentanaRegistroMT", "Putumayo", None))
+        self.comboDep.setItemText(7, _translate("VentanaRegistroMT", "Amazonas", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("VentanaRegistroMT", "Información Profesional", None))
+        self.etiquetaExp.setText(_translate("VentanaRegistroMT", "Experiencia Laboral:", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("VentanaRegistroMT", "Adicional", None))
+        self.etiquetaTitulo.setText(_translate("VentanaRegistroMT", "CIER-SUR", None))
+        self.etiquetaSubTit1.setText(_translate("VentanaRegistroMT", "Formulario de inscripción de profesores al programa de formación CREA-TIC / CIER-SUR", None))
+        self.etiquetaSubTit2.setText(_translate("VentanaRegistroMT", "(*) Obligatorio", None))
+        self.botonEnviar.setText(_translate("VentanaRegistroMT", "Enviar", None))
+        self.botonSalir.setText(_translate("VentanaRegistroMT", "Salir", None))
+        #print "en retranslateUi ", type(self.comboSexo)
+
+    def recuperarDatos(self):
+        index = self.comboSexo.currentIndex()
+        sex = ''
+        if index == 0:
+            sex = 'M'
+        else:
+            sex = 'F'
+        #sexo = self.comboSexo().currentText()
+        nombres = str(self.campoNombre.text())
+        if nombres == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Nombres es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        apellidos = str(self.campoApellidos.text())
+        if apellidos == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Apellidos es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        id_ = str(self.campoID.text())
+        if id_ == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Identificación es obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        correo = str(self.campoCorreo.text())
+        if correo == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo correo es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        tel = str(self.campoTel.text())
+        if tel == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo telefono es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        direccion = str(self.campoDir.text())
+        if direccion == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo direccion es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        fechaNacimiento = str(self.dateEdit.date().toString("yyyy.MM.dd"))
+        print fechaNacimiento
+        estadoCivil = str(self.comboEstadosCiviles.currentText())
+        institucion = str(self.campoInstitucion.text())
+        if institucion == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo institución es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        grado = str(self.campoGrado.text())
+        if grado == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo grado es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        sede = str(self.campoSede.text())
+        municipio = str(self.campoMunicipio.text())
+        if municipio == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo municipio es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        secretaria = str(self.campoSecEdu.text())
+        if secretaria == '':
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("El campo Secretaría es Obligatorio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            return 'error'
+        departamento = str(self.comboDep.currentText())
+        area = ''
+        if self.radbtnMatematicas.isChecked():
+            area = 'Matemáticas'
+        elif self.radbtnLenguaje.isChecked():
+            area = 'Lenguaje'
+        elif self.radbtnCiencias.isChecked():
+            area = 'Ciencias'
+        else:
+            area = str(self.campoOtro.text())
+        historialAcademico = ''
+        experienciaLaboral = ''
+        try:
+            txt1 = str(self.textEdit.toPlainText())
+            historialAcademico = txt1.split("\n")
+            #historialAcademico = txt1.split(",")
+            txt2 = str(self.areaExp.toPlainText())
+            #text2 = txt2.replace("\n", "")
+            experienciaLaboral = txt2.split("\n")
+        except Exception as ex:
+            print ex
+            msgBox = QtGui.QMessageBox.critical(self, _fromUtf8("Error "),_fromUtf8("La experiencia laboral y \n el historial academico deben tener todos sus items separados por comas"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+        pass_ = nombres[0] + id_ + apellidos[0]
+
+        dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': False,
+                    'address': direccion, 'sex': sex, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
+                    'institution': institucion, 'grade': grado, 'city':municipio, 'area':area, 'secretariat':secretaria,
+                    'department': departamento, 'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
+        return dictDatos
+
+    def registrarMT(self):
+        global clienteSocket
+        #print "En registrarLT", type(self.comboSexo)
+        datos_ = self.recuperarDatos()
+        
+        reintentar = False
+        if datos_ != 'error':
+            datos = {'funcion':'insertarMT', 'parametros': datos_}
+            m = clienteSocket.enviarMensaje(datos)
+            res = None
+            if m != 'error':
+                res = clienteSocket.recibirRespuesta(False)
+                #print "Respuesta de registroLT", res
+                if 'ok' in res:
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Registro exitoso"),_fromUtf8("Su suscripción ha sido enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+                    self.close()
+                else:
+                    msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Su suscripción no pudo ser enviada"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+            else:
+                print "Error al enviar el mensaje"
+                sys.exit()
+
+
 class VentanaRegistroLT(QtGui.QFrame):
     def __init__(self):
         super(VentanaRegistroLT, self).__init__()
@@ -1249,6 +1660,7 @@ class VentanaLogin(QtGui.QFrame):
         self.ventanaOpAdm = VentanaOpcionesAdm()
         self.ventanaOpLT = VentanaRevisarNotas()
         self.ventanaOpMT = VentanaAsignarNotas()
+        self.ventanaOpCoor = VentanaOpcionesRegistroCoor();
         self.setupUi(self)
         try:
             clienteSocket.conectar()
@@ -1344,6 +1756,8 @@ class VentanaLogin(QtGui.QFrame):
                         print "Respuesta", res[2]
                         if res[2] == '1':
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
+                            self.ventanaOpCoor.show()
+                            self.hide()
                         else:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Master Teacher":
