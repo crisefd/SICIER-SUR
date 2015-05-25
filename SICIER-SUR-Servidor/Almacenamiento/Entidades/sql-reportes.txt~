@@ -9,4 +9,5 @@ select LeaderTeacher.department as department from LeaderTeacher inner join (sel
 
 -------------------------------------------------------------------------------------------------------------------------
 3-
-
+select A.id_course_fk, (cast (B.count as float ))/(cast (A.count as float))*100 as percent_potential  from (select id_course_fk, count(id_course_fk) from course_activity group by id_course_fk) as A inner join (select id_course_fk, count (id_course_fk) as count from course_activity where end_date <= current_date group by id_course_fk )as B on A.id_course_fk = B.id_course_fk;
+ id_course_fk | percent_potential
