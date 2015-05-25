@@ -126,6 +126,10 @@ class ServidorSocket():
 				return self._fachada.controlLT.activarLT(ids)
 			elif funcion == 'insertarCurso':
 				return self._fachada.controlCurso.insertarCurso(parametros)
+			elif funcion == 'actualizarCurso':
+				id_curso = parametros["id"]
+				del parametros["id"]
+				return self._fachada.controlCurso.actualizarCurso(id_curso, parametros)
 			elif funcion == "insertarCursoActividad":
 				return self._fachada.controlCurso.insertarCursoActividad(parametros)
 			elif funcion == "insertarCursoCohorte":

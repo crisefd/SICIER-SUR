@@ -561,6 +561,24 @@ class ControladorCurso(Controlador):
 			ls.append([str(cursoAct.id), str(cursoAct.description), str(cursoAct.start_date), str(cursoAct.end_date)])
 		return ls
 	
+	def actualizarCurso(self, id_curso, datos):
+		global bd
+		self._conectarBD
+		res = 'ok'
+		try:
+			q = Curso.update(**datos).where(Curso.id == id_curso)
+			q.execute()
+		except Exception as ex1:
+			print ex1
+			res = 'error'
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				res = 'error'
+		return res
+	
 	def eliminarCurso(self, datos):
 		global bd
 		self._conectarBD

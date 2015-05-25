@@ -748,6 +748,7 @@ class VentanaAdministrarCursos(QtGui.QFrame):
 		self.retranslateUi(VentanaAdministrarCursos)
 		self.tabWidget.setCurrentIndex(0)
 		QtCore.QObject.connect(self.botonBuscarCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.buscarCurso)
+		QtCore.QObject.connect(self.botonEditarCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.editarCurso)
 		QtCore.QObject.connect(self.botonCrearAgregarActividadCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarActividad)
 		QtCore.QObject.connect(self.botonCrearCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.agregarCurso)
 		QtCore.QObject.connect(self.botonCrearAgregarCohorteCurso, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAdministrarCursos.mostrarVentanaAgregarCohorte)
@@ -775,6 +776,46 @@ class VentanaAdministrarCursos(QtGui.QFrame):
 				for cad in item:
 					str_item += cad + "|"
 				self.listaBuscarCurso.addItem(QtGui.QListWidgetItem(_fromUtf8(str_item), self.listaBuscarCurso, 0))
+				
+	def editarCurso(self):
+		global clienteSocket
+		datos = None
+		id_ = str(self.campoEditarIdcurso.text())
+		descripcion = str(self.campoEditardescripcioncurso.text())
+		f_fin = str(self.campoEditarFincurso.date().toString("yyyy.MM.dd"))
+		f_ini = str(self.campoEditarIniciocurso.date().toString("yyyy.MM.dd"))
+		if id_ == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Es necesario el id de curso que se quiere editar"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		elif descripcion == '' and f_ini == '' and f_fin == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Todos los campos no pueden estar vacios"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		elif descripcion == '':
+			datos = {'funcion':'actualizarCurso', 
+							'parametros':{'start_date':f_ini, 
+											'end_date':f_fin,
+											'id': id_}}
+		elif f_ini == '':
+			datos = {'funcion':'actualizarCurso', 
+							'parametros':{'description':descripcion, 
+											'end_date':f_fin,
+											'id': id_}}
+		elif f_fin == '':
+			datos = {'funcion':'actualizarCurso', 
+								'parametros':{'description':descripcion, 
+								'start_date':f_ini, 'id': id_}}
+		else:
+			datos = {'funcion':'actualizarCurso', 
+							'parametros':{'description':descripcion,
+											'end_date':f_fin,
+											'start_date':f_ini, 
+											'id': id_}}
+			clienteSocket.enviarMensaje(datos)
+			res = clienteSocket.recibirRespuesta(False)
+			if 'ok' in res:
+				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("OK "),_fromUtf8("El curso se actualizo correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			elif 'error' in res:
+				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error"),_fromUtf8("El curso no puedo ser actualizado"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
 	def agregarCurso(self):
 		global clienteSocket

@@ -23,17 +23,17 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class VentanaRegistroUsuario(QtGui.QFrame):
+class VentanaOpcionesRegistroCoor(QtGui.QFrame):
     def __init__(self):
-        super(VentanaRegistroUsuario, self).__init__()
+        super(VentanaOpcionesRegistroCoor, self).__init__()
         self.setupUi(self)
 
-    def setupUi(self, VentanaRegistroUsuario):
-        VentanaRegistroUsuario.setObjectName(_fromUtf8("VentanaRegistroUsuario"))
-        VentanaRegistroUsuario.resize(297, 217)
-        VentanaRegistroUsuario.setFrameShape(QtGui.QFrame.StyledPanel)
-        VentanaRegistroUsuario.setFrameShadow(QtGui.QFrame.Raised)
-        self.label = QtGui.QLabel(VentanaRegistroUsuario)
+    def setupUi(self, VentanaOpcionesRegistroCoor):
+        VentanaOpcionesRegistroCoor.setObjectName(_fromUtf8("VentanaOpcionesRegistroCoor"))
+        VentanaOpcionesRegistroCoor.resize(297, 217)
+        VentanaOpcionesRegistroCoor.setFrameShape(QtGui.QFrame.StyledPanel)
+        VentanaOpcionesRegistroCoor.setFrameShadow(QtGui.QFrame.Raised)
+        self.label = QtGui.QLabel(VentanaOpcionesRegistroCoor)
         self.label.setGeometry(QtCore.QRect(40, 30, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(18)
@@ -41,19 +41,19 @@ class VentanaRegistroUsuario(QtGui.QFrame):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
-        self.botonMT = QtGui.QPushButton(VentanaRegistroUsuario)
+        self.botonMT = QtGui.QPushButton(VentanaOpcionesRegistroCoor)
         self.botonMT.setGeometry(QtCore.QRect(90, 80, 100, 27))
         self.botonMT.setObjectName(_fromUtf8("botonMT"))
-        self.botonCoor = QtGui.QPushButton(VentanaRegistroUsuario)
+        self.botonCoor = QtGui.QPushButton(VentanaOpcionesRegistroCoor)
         self.botonCoor.setGeometry(QtCore.QRect(90, 150, 100, 27))
         self.botonCoor.setObjectName(_fromUtf8("botonCoor"))
 
-        self.retranslateUi(VentanaRegistroUsuario)
-        QtCore.QMetaObject.connectSlotsByName(VentanaRegistroUsuario)
+        self.retranslateUi(VentanaOpcionesRegistroCoor)
+        QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesRegistroCoor)
 
-    def retranslateUi(self, VentanaRegistroUsuario):
-        VentanaRegistroUsuario.setWindowTitle(_translate("VentanaRegistroUsuario", "Frame", None))
-        self.label.setText(_translate("VentanaRegistroUsuario", "Registrar  Usuario", None))
-        self.botonMT.setText(_translate("VentanaRegistroUsuario", "MasterTeacher", None))
-        self.botonCoor.setText(_translate("VentanaRegistroUsuario", "Coordinator", None))
+    def retranslateUi(self, VentanaOpcionesRegistroCoor):
+        VentanaOpcionesRegistroCoor.setWindowTitle(_translate("VentanaOpcionesRegistroCoor", "Frame", None))
+        self.label.setText(_translate("VentanaOpcionesRegistroCoor", "Registrar  Usuario", None))
+        self.botonMT.setText(_translate("VentanaOpcionesRegistroCoor", "MasterTeacher", None))
+        self.botonCoor.setText(_translate("VentanaOpcionesRegistroCoor", "Coordinator", None))
 
