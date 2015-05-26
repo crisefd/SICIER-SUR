@@ -33,7 +33,7 @@ CREATE TABLE Administrator(
 	city VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	is_active BOOLEAN NOT NULL,
-	pass VARCHoscar
+	pass VARCHAR(50),
 	UNIQUE(email)
 	/*id_person_fk VARCHAR(50),
 	FOREIGN KEY(id_person_fk)

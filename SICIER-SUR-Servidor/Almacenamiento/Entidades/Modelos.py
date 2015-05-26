@@ -58,6 +58,19 @@ class ActivityGradeLt(BaseModel):
         db_table = 'activity_grade_lt'
         primary_key = CompositeKey('activity_fk', 'id_lt_fk')
 
+class Administrator(BaseModel):
+    city = CharField()
+    email = CharField(unique=True)
+    first_name = CharField()
+    id = CharField(primary_key=True)
+    is_active = BooleanField()
+    last_name = CharField()
+    pass_ = CharField(db_column='pass', null=True)
+    tel_num = CharField()
+
+    class Meta:
+        db_table = 'administrator'
+
 class Coordinator(BaseModel):
     city = CharField()
     email = CharField(unique=True)

@@ -21,7 +21,7 @@ LT_EL = modelos.LtLaborExp
 MT_EL = modelos.MtLaborExp
 Curso = modelos.Course
 CursoAct = modelos.CourseActivity
-ActNota = modelos.ActivityGrade
+#ActNota = modelos.ActivityGrade
 CursoCohorte = modelos.CourseCohort
 Matricula = modelos.Enrollment
 
@@ -546,6 +546,58 @@ class ControladorMatricula(Controlador):
 					print ex2
 		return sq
 
+#Reportes Shianta
+class ControladorReportes(Controlador):
+	
+	def reporteTopAsistencia(self,):
+		#Cursos	con	mayor	numero	de	asistentes en	el	mes	(Top	10)
+		self._conectarBD
+		sq=0
+		sqcount=0
+		#with bd.atomic():
+		try: 
+			"""
+			select  id_course_fk 
+			from (select distinct A.id_course_fk, (select count(id_course_fk) 
+												   from Enrollment 
+												   where id_course_fk = A.id_course_fk) as count 
+				  from Enrollment as A 
+				  order by count desc) as F limit 10;
+			"""
+			#MatriculaAlias = Matricula.alias()
+			#sq = MatriculaAlias.select(MatriculaAlias.id_course_fk, (Matricula.select().where(Matricula.id_course_fk == MatriculaAlias.id_course_fk)).count())
+			#sq= MatriculaAlias.select().where(Matricula.id_course_fk == 	MatriculaAlias.id_course_fk)
+			#sqcount = sq.count()
+			#a = (MatriculaAlias.select(MatriculaAlias.id_course_fk).where(MatriculaAlias.id_course_fk == Matricula.id_course_fk)).count()
+			#sq = Matricula.select(Matricula.id_course_fk,
+			sq = Matricula.select().where(Matricula.id_course_fk == '252525M')
+			sqcount = sq.count()
+			
+		except Exception as ex1:
+				print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+					print ex2
+		return sqcount
+
+
+
+sql=0
+CR= ControladorReportes()
+sql=CR.reporteTopAsistencia()	
+print sql
+#sql=sql.iterator()
+#for item in sql:
+#	print item.id_course_fk.id
+"""
+for item in sql:	
+	print item#.id_course_fk.id
+	pass
+#print sq.next()
+
+	"""	
 
 
 #LT_HA.create(id_lt_fk='776', item='h1')
@@ -553,4 +605,3 @@ class ControladorMatricula(Controlador):
 #c = ControladorLT()
 #c.insertarExperienciaLaboralLT('776', ['e1', 'e2'])
 #print sql.next()
-		
