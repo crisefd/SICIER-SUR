@@ -340,23 +340,27 @@ class ControladorMT(Controlador):
 		global bd
 		self._conectarBD()
 		sq = None
+		res = 'ok'
 		try:
 			sq = MT.select().where(MT.email == usr, 
 				         MT.pass_== pass_, MT.is_active == True)
 		except Exception as ex1:
-			print ex1
+			print type(ex1), ex1
+			res = 'error'
 		finally:
 			try:
 				self._desconectarBD()
 			except Exception as ex2:
-				print ex2
+				print type(ex2), ex2
+				res = 'error'
 		it = sq.iterator()
-		res = "1" #Si lo encontro
+		res = "ok" #Si lo encontro
 		try:
-			it.next()
-		except Exception as ex:
-			res = "0" #No lo encontro
-
+			print it.next()
+		except Exception as ex3:
+			print type(ex3), ex3
+			res = "error" #No lo encontro
+		print "Servidor responde", res
 		return res
 
 	def insertarHistAcademicoMT(self, id_MT, historial):
@@ -413,6 +417,37 @@ class ControladorMT(Controlador):
 
 
 class ControladorLT(Controlador):
+	def insertarActNota(self, datos):
+		global bd
+		id_mt = datos['id_mt']
+		id_lt = datos['id_lt']
+		id_curso = datos['id_curso']
+		self._conectarBD()
+		res = 'ok'
+		try:
+			with bd.atomic():
+				sq = Matricula.select().where(Matricula.id_mt_fk == id_mt, Matricula.id_lt_fk == id_lt, Matricula.id_course_fk == id_curso)
+			sq = sq.iterator()
+			v = True
+			try:
+				sq.next()
+			except:
+				v= False
+			if not v:
+				return 'error'
+			else:
+				act = ActNotaLT.create(activity_fk=datos['act'], id_lt_fk = id_lt, score = datos['nota'])
+				if act.save() != 1:
+					return 'error'
+		except Exception as ex1:
+			res = 'error'
+			print ex1
+		finally:
+			try:
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+		return res
 
 	def insertarLT(self, **datos):
 		global bd
@@ -831,7 +866,12 @@ class ControladorMatricula(Controlador):
 
 
 #LT_HA.create(id_lt_fk='776', item='h1')
-
+#cmt = ControladorMT()
+#c = cmt.consultarMTPassUsr( "bruce.banner@ejemplo.com", "8389939")
+#print c
+#sq = MT.get(MT.email == "bruce.banner@ejemplo.com", 
+#				         MT.pass_== "B8389939B", MT.is_active == True)
+#print sq.first_name
 #c = ControladorLT()
 #c.insertarExperienciaLaboralLT('222000', ['e1', 'e2'])
 #d = [{'id_lt_fk':'222000', 'item':'h1'},{'id_lt_fk':'222000', 'item':'h2'}]

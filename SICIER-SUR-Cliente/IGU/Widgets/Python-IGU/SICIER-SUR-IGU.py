@@ -414,100 +414,108 @@ class VentanaAsignarNotas(QtGui.QFrame):
         self.etiquetaTitulo_2.setFont(font)
         self.etiquetaTitulo_2.setObjectName(_fromUtf8("etiquetaTitulo_2"))
         self.tabWidget = QtGui.QTabWidget(VentanaAsignarNotas)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 40, 591, 441))
+        self.tabWidget.setGeometry(QtCore.QRect(0, 20, 591, 441))
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        self.tab_2 = QtGui.QWidget()
-        self.tab_2.setObjectName(_fromUtf8("tab_2"))
-        self.campoBusqueda = QtGui.QLineEdit(self.tab_2)
-        self.campoBusqueda.setGeometry(QtCore.QRect(260, 20, 301, 29))
-        self.campoBusqueda.setObjectName(_fromUtf8("campoBusqueda"))
-        self.botonBuscar = QtGui.QPushButton(self.tab_2)
-        self.botonBuscar.setGeometry(QtCore.QRect(240, 180, 100, 27))
-        self.botonBuscar.setObjectName(_fromUtf8("botonBuscar"))
-        self.comboAtributos = QtGui.QComboBox(self.tab_2)
-        self.comboAtributos.setGeometry(QtCore.QRect(130, 20, 91, 25))
-        self.comboAtributos.setObjectName(_fromUtf8("comboAtributos"))
-        self.comboAtributos.addItem(_fromUtf8(""))
-        self.comboAtributos.addItem(_fromUtf8(""))
-        self.comboAtributos.addItem(_fromUtf8(""))
-        self.comboAtributos.addItem(_fromUtf8(""))
-        self.comboAtributos.addItem(_fromUtf8(""))
-        self.tableWidget = QtGui.QTableWidget(self.tab_2)
-        self.tableWidget.setGeometry(QtCore.QRect(30, 60, 531, 101))
-        self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
-        self.etiquetaBuscar = QtGui.QLabel(self.tab_2)
-        self.etiquetaBuscar.setGeometry(QtCore.QRect(35, 20, 81, 20))
-        self.etiquetaBuscar.setObjectName(_fromUtf8("etiquetaBuscar"))
-        self.campoIDActualizar_3 = QtGui.QLineEdit(self.tab_2)
-        self.campoIDActualizar_3.setGeometry(QtCore.QRect(260, 210, 301, 29))
-        self.campoIDActualizar_3.setText(_fromUtf8(""))
-        self.campoIDActualizar_3.setObjectName(_fromUtf8("campoIDActualizar_3"))
-        self.etiquetaIDActualizar_2 = QtGui.QLabel(self.tab_2)
-        self.etiquetaIDActualizar_2.setGeometry(QtCore.QRect(30, 220, 191, 17))
-        self.etiquetaIDActualizar_2.setObjectName(_fromUtf8("etiquetaIDActualizar_2"))
-        self.tableWidget_2 = QtGui.QTableWidget(self.tab_2)
-        self.tableWidget_2.setGeometry(QtCore.QRect(30, 250, 531, 101))
-        self.tableWidget_2.setObjectName(_fromUtf8("tableWidget_2"))
-        self.tableWidget_2.setColumnCount(0)
-        self.tableWidget_2.setRowCount(0)
-        self.botonBuscar_2 = QtGui.QPushButton(self.tab_2)
-        self.botonBuscar_2.setGeometry(QtCore.QRect(240, 360, 100, 27))
-        self.botonBuscar_2.setObjectName(_fromUtf8("botonBuscar_2"))
-        self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab = QtGui.QWidget()
         self.tab.setObjectName(_fromUtf8("tab"))
-        self.etiquetaIDActualizar = QtGui.QLabel(self.tab)
-        self.etiquetaIDActualizar.setGeometry(QtCore.QRect(10, 40, 191, 17))
-        self.etiquetaIDActualizar.setObjectName(_fromUtf8("etiquetaIDActualizar"))
-        self.campoIDActualizar = QtGui.QLineEdit(self.tab)
-        self.campoIDActualizar.setGeometry(QtCore.QRect(220, 30, 311, 29))
-        self.campoIDActualizar.setObjectName(_fromUtf8("campoIDActualizar"))
-        self.campoIDActualizar_2 = QtGui.QLineEdit(self.tab)
-        self.campoIDActualizar_2.setGeometry(QtCore.QRect(220, 90, 311, 29))
-        self.campoIDActualizar_2.setObjectName(_fromUtf8("campoIDActualizar_2"))
-        self.etiquetaIDActualizar_3 = QtGui.QLabel(self.tab)
-        self.etiquetaIDActualizar_3.setGeometry(QtCore.QRect(10, 100, 191, 17))
-        self.etiquetaIDActualizar_3.setObjectName(_fromUtf8("etiquetaIDActualizar_3"))
-        self.etiquetaIDActualizar_4 = QtGui.QLabel(self.tab)
-        self.etiquetaIDActualizar_4.setGeometry(QtCore.QRect(10, 140, 191, 17))
-        self.etiquetaIDActualizar_4.setObjectName(_fromUtf8("etiquetaIDActualizar_4"))
-        self.campoIDActualizar_4 = QtGui.QLineEdit(self.tab)
-        self.campoIDActualizar_4.setGeometry(QtCore.QRect(220, 140, 61, 29))
-        self.campoIDActualizar_4.setObjectName(_fromUtf8("campoIDActualizar_4"))
-        self.pushButton_2 = QtGui.QPushButton(self.tab)
-        self.pushButton_2.setGeometry(QtCore.QRect(250, 210, 98, 27))
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.botonActualizar = QtGui.QPushButton(self.tab)
+        self.botonActualizar.setGeometry(QtCore.QRect(220, 360, 98, 27))
+        self.botonActualizar.setObjectName(_fromUtf8("botonActualizar"))
+        self.formLayoutWidget = QtGui.QWidget(self.tab)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(29, 60, 451, 171))
+        self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
+        self.formLayout = QtGui.QFormLayout(self.formLayoutWidget)
+        self.formLayout.setMargin(0)
+        self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        self.label = QtGui.QLabel(self.formLayoutWidget)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
+        self.label_2 = QtGui.QLabel(self.formLayoutWidget)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_2)
+        self.label_3 = QtGui.QLabel(self.formLayoutWidget)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_3)
+        self.label_4 = QtGui.QLabel(self.formLayoutWidget)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_4)
+        self.label_5 = QtGui.QLabel(self.formLayoutWidget)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.formLayout.setWidget(4, QtGui.QFormLayout.LabelRole, self.label_5)
+        self.campoIDLT = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoIDLT.setObjectName(_fromUtf8("campoIDLT"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.campoIDLT)
+        self.campoIDMT = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoIDMT.setObjectName(_fromUtf8("campoIDMT"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.campoIDMT)
+        self.campoIDCurso = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoIDCurso.setObjectName(_fromUtf8("campoIDCurso"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.campoIDCurso)
+        self.campoAct = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoAct.setObjectName(_fromUtf8("campoAct"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.campoAct)
+        self.campoNota = QtGui.QLineEdit(self.formLayoutWidget)
+        self.campoNota.setObjectName(_fromUtf8("campoNota"))
+        self.formLayout.setWidget(4, QtGui.QFormLayout.FieldRole, self.campoNota)
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
-        self.pushButton = QtGui.QPushButton(VentanaAsignarNotas)
-        self.pushButton.setGeometry(QtCore.QRect(240, 520, 98, 27))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.botonCancelar = QtGui.QPushButton(VentanaAsignarNotas)
+        self.botonCancelar.setGeometry(QtCore.QRect(240, 520, 98, 27))
+        self.botonCancelar.setObjectName(_fromUtf8("botonCancelar"))
 
         self.retranslateUi(VentanaAsignarNotas)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
+        QtCore.QObject.connect(self.botonActualizar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaAsignarNotas.ingresarNota)
         QtCore.QMetaObject.connectSlotsByName(VentanaAsignarNotas)
+    
+    def ingresarNota(self):
+		global clienteSocket
+		nota = None
+		try:
+			nota = float(str(self.campoNota.text()))
+		except:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo nota debe ser un numero real"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		id_curso = str(self.campoIDCurso.text())
+		if id_curso == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo id curso no debe estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		act = str(self.campoAct.text())
+		if act == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo actividad no debe estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		id_lt = str(self.campoIDLT.text())
+		if id_lt == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo ID LT no debe estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		id_mt = str(self.campoIDMT.text())
+		if id_mt == '':
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("El campo ID MT no debe estar vacio"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		datos = {'funcion': 'ingresarNotaAct', 'parametros':{'nota':nota,
+															'id_curso':id_curso,
+															'act':act,
+															'id_lt':id_lt,
+															'id_mt':id_mt}}
+		clienteSocket.enviarMensaje(datos)
+		res = clienteSocket.recibirRespuesta(False)
+		if 'ok' in res:
+			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("OK "),_fromUtf8("La nota se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in res:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("OK "),_fromUtf8("La nota no se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
 
-    def retranslateUi(self, ventana):
-        ventana.setWindowTitle(_translate("ventana", "Dialog", None))
-        self.etiquetaTitulo_2.setText(_translate("ventana", "CIER-SUR", None))
-        self.botonBuscar.setText(_translate("ventana", "Buscar", None))
-        self.comboAtributos.setItemText(0, _translate("ventana", "Nombre", None))
-        self.comboAtributos.setItemText(1, _translate("ventana", "Apellido", None))
-        self.comboAtributos.setItemText(2, _translate("ventana", "ID", None))
-        self.comboAtributos.setItemText(3, _translate("ventana", "Correo", None))
-        self.comboAtributos.setItemText(4, _translate("ventana", "Ciudad", None))
-        self.etiquetaBuscar.setText(_translate("ventana", "Buscar por:", None))
-        self.etiquetaIDActualizar_2.setText(_translate("ventana", "Actualizar Notas al LT con ID", None))
-        self.botonBuscar_2.setText(_translate("ventana", "Buscar", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("ventana", "Buscar LT", None))
-        self.tab.setToolTip(_translate("ventana", "<html><head/><body><p><br/></p></body></html>", None))
-        self.etiquetaIDActualizar.setText(_translate("ventana", "Actualizar Notas al LT con ID", None))
-        self.etiquetaIDActualizar_3.setText(_translate("ventana", "Actividad con ID", None))
-        self.etiquetaIDActualizar_4.setText(_translate("ventana", "Nota", None))
-        self.pushButton_2.setText(_translate("ventana", "Actializar", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("ventana", "Actualizar Notas", None))
-        self.pushButton.setText(_translate("ventana", "Cancelar", None))
+    def retranslateUi(self, VentanaAsignarNotas):
+        VentanaAsignarNotas.setWindowTitle(_translate("VentanaAsignarNotas", "Dialog", None))
+        self.etiquetaTitulo_2.setText(_translate("VentanaAsignarNotas", "CIER-SUR", None))
+        self.tab.setToolTip(_translate("VentanaAsignarNotas", "<html><head/><body><p><br/></p></body></html>", None))
+        self.botonActualizar.setText(_translate("VentanaAsignarNotas", "Actualizar", None))
+        self.label.setText(_translate("VentanaAsignarNotas", "ID LT", None))
+        self.label_2.setText(_translate("VentanaAsignarNotas", "ID MT", None))
+        self.label_3.setText(_translate("VentanaAsignarNotas", "ID Curso", None))
+        self.label_4.setText(_translate("VentanaAsignarNotas", "Actividad", None))
+        self.label_5.setText(_translate("VentanaAsignarNotas", "Nota", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAsignarNotas", "Actualizar Notas", None))
+        self.botonCancelar.setText(_translate("VentanaAsignarNotas", "Cancelar", None))
+
 
 class VentanaRevisarNotas(QtGui.QFrame):
     def __init__(self):
@@ -1432,7 +1440,7 @@ class VentanaRegistroMT(QtGui.QFrame):
 
         pass_ = nombres[0] + id_ + apellidos[0]
 
-        dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': False,
+        dictDatos = {'first_name':nombres, 'last_name':apellidos, 'id': id_, 'email': correo, 'tel_num':tel, 'is_active': True,
                     'address': direccion, 'sex': sex, 'birth_date': fechaNacimiento, 'marital_status': estadoCivil,
                     'institution': institucion, 'grade': grado, 'city':municipio, 'area':area, 'secretariat':secretaria,
                     'department': departamento, 'academic_background': historialAcademico, 'labor_experience': experienciaLaboral, 'pass_':pass_}
@@ -1914,7 +1922,8 @@ class VentanaLogin(QtGui.QFrame):
                 #dialogo = QtGui.QErrorMessage(self)
                 #dialogo.showMessage(_fromUtf8("Los campos no pueden estar vacios"))
             else:
-                ct = self.comboBox.currentText()
+                ct = str(self.comboBox.currentText())
+                print "---> CT =", ct
                 if ct == "Administrator":
                     datos = {'funcion':'consultarAdmPassUsr', 
                              'parametros': {'usr': usr, 'pass': pass_}}
@@ -1946,13 +1955,14 @@ class VentanaLogin(QtGui.QFrame):
                         else:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("Usuario " + usr + "No encontrado \n Por favor revise su usuario o contraseña e intente nuevamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
                 elif ct == "Master Teacher":
+                    print "Logueando MT", usr, pass_
                     datos = {'funcion':'consultarMTPassUsr','parametros':{'usr':usr, 'pass':pass_}}
                     m = clienteSocket.enviarMensaje(datos)
                     if m == 'ok':
                         res = clienteSocket.recibirRespuesta(False)
                         msgBox = QtGui.QMessageBox;
-                        print "Respuesta", res[2]
-                        if res[2] == '1':
+                        print "Respuesta", res
+                        if 'ok' in res:
                             msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Bienvenido "),_fromUtf8("Ingreso exitoso " + usr), QtGui.QMessageBox.Yes, QtGui.QMessageBox.Yes)
                             self.hide()
                             self.ventanaOpMT.show()

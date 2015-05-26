@@ -145,6 +145,8 @@ class ServidorSocket():
 				return self._fachada.controlAdm.insertarAdm(parametros)
 			elif funcion == "insertarCoor":
 				return self._fachada.controlCoor.insertarCoor(parametros)
+			elif funcion == "ingresarNotaAct":
+				return self._fachada.controlLT.insertarActNota(parametros)
 		except Exception as ex:
 			print "Error en responder..." , ex, type(ex)
 			return 'error'
