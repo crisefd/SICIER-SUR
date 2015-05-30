@@ -803,20 +803,37 @@ class ControladorCurso(Controlador):
 	
 	
 class ControladorMatricula(Controlador):
+	
+	def insertarMatriculas(self, parametros):
+		#datos = []
+		for par in parametros:
+			dic = {'id_mt_fk': par[2], 'id_lt_fk': par[1],'id_course_fk': par[0] }
+			s = self.insertarMatricula(dic)
+			if s == 'error':
+				return 'error'
+			elif s == 'ok':
+				return 'ok'
+			#datos.append(dic)
+		#self.insertarMatricula()
 
-	def insertarMatricula(self, **datos):
+	def insertarMatricula(self, datos):
+		global bd
 		self._conectarBD
-		with bd.atomic():
+		try:
+			with bd.atomic():
+				m = Matricula.create(**datos)
+				if m.save() != 1:
+					return 'error'
+		except Exception as ex1:
+			print ex1
+			return 'error'
+		finally:
 			try:
-				c = Matricula.create(**datos)
-				d.save()#Falta validar insercion
-			except Exception as ex1:
-				print ex1
-			finally:
-				try:
-					self._desconectarBD()
-				except Exception as ex2:
-					print ex2
+				self._desconectarBD()
+			except Exception as ex2:
+				print ex2
+				return 'error'
+		return 'ok'
 
 	def actualizarMatricula(self, id_matricula, datos):
 		self._conectarBD

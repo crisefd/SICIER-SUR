@@ -1017,85 +1017,145 @@ class VentanaAdministrarCursos(QtGui.QFrame):
 		self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("VentanaAdministrarCursos", "Editar", None))
 
 class VentanaOpcionesAdm(QtGui.QFrame):
-    def __init__(self):
-        super(VentanaOpcionesAdm, self).__init__()
-        self.ventanaAdmCursos = VentanaAdministrarCursos()
-        self.ventanaOpRegAdm = VentanaOpcionesRegistroAdm()
-        self.setupUi(self)
+	def __init__(self):
+		super(VentanaOpcionesAdm, self).__init__()
+		self.ventanaAdmCursos = VentanaAdministrarCursos()
+		self.ventanaOpRegAdm = VentanaOpcionesRegistroAdm()
+		self.setupUi(self)
         
-    def mostrarAdmCursos(self):
+	def mostrarAdmCursos(self):
 		self.ventanaAdmCursos.show()
-
-    def ingresarListaBecados(self):
+	
+	def ingresarListaMatricula(self):
 		global clienteSocket
-		ruta = QtGui.QFileDialog.getOpenFileName(None, _fromUtf8("Open File"), "/home", _fromUtf8("Files (*.txt *.ini)"))
-		archivo = open(ruta, 'r')
-		lineas = archivo.readlines()
-		archivo.close()
+		archivo = None
+		try:
+			ruta = QtGui.QFileDialog.getOpenFileName(None, _fromUtf8("Open File"), "/home", _fromUtf8("Files (*.txt *.ini)"))
+			print "Ruta lista matricula", ruta
+			archivo = open(ruta, 'r')
+			lineas = archivo.readlines()
+		except IOError as ioe:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error de lectura de archivos "+ str(ioe)), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		except Exception as err:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error inesperado "+ str(err)), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		finally:
+			try:
+				archivo.close()
+			except AttributeError as ate:
+				print ate
+		parametros = []
+		for i in range(0, len(lineas)):
+			lineas[i] = lineas[i].replace("\n", "")
+			tupla = lineas[i].split()
+			if len(tupla) != 3:
+				msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error de formato de archivo"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+				return
+			parametros.append(tupla)
+		datos = {'funcion': 'ingresarMatriculas', 'parametros': parametros}
+		m = clienteSocket.enviarMensaje(datos)
+		if 'ok' in m:
+			res = clienteSocket.recibirRespuesta(False)
+			if 'ok' in res:
+				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("OK"),_fromUtf8("Las matriculas se ingresaron correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			elif 'error' in res:
+				msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Las matriculas no se ingresaron correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in m:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error de conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+	def ingresarListaBecados(self):
+		global clienteSocket
+		archivo = None
+		try:
+			ruta = QtGui.QFileDialog.getOpenFileName(None, _fromUtf8("Open File"), "/home", _fromUtf8("Files (*.txt *.ini)"))
+			if ruta == "":
+				return 
+			archivo = open(ruta, 'r')
+			lineas = archivo.readlines()
+		except IOError as ioe:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error de lectura de archivos "+ str(ioe)), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		except Exception as err:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error inesperado "+ str(err)), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			return
+		finally:
+			try:
+				archivo.close()
+			except AttributeError as ate:
+				print ate
+
 		for i in range(0, len(lineas)):
 			lineas[i] = lineas[i].replace("\n", "")
 		datos = {'funcion':'activarLT', 'parametros': {'ids':lineas}}
-		clienteSocket.enviarMensaje(datos)
-		res = clienteSocket.recibirRespuesta(False);
-		if 'ok' in res:
-			msgBox = QtGui.QMessageBox.information(self, _fromUtf8("Error "),_fromUtf8("La lista de becados se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
-		elif 'error' in res:
-			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("La lista de becados no se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		m = clienteSocket.enviarMensaje(datos)
+		if 'ok' in m:
+			res = clienteSocket.recibirRespuesta(False);
+			if 'ok' in res:
+				msgBox = QtGui.QMessageBox.information(self, _fromUtf8("OK "),_fromUtf8("La lista de becados se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+			elif 'error' in res:
+				msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("La lista de becados no se ingreso correctamente"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+		elif 'error' in m:
+			msgBox = QtGui.QMessageBox.warning(self, _fromUtf8("Error "),_fromUtf8("Error de conexion con el servidor"), QtGui.QMessageBox.Ok, QtGui.QMessageBox.Ok)
+
+	def mostrarVentanaOpRegAdm(self):
+		self.ventanaOpRegAdm.show()
+
+	def setupUi(self, VentanaOpcionesAdm):
+		VentanaOpcionesAdm.setObjectName(_fromUtf8("VentanaOpcionesAdm"))
+		VentanaOpcionesAdm.resize(541, 322)
+		VentanaOpcionesAdm.setFrameShape(QtGui.QFrame.StyledPanel)
+		VentanaOpcionesAdm.setFrameShadow(QtGui.QFrame.Raised)
+		self.etiquetaTitutlo = QtGui.QLabel(VentanaOpcionesAdm)
+		self.etiquetaTitutlo.setGeometry(QtCore.QRect(170, 20, 201, 20))
+		font = QtGui.QFont()
+		font.setPointSize(16)
+		font.setBold(True)
+		font.setWeight(75)
+		self.etiquetaTitutlo.setFont(font)
+		self.etiquetaTitutlo.setObjectName(_fromUtf8("etiquetaTitutlo"))
+		self.botonEditarPerfil = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 141, 27))
+		self.botonEditarPerfil.setObjectName(_fromUtf8("botonEditarPerfil"))
+		self.botonCerrarSesion = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonCerrarSesion.setGeometry(QtCore.QRect(410, 20, 98, 27))
+		self.botonCerrarSesion.setObjectName(_fromUtf8("botonCerrarSesion"))
+		self.botonAdmUsuarios = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
+		self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
+		self.botonReportes = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonReportes.setGeometry(QtCore.QRect(60, 190, 121, 27))
+		self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
+		self.botonAdmCursos = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
+		self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
+		self.botonListaBecados = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonListaBecados.setGeometry(QtCore.QRect(60, 250, 161, 27))
+		self.botonListaBecados.setObjectName(_fromUtf8("botonListaBecados"))
+
+		self.botonMatricular = QtGui.QPushButton(VentanaOpcionesAdm)
+		self.botonMatricular.setGeometry(QtCore.QRect(280, 250, 161, 27))
+		self.botonMatricular.setObjectName(_fromUtf8("botonMatricular"))
+
+		self.retranslateUi(VentanaOpcionesAdm)
+		#QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.close)
+		QtCore.QObject.connect(self.botonAdmCursos, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarAdmCursos)
+		QtCore.QObject.connect(self.botonListaBecados, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.ingresarListaBecados)
+		QtCore.QObject.connect(self.botonMatricular, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.ingresarListaMatricula)
+		QtCore.QObject.connect(self.botonAdmUsuarios, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarVentanaOpRegAdm)
+		QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesAdm)
 
 
-    def mostrarVentanaOpRegAdm(self):
-        self.ventanaOpRegAdm.show()
-
-    def setupUi(self, VentanaOpcionesAdm):
-        VentanaOpcionesAdm.setObjectName(_fromUtf8("VentanaOpcionesAdm"))
-        VentanaOpcionesAdm.resize(541, 322)
-        VentanaOpcionesAdm.setFrameShape(QtGui.QFrame.StyledPanel)
-        VentanaOpcionesAdm.setFrameShadow(QtGui.QFrame.Raised)
-        self.etiquetaTitutlo = QtGui.QLabel(VentanaOpcionesAdm)
-        self.etiquetaTitutlo.setGeometry(QtCore.QRect(170, 20, 201, 20))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.etiquetaTitutlo.setFont(font)
-        self.etiquetaTitutlo.setObjectName(_fromUtf8("etiquetaTitutlo"))
-        self.botonEditarPerfil = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonEditarPerfil.setGeometry(QtCore.QRect(60, 90, 141, 27))
-        self.botonEditarPerfil.setObjectName(_fromUtf8("botonEditarPerfil"))
-        self.botonCerrarSesion = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonCerrarSesion.setGeometry(QtCore.QRect(410, 20, 98, 27))
-        self.botonCerrarSesion.setObjectName(_fromUtf8("botonCerrarSesion"))
-        self.botonAdmUsuarios = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonAdmUsuarios.setGeometry(QtCore.QRect(270, 90, 151, 27))
-        self.botonAdmUsuarios.setObjectName(_fromUtf8("botonAdmUsuarios"))
-        self.botonReportes = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonReportes.setGeometry(QtCore.QRect(60, 190, 121, 27))
-        self.botonReportes.setObjectName(_fromUtf8("botonReportes"))
-        self.botonAdmCursos = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonAdmCursos.setGeometry(QtCore.QRect(280, 190, 141, 27))
-        self.botonAdmCursos.setObjectName(_fromUtf8("botonAdmCursos"))
-        self.botonListaBecados = QtGui.QPushButton(VentanaOpcionesAdm)
-        self.botonListaBecados.setGeometry(QtCore.QRect(60, 250, 161, 27))
-        self.botonListaBecados.setObjectName(_fromUtf8("botonListaBecados"))
-
-        self.retranslateUi(VentanaOpcionesAdm)
-        #QtCore.QObject.connect(self.botonCancelar, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.close)
-        QtCore.QObject.connect(self.botonAdmCursos, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarAdmCursos)
-        QtCore.QObject.connect(self.botonListaBecados, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.ingresarListaBecados)
-        QtCore.QObject.connect(self.botonAdmUsuarios, QtCore.SIGNAL(_fromUtf8("pressed()")), VentanaOpcionesAdm.mostrarVentanaOpRegAdm)
-        QtCore.QMetaObject.connectSlotsByName(VentanaOpcionesAdm)
-
-
-    def retranslateUi(self, VentanaOpcionesAdm):
-        VentanaOpcionesAdm.setWindowTitle(_translate("VentanaOpcionesAdm", "Opciones Adm", None))
-        self.etiquetaTitutlo.setText(_translate("VentanaOpcionesAdm", "¿Qué Desea Hacer?", None))
-        self.botonEditarPerfil.setText(_translate("VentanaOpcionesAdm", "Editar Perfil", None))
-        self.botonCerrarSesion.setText(_translate("VentanaOpcionesAdm", "Cerrar sesión", None))
-        self.botonAdmUsuarios.setText(_translate("VentanaOpcionesAdm", "Administrar Usuarios", None))
-        self.botonReportes.setText(_translate("VentanaOpcionesAdm", "Ver Reportes", None))
-        self.botonAdmCursos.setText(_translate("VentanaOpcionesAdm", "Administrar Cursos", None))
-        self.botonListaBecados.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Becados", None))
-
+	def retranslateUi(self, VentanaOpcionesAdm):
+		VentanaOpcionesAdm.setWindowTitle(_translate("VentanaOpcionesAdm", "Opciones Adm", None))
+		self.etiquetaTitutlo.setText(_translate("VentanaOpcionesAdm", "¿Qué Desea Hacer?", None))
+		self.botonEditarPerfil.setText(_translate("VentanaOpcionesAdm", "Editar Perfil", None))
+		self.botonCerrarSesion.setText(_translate("VentanaOpcionesAdm", "Cerrar sesión", None))
+		self.botonAdmUsuarios.setText(_translate("VentanaOpcionesAdm", "Administrar Usuarios", None))
+		self.botonReportes.setText(_translate("VentanaOpcionesAdm", "Ver Reportes", None))
+		self.botonAdmCursos.setText(_translate("VentanaOpcionesAdm", "Administrar Cursos", None))
+		self.botonListaBecados.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Becados", None))
+		self.botonMatricular.setText(_translate("ventantaOpcionesAdm", "Ingresar Lista Matricula", None))
 
 class VentanaRegistroMT(QtGui.QFrame):
     def __init__(self):
